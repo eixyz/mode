@@ -4,6 +4,22 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Services from "./pages/Services";
+import Visa from "./pages/Visa";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Appointment from "./pages/Appointment";
+import Ambassador from "./pages/about/Ambassador";
+import Mission from "./pages/about/Mission";
+import Consuls from "./pages/about/Consuls";
+import Mozambique from "./pages/about/Mozambique";
+import Passports from "./pages/services/Passports";
+import VisasService from "./pages/services/Visas";
+import Advisory from "./pages/services/Advisory";
+import Trade from "./pages/services/Trade";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import Accessibility from "./pages/Accessibility";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,6 +32,22 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/passports" element={<Passports />} />
+          <Route path="/services/visas" element={<VisasService />} />
+          <Route path="/services/advisory" element={<Advisory />} />
+          <Route path="/services/trade" element={<Trade />} />
+          <Route path="/visa" element={<Visa />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/about/mozambique" element={<Mozambique />} />
+          <Route path="/about/ambassador" element={<Ambassador />} />
+          <Route path="/about/mission" element={<Mission />} />
+          <Route path="/about/consuls" element={<Consuls />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/appointment" element={<Appointment />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/accessibility" element={<Accessibility />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

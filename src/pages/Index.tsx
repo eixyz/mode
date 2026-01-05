@@ -4,7 +4,6 @@ import { Services } from "@/components/Services";
 import { VisaSection } from "@/components/VisaSection";
 import { About } from "@/components/About";
 import { News } from "@/components/News";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -12,12 +11,9 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <Hero />
-        <Services />
-        <VisaSection />
-        <About />
-        <News />
-        <Contact />
+            <Hero />
+            {/* Recent News only on home page */}
+            <News />
       </main>
       <Footer />
     </div>

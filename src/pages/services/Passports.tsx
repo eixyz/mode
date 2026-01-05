@@ -1,0 +1,122 @@
+import { motion } from "framer-motion";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+const PassportsPage = () => {
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
+
+      <main className="flex-1">
+        {/* Page Header */}
+        <section className="py-12 bg-gradient-to-b from-primary/8 to-background">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center max-w-3xl mx-auto"
+            >
+              <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
+              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
+                Passport & Consular Services
+              </h1>
+              <p className="text-muted-foreground text-base">
+                Issuing Mozambican passports and registering births and deaths for citizens in Germany and accredited countries.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Services Content */}
+        <section className="py-12">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+                <Card className="border-border h-full">
+                  <CardHeader>
+                    <CardTitle>Passport Issuance & Renewal</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Apply for a new Mozambican passport or renew an existing one. Our consular staff will guide you through the application process.
+                    </p>
+                    <Button className="w-full" variant="outline">Request Information</Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+                <Card className="border-border h-full">
+                  <CardHeader>
+                    <CardTitle>Civil Registration</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Register births and deaths of Mozambican citizens. Consular registration services available for important life events.
+                    </p>
+                    <Button className="w-full" variant="outline">Request Information</Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <Card className="border-border h-full">
+                  <CardHeader>
+                    <CardTitle>Birth Registration</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Register the birth of a child born to Mozambican parents in Germany or accredited countries.
+                    </p>
+                    <Button className="w-full" variant="outline">Request Information</Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
+                <Card className="border-border h-full">
+                  <CardHeader>
+                    <CardTitle>Death Registration</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Official registration of deaths for Mozambican citizens residing abroad. Important for legal and administrative purposes.
+                    </p>
+                    <Button className="w-full" variant="outline">Request Information</Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
+              <Card className="border-border">
+                <CardHeader>
+                  <CardTitle>How to Apply</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm text-muted-foreground">
+                  <p>1. Contact the Embassy to schedule an appointment or submit your request</p>
+                  <p>2. Prepare required documents (identification, civil status documents, etc.)</p>
+                  <p>3. Submit application with supporting documentation</p>
+                  <p>4. Pay the required fees via bank transfer</p>
+                  <p>5. Collect your documents at the scheduled time</p>
+                  <div className="pt-4 border-t">
+                    <a href="/contact" className="text-primary hover:underline">
+                      Contact us to schedule your appointment →
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default PassportsPage;

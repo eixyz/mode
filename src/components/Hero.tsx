@@ -55,7 +55,7 @@ export const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+              className="border-primary-foreground/30 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
             >
               Explore Services
             </Button>
@@ -70,7 +70,7 @@ export const Hero = () => {
           >
             {[
               { value: "1975", label: "Est. Year" },
-              { value: "50+", label: "Years of Service" },
+              { value: `${new Date().getFullYear() - 1975}`, label: "Years of Service" },
               { value: "24/7", label: "Emergency Line" },
             ].map((stat, index) => (
               <div key={index} className="text-center sm:text-left">

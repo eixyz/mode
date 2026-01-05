@@ -1,17 +1,17 @@
 import { Facebook, Twitter, Instagram, Linkedin, ExternalLink } from "lucide-react";
 
 const quickLinks = [
-  { label: "Visa Services", href: "#visa" },
-  { label: "Passport Services", href: "#services" },
-  { label: "Trade & Investment", href: "#services" },
-  { label: "News & Events", href: "#news" },
+  { label: "Visa Services", href: "/visa" },
+  { label: "Passport Services", href: "/passports" },
+  { label: "Trade & Investment", href: "/trade" },
+  { label: "About Us", href: "/about" },
 ];
 
 const usefulLinks = [
   { label: "Government of Mozambique", href: "https://www.portaldogoverno.gov.mz", external: true },
   { label: "Tourism Mozambique", href: "https://www.visitmozambique.net", external: true },
-  { label: "Ministry of Foreign Affairs", href: "#", external: true },
-  { label: "Invest Mozambique", href: "#", external: true },
+  { label: "Ministry of Foreign Affairs", href: "https://www.minec.gov.mz/", external: true },
+  // { label: "Invest Mozambique", href: "#", external: true },
 ];
 
 const socialLinks = [
@@ -30,8 +30,8 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center">
-                <span className="text-foreground font-serif font-bold text-lg">MZ</span>
+              <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center overflow-hidden">
+                <img src="/emblem_mz.svg" alt="MZ" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="font-serif text-lg font-semibold">Embassy of Mozambique</h3>
@@ -100,7 +100,7 @@ export const Footer = () => {
               <p className="text-sm text-primary-foreground/80 mb-2">
                 For emergencies outside office hours:
               </p>
-              <p className="text-lg font-semibold text-gold">+49 175 XXX XXXX</p>
+              <p className="text-lg font-semibold text-gold">+49 000 000 0000</p>
               <p className="text-xs text-primary-foreground/60 mt-2">
                 Available 24/7 for Mozambican citizens
               </p>
@@ -115,9 +115,9 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
             <p>© 2025 Embassy of the Republic of Mozambique in Berlin. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-gold transition-colors">Accessibility</a>
+              <a href="/privacy" className="hover:text-gold transition-colors">Privacy Policy</a>
+              <a href="/terms" className="hover:text-gold transition-colors">Terms of Service</a>
+              <a href="/accessibility" className="hover:text-gold transition-colors">Accessibility</a>
             </div>
           </div>
         </div>
