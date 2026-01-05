@@ -22,9 +22,9 @@ export const Header = () => {
       <div className="bg-primary text-primary-foreground py-2 text-sm">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="tel:+493020607720" className="flex items-center gap-2 hover:text-gold transition-colors">
+            <a href="tel:+493039876500" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Phone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">+49 30 2060 7720</span>
+              <span className="hidden sm:inline">+49 30 3987 6500</span>
             </a>
             <a href="mailto:info@embassy-of-mozambique.de" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Mail className="w-3.5 h-3.5" />
@@ -47,8 +47,8 @@ export const Header = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <a href="#home" className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-serif font-bold text-lg">MZ</span>
+              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center overflow-hidden">
+                <img src="/mozambique-icone.png" alt="MZ" className="w-full h-full object-cover" />
               </div>
               <div className="hidden sm:block">
                 <h1 className="font-serif text-lg font-semibold text-foreground leading-tight">

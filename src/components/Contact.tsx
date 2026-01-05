@@ -1,9 +1,17 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const contactInfo = [
   {
@@ -14,7 +22,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    content: ["+49 30 2060 7720", "+49 30 2060 7721 (Fax)"],
+    content: ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"],
   },
   {
     icon: Mail,
@@ -24,11 +32,40 @@ const contactInfo = [
   {
     icon: Clock,
     title: "Opening Hours",
-    content: ["Monday - Friday: 9:00 - 13:00", "Afternoon by appointment only"],
+    content: [
+      "The Mission is open:", "Monday - Friday: 09:00 - 16:30",
+      "For Consular issues:",
+      "Monday - Friday: 09:30 - 15:00",
+    ],
   },
 ];
 
 export const Contact = () => {
+  const [formData, setFormData] = useState({
+    title: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSelectChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, title: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formData);
+    // Handle form submission here
+  };
+
   return (
     <section id="contact" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -99,28 +136,47 @@ export const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form className="bg-card rounded-xl p-8 border border-border">
+            <form className="bg-card rounded-xl p-8 border border-border" onSubmit={handleSubmit}>
               <h3 className="font-serif text-xl font-semibold text-foreground mb-6">
                 Send us a Message
               </h3>
               <div className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">Title</Label>
+                    <Select value={formData.title} onValueChange={handleSelectChange}>
+                      <SelectTrigger id="title">
+                        <SelectValue placeholder="Select a title" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="mr">Mr</SelectItem>
+                        <SelectItem value="ms">Ms</SelectItem>
+                        <SelectItem value="mrs">Mrs</SelectItem>
+                        <SelectItem value="dr">Dr</SelectItem>
+                        <SelectItem value="prof">Prof</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" placeholder="John" />
+                    <Input id="firstName" placeholder="John" value={formData.firstName} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" placeholder="Doe" />
+                    <Input id="lastName" placeholder="Doe" value={formData.lastName} onChange={handleInputChange} />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" />
+                  <Input id="email" type="email" placeholder="john@example.com" value={formData.email} onChange={handleInputChange} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone</Label>
+                  <Input id="phone" type="tel" placeholder="+49 30 123456789" value={formData.phone} onChange={handleInputChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" placeholder="How can we help?" />
+                  <Input id="subject" placeholder="How can we help?" value={formData.subject} onChange={handleInputChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
@@ -128,6 +184,8 @@ export const Contact = () => {
                     id="message"
                     placeholder="Your message..."
                     rows={5}
+                    value={formData.message}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <Button
