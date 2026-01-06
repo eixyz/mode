@@ -18,7 +18,8 @@
     "passports": "Passaportes",
     "visas": "Vistos",
     "advisory": "Consultoria",
-    "tradeInvest": "Comércio & Investimento"
+    "tradeInvest": "Comércio & Investimento",
+    "news": "Notícias"
   },
   "hero": {
     "welcomePrefix": "Bem-vindo à",
@@ -149,11 +150,13 @@
     "viewAllNews": "Ver Todas as Notícias",
     "readMore": "Ler mais",
     "readFullArticle": "Ler artigo completo",
-    "backToNews": "Voltar para notícias"
+    "backToNews": "Voltar para notícias",
+    "articleNotFound": "Artigo não encontrado",
+    "articleNotFoundDesc": "O artigo de notícias solicitado não pôde ser localizado."
   },
   "contact": {
     "getInTouch": "Entre em Contato",
-    "send": "Enviar"
+    "send": "Enviar",
     "pageTitle": "Contato",
     "pageDesc": "Tem perguntas? Entre em contato conosco e teremos prazer em ajudá-lo.",
     "info": {
@@ -192,7 +195,90 @@
       "mission": { "title": "Missão", "description": "Nossa declaração de missão e objetivos principais", "href": "/about/mission" },
       "consuls": { "title": "Cônsules Honorários", "description": "Informações de contato para cônsules regionais", "href": "/about/consuls" }
     }
-  }
+  },
+  "ambassador": {
+    "pageTitle": "Embaixador",
+    "pageDesc": "Representante oficial da República de Moçambique na Alemanha.",
+    "profileTitle": "Perfil do Embaixador",
+    "name": "Nome",
+    "nameValue": "[Nome do Embaixador - A ser atualizado]",
+    "position": "Cargo",
+    "positionValue": "Embaixador Extraordinário e Plenipotenciário",
+    "appointed": "Nomeado",
+    "appointedValue": "[Ano da nomeação]",
+    "roleTitle": "Função e Responsabilidades",
+    "role1": "Representar o governo de Moçambique na Alemanha",
+    "role2": "Fomentar relações diplomáticas e comerciais",
+    "role3": "Apoiar cidadãos moçambicanos no exterior",
+    "role4": "Promover intercâmbio cultural e educacional",
+    "role5": "Supervisionar as operações da Embaixada e serviços consulares"
+  },
+  "consuls": {
+    "pageTitle": "Cônsules Honorários",
+    "pageDesc": "Os Cônsules Honorários representam os interesses de Moçambique em regiões-chave da Alemanha e países vizinhos. Eles fornecem assistência consular e promovem relações bilaterais em suas respectivas áreas.",
+    "munich": "Munique",
+    "bavaria": "Baviera",
+    "hamburg": "Hamburgo",
+    "northernGermany": "Norte da Alemanha",
+    "stuttgart": "Stuttgart",
+    "badenWurttemberg": "Baden-Württemberg",
+    "vienna": "Viena",
+    "austria": "Áustria",
+    "tel": "Tel"
+  },
+  "mission": {
+    "pageTitle": "Nossa Missão",
+    "pageDesc": "A Embaixada de Moçambique em Berlim trabalha para representar os interesses de Moçambique e fortalecer as relações entre nossa nação e a Alemanha.",
+    "statementTitle": "Declaração de Missão",
+    "statementText": "Representar os interesses da República de Moçambique na Alemanha e países acreditados, facilitar relações diplomáticas, promover oportunidades de comércio e investimento bilateral, e fornecer serviços consulares eficientes a cidadãos e visitantes moçambicanos.",
+    "objectivesTitle": "Objetivos Principais",
+    "objective1": "Fortalecer laços diplomáticos com a Alemanha",
+    "objective2": "Facilitar comércio e investimento bilateral",
+    "objective3": "Fornecer serviços consulares aos cidadãos",
+    "objective4": "Promover a cultura e valores de Moçambique",
+    "focusTitle": "Áreas de Foco",
+    "focus1": "Cooperação econômica e comercial",
+    "focus2": "Intercâmbio educacional e cultural",
+    "focus3": "Assistência e apoio consular",
+    "focus4": "Cooperação diplomática bilateral"
+  },
+  "mozambique": {
+    "pageTitle": "Sobre Moçambique",
+    "pageDesc": "Descubra a geografia, cultura e oportunidades econômicas de Moçambique.",
+    "geographyTitle": "Geografia e Localização",
+    "geographyText": "A República de Moçambique é uma nação do sudeste africano localizada na costa do Oceano Índico. Com uma posição geográfica estratégica, Moçambique serve como porta de entrada para a África Austral e desempenha um papel vital no comércio regional.",
+    "capital": "Capital",
+    "capitalValue": "Maputo",
+    "region": "Região",
+    "regionValue": "África Austral",
+    "population": "População",
+    "populationValue": "Aproximadamente 33 milhões",
+    "languages": "Línguas Oficiais",
+    "languagesValue": "Português, línguas bantu",
+    "cultureTitle": "Cultura e Patrimônio",
+    "cultureText": "Moçambique possui um rico patrimônio cultural moldado por séculos de história, diversos grupos étnicos e tradições vibrantes. A cultura da nação reflete a herança africana combinada com influências portuguesas e árabes.",
+    "culture1": "Música e dança tradicionais (Marrabenta, Timbila)",
+    "culture2": "Artes e artesanato locais vibrantes",
+    "culture3": "Sítios e monumentos históricos",
+    "culture4": "Tradições e costumes étnicos diversos",
+    "economyTitle": "Economia e Desenvolvimento",
+    "economyText": "Moçambique está experimentando um crescimento econômico significativo com vastos recursos naturais e oportunidades de negócios emergentes. O país está atraindo investimentos internacionais em múltiplos setores.",
+    "economySectors": "Setores Econômicos Principais",
+    "economy1": "Mineração e recursos naturais (gás natural, carvão, areias minerais)",
+    "economy2": "Agricultura e agroprocessamento",
+    "economy3": "Energia e recursos renováveis",
+    "economy4": "Turismo e hotelaria",
+    "economy5": "Serviços portuários e logísticos",
+    "economy6": "Manufatura e indústrias leves",
+    "tourismTitle": "Turismo e Atrações Naturais",
+    "tourismText": "Moçambique oferece atrações naturais deslumbrantes e experiências turísticas diversas, desde praias intocadas até reservas de vida selvagem e sítios históricos.",
+    "tourism1": "Bela costa e praias do Oceano Índico",
+    "tourism2": "Parque Nacional de Gorongosa para observação da vida selvagem",
+    "tourism3": "Arquipélago de Bazaruto para biodiversidade marinha",
+    "tourism4": "Arquitetura colonial e cidades históricas",
+    "tourism5": "Oportunidades de esportes aquáticos e mergulho",
+    "tourism6": "Experiências de safári e vida selvagem"
+  },
   "footer": {
     "embassy": "Embaixada de Moçambique",
     "location": "Berlim, Alemanha",
