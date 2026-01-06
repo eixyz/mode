@@ -2,27 +2,8 @@ import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-const newsItems = [
-  {
-    date: "January 3, 2025",
-    category: "Announcement",
-    title: "Embassy Opening Hours During Holiday Season",
-    excerpt: "Please note the modified opening hours during the holiday period. The embassy will operate with reduced hours from December 23 to January 3.",
-  },
-  {
-    date: "December 15, 2024",
-    category: "Trade",
-    title: "Mozambique-Germany Trade Forum 2025",
-    excerpt: "Join us for the annual trade forum highlighting investment opportunities in energy, agriculture, and tourism sectors.",
-  },
-  {
-    date: "December 1, 2024",
-    category: "Culture",
-    title: "Mozambican Independence Day Celebration",
-    excerpt: "The Embassy cordially invites you to celebrate the 49th anniversary of Mozambican Independence on June 25th.",
-  },
-];
+import { Link } from "react-router-dom";
+import { newsItems } from "@/lib/news";
 
 export const News = () => {
   return (
@@ -56,6 +37,9 @@ export const News = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group cursor-pointer"
             >
+              {item.image && (
+                <img src={item.image} alt={item.title} className="w-full h-48 object-cover" />
+              )}
               <div className="h-2 gold-accent" />
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -73,10 +57,10 @@ export const News = () => {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {item.excerpt}
                 </p>
-                <span className="inline-flex items-center text-sm text-primary font-medium group-hover:underline">
+                <Link to={`/news/${item.id}`} className="inline-flex items-center text-sm text-primary font-medium group-hover:underline">
                   Read more
                   <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                </span>
+                </Link>
               </div>
             </motion.article>
           ))}
@@ -90,10 +74,12 @@ export const News = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-12 text-center"
         >
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            View All News
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <Link to="/news">
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              View All News
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

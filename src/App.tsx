@@ -3,12 +3,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "@/lib/LanguageContext";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Visa from "./pages/Visa";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Appointment from "./pages/Appointment";
+import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import Ambassador from "./pages/about/Ambassador";
 import Mission from "./pages/about/Mission";
 import Consuls from "./pages/about/Consuls";
@@ -26,11 +29,12 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
+    <LanguageProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/passports" element={<Passports />} />
@@ -44,6 +48,8 @@ const App = () => (
           <Route path="/about/mission" element={<Mission />} />
           <Route path="/about/consuls" element={<Consuls />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
@@ -52,7 +58,8 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </TooltipProvider>
+      </TooltipProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 

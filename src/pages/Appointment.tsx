@@ -1,79 +1,478 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/lib/useLanguage";
 
-const bankDetails = {
-  bank: "Deutsche Bank",
-  iban: "DE58 1007 0000 0237 0088 01",
-  bic: "DEUTDEBBXXX",
-};
+type Service = "passport" | "visa" | "ids" | "advisory" | "trade";
+
+interface AppointmentFormData {
+  service: Service | "";
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  date: string;
+  time?: string;
+  passportValidity?: string;
+  idValidity?: string;
+  birthDate?: string;
+  visaType?: string;
+  idsType?: string;
+  additionalInfo?: string;
+}
 
 const AppointmentPage = () => {
+  const { t } = useLanguage();
+
+  const services: { value: Service; label: string }[] = [
+    { value: "passport", label: t("appointment.passportService") },
+    { value: "visa", label: t("appointment.visaService") },
+    { value: "ids", label: t("appointment.idsService") },
+    { value: "advisory", label: t("appointment.advisoryService") },
+    { value: "trade", label: t("appointment.tradeService") },
+  ];
+  const [step, setStep] = useState<"service" | "form" | "calendar">("service");
+  const [currentMonth, setCurrentMonth] = useState(() => {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), 1);
+  });
+  
+  const formatDate = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  };
+  
+  const parseDateLocal = (iso: string) => {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(y, m - 1, d);
+  };
+  const [formData, setFormData] = useState<AppointmentFormData>({
+    service: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    date: "",
+  });
+
+  const getAvailableDates = () => {
+    const today = new Date();
+    const availableDates = [];
+    const days = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+    for (let i = 1; i <= days; i++) {
+      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i);
+      const ds = formatDate(date);
+      if (ds >= formatDate(today) && date.getDay() !== 0 && date.getDay() !== 6) {
+        availableDates.push(ds);
+      }
+    }
+    return availableDates;
+  };
+
+  const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+  const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+  const availableDates = getAvailableDates();
+  const availableSet = new Set(availableDates);
+
+  const getTimeSlotsForDate = (date: Date) => {
+    // Simple simulated time slots (09:00 - 16:00, every 30 minutes)
+    const slots: string[] = [];
+    for (let hour = 9; hour <= 16; hour++) {
+      slots.push(`${String(hour).padStart(2, "0")}:00`);
+      slots.push(`${String(hour).padStart(2, "0")}:30`);
+    }
+    // Optionally filter by date (simulate full/blocked slots)
+    return slots;
+  };
+
+  const handleServiceSelect = (service: Service) => {
+    setFormData({ ...formData, service });
+    setStep("form");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleProceedToCalendar = () => {
+    if (formData.firstName && formData.lastName && formData.email && formData.phone) {
+      setStep("calendar");
+    } else {
+      alert("Please fill in all required fields");
+    }
+  };
+
+  const handleDateSelect = (date: Date) => {
+    const dateStr = formatDate(date);
+    setFormData({ ...formData, date: dateStr, time: undefined });
+  };
+
+  const handleTimeSelect = (time: string) => {
+    setFormData({ ...formData, time });
+  };
+
+  const handleSubmit = () => {
+    if (!formData.date || !formData.time) {
+      alert("Please select a date and time");
+      return;
+    }
+    console.log("Appointment booked:", formData);
+    alert(`Appointment booked!\nService: ${formData.service}\nDate: ${formData.date} ${formData.time}\nA confirmation will be sent to ${formData.email}`);
+  };
+
+  const renderServiceForm = () => {
+    switch (formData.service) {
+      case "passport":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="birthDate">{t("appointment.birthDateLabel")}</Label>
+              <Input id="birthDate" name="birthDate" type="date" value={formData.birthDate || ""} onChange={handleInputChange} className="mt-1" />
+            </div>
+            <div>
+              <Label htmlFor="passportValidity">{t("appointment.passportValidityLabel")}</Label>
+              <Select value={formData.passportValidity || ""} onValueChange={(v) => handleSelectChange("passportValidity", v)}>
+                <SelectTrigger id="passportValidity">
+                  <SelectValue placeholder={t("appointment.selectValidity")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="valid">{t("appointment.validMoreYear")}</SelectItem>
+                  <SelectItem value="expires-soon">{t("appointment.expiresSoon")}</SelectItem>
+                  <SelectItem value="expired">{t("appointment.expired")}</SelectItem>
+                  <SelectItem value="none">{t("appointment.noPassport")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="idValidity">{t("appointment.idValidityLabel")}</Label>
+              <Select value={formData.idValidity || ""} onValueChange={(v) => handleSelectChange("idValidity", v)}>
+                <SelectTrigger id="idValidity">
+                  <SelectValue placeholder={t("appointment.selectIdValidity")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="valid">{t("appointment.valid")}</SelectItem>
+                  <SelectItem value="expires-soon">{t("appointment.expiresSoon")}</SelectItem>
+                  <SelectItem value="expired">{t("appointment.expired")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      case "visa":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="birthDate">{t("appointment.birthDateLabel")}</Label>
+              <Input id="birthDate" name="birthDate" type="date" value={formData.birthDate || ""} onChange={handleInputChange} className="mt-1" />
+            </div>
+            <div>
+              <Label htmlFor="visaType">{t("appointment.visaTypeLabel")}</Label>
+              <Select value={formData.visaType || ""} onValueChange={(v) => handleSelectChange("visaType", v)}>
+                <SelectTrigger id="visaType">
+                  <SelectValue placeholder={t("appointment.selectVisaType")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="tourist">{t("appointment.touristVisa")}</SelectItem>
+                  <SelectItem value="business">{t("appointment.businessVisa")}</SelectItem>
+                  <SelectItem value="residence">{t("appointment.residencePermit")}</SelectItem>
+                  <SelectItem value="extension">{t("appointment.visaExtension")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      case "ids":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="birthDate">{t("appointment.birthDateLabel")}</Label>
+              <Input id="birthDate" name="birthDate" type="date" value={formData.birthDate || ""} onChange={handleInputChange} className="mt-1" />
+            </div>
+            <div>
+              <Label htmlFor="idsType">{t("appointment.idCardTypeLabel")}</Label>
+              <Select value={formData.idsType || ""} onValueChange={(v) => handleSelectChange("idsType", v)}>
+                <SelectTrigger id="idsType">
+                  <SelectValue placeholder={t("appointment.selectIdType")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="national">{t("appointment.nationalId")}</SelectItem>
+                  <SelectItem value="birth">{t("appointment.birthCertificate")}</SelectItem>
+                  <SelectItem value="marriage">{t("appointment.marriageCertificate")}</SelectItem>
+                  <SelectItem value="renewal">{t("appointment.idRenewal")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="idValidity">{t("appointment.idValidityLabel")}</Label>
+              <Select value={formData.idValidity || ""} onValueChange={(v) => handleSelectChange("idValidity", v)}>
+                <SelectTrigger id="idValidity">
+                  <SelectValue placeholder={t("appointment.selectIdValidity")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="valid">{t("appointment.valid")}</SelectItem>
+                  <SelectItem value="expires-soon">{t("appointment.expiresSoon")}</SelectItem>
+                  <SelectItem value="expired">{t("appointment.expired")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
       <main className="flex-1">
-        <section className="py-24">
-          <div className="container mx-auto px-4 max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="font-serif text-4xl font-bold mb-4">Book an Appointment</h1>
-              <p className="text-muted-foreground mb-6">
-                To request an appointment for consular matters (visas, passports, PID), please follow the instructions below. Appointments are required for in-person services.
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <h1 className="font-serif text-4xl font-bold mb-4">{t("appointment.pageTitle")}</h1>
+              <p className="text-muted-foreground mb-12">
+                {t("appointment.pageDesc")}
               </p>
 
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>How to Book</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-sm text-muted-foreground">1. Prepare required documents depending on the service (visa, passport, etc.).</p>
-                  <p className="text-sm text-muted-foreground">2. Make the required bank transfer (details below) and keep the proof of payment.</p>
-                  <p className="text-sm text-muted-foreground">3. Use the contact email <a href="mailto:consular@embassy-of-mozambique.de" className="text-primary">consular@embassy-of-mozambique.de</a> to request an appointment and attach the proof of payment and documents.</p>
-                  <p className="text-sm text-muted-foreground">4. You will receive a confirmation email with the appointment date and any further instructions.</p>
-                </CardContent>
-              </Card>
-
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>Bank Details</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground"><strong>Bank:</strong> {bankDetails.bank}</p>
-                    <p className="text-sm text-muted-foreground"><strong>IBAN:</strong> <span className="font-mono">{bankDetails.iban}</span></p>
-                    <p className="text-sm text-muted-foreground"><strong>BIC (SWIFT):</strong> <span className="font-mono">{bankDetails.bic}</span></p>
-                    <p className="text-sm text-muted-foreground pt-3 border-t">Payments must be made in Euros by bank transfer. After payment, include proof of transfer when requesting your appointment.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>Fees by Service</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="text-sm text-muted-foreground"><strong>Visa processing:</strong> see fee schedule PDF on the Services page.</p>
-                  <p className="text-sm text-muted-foreground"><strong>Passport issuance/renewal:</strong> follow passport fees instructions and transfer the corresponding amount.</p>
-                  <p className="text-sm text-muted-foreground"><strong>PID / Identity documents:</strong> pay the indicated fee and attach proof to your appointment request.</p>
-                </CardContent>
-              </Card>
-
-              <div className="text-center">
-                <Button asChild>
-                  <a href="mailto:consular@embassy-of-mozambique.de">Request Appointment via Email</a>
-                </Button>
+              {/* Step Indicator */}
+              <div className="mb-8 flex items-center justify-between">
+                <div className={`flex items-center gap-2 ${step === "service" ? "text-primary font-semibold" : "text-muted-foreground"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === "service" ? "bg-primary text-white" : "bg-muted"}`}>1</div>
+                  <span>{t("appointment.stepSelectService")}</span>
+                </div>
+                <div className="flex-1 h-1 mx-4 bg-muted" />
+                <div className={`flex items-center gap-2 ${step === "form" ? "text-primary font-semibold" : "text-muted-foreground"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === "form" ? "bg-primary text-white" : "bg-muted"}`}>2</div>
+                  <span>{t("appointment.stepYourDetails")}</span>
+                </div>
+                <div className="flex-1 h-1 mx-4 bg-muted" />
+                <div className={`flex items-center gap-2 ${step === "calendar" ? "text-primary font-semibold" : "text-muted-foreground"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === "calendar" ? "bg-primary text-white" : "bg-muted"}`}>3</div>
+                  <span>{t("appointment.stepChooseDate")}</span>
+                </div>
               </div>
+
+              {/* Step 1: Select Service */}
+              {step === "service" && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                  <p className="text-sm text-muted-foreground mb-6">{t("appointment.selectServicePrompt")}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {services.map((svc) => (
+                      <button
+                        key={svc.value}
+                        onClick={() => handleServiceSelect(svc.value)}
+                        className="p-4 border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all text-left"
+                      >
+                        <h3 className="font-semibold text-foreground">{svc.label}</h3>
+                        <p className="text-xs text-muted-foreground mt-1">{t("appointment.selectToContinue")}</p>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Step 2: Form Details */}
+              {step === "form" && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>{t("appointment.serviceLabel")}: {services.find((s) => s.value === formData.service)?.label}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="firstName">{t("appointment.firstNameLabel")} *</Label>
+                          <Input
+                            id="firstName"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            placeholder={t("appointment.firstNamePlaceholder")}
+                            className="mt-1"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="lastName">{t("appointment.lastNameLabel")} *</Label>
+                          <Input
+                            id="lastName"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            placeholder={t("appointment.lastNamePlaceholder")}
+                            className="mt-1"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="email">{t("appointment.emailLabel")} *</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder="john@example.com"
+                          className="mt-1"
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="phone">{t("appointment.phoneLabel")} *</Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder="+49 30 1234 5678"
+                          className="mt-1"
+                        />
+                      </div>
+
+                      {/* Service-specific fields */}
+                      {renderServiceForm()}
+
+                      <div>
+                        <Label htmlFor="additionalInfo">{t("appointment.additionalInfoLabel")}</Label>
+                        <Input
+                          id="additionalInfo"
+                          name="additionalInfo"
+                          value={formData.additionalInfo}
+                          onChange={handleInputChange}
+                          placeholder={t("appointment.additionalInfoPlaceholder")}
+                          className="mt-1"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="flex gap-4">
+                    <Button variant="outline" onClick={() => setStep("service")} className="flex-1">
+                      {t("appointment.backButton")}
+                    </Button>
+                    <Button onClick={handleProceedToCalendar} className="flex-1 bg-primary hover:bg-primary/90">
+                      {t("appointment.continueToDate")}
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Step 3: Calendar */}
+              {step === "calendar" && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>{t("appointment.selectDateTitle")}</CardTitle>
+                      <CardDescription>{t("appointment.availableDates")} {currentMonth.toLocaleString(undefined, { month: "long", year: "numeric" })}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {/* Calendar Navigation */}
+                      <div className="flex items-center justify-between mb-6">
+                        <button
+                          onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
+                          className="p-2 hover:bg-muted rounded"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <h3 className="font-semibold">{currentMonth.toLocaleString(undefined, { month: "long", year: "numeric" })}</h3>
+                        <button
+                          onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
+                          className="p-2 hover:bg-muted rounded"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </div>
+
+                      {/* Calendar Grid */}
+                      <div className="grid grid-cols-7 gap-2 mb-6">
+                        {[t("calendar.sun"), t("calendar.mon"), t("calendar.tue"), t("calendar.wed"), t("calendar.thu"), t("calendar.fri"), t("calendar.sat")].map((day) => (
+                          <div key={day} className="text-center text-xs font-semibold text-muted-foreground p-2">
+                            {day}
+                          </div>
+                        ))}
+
+                        {/* Empty cells for days before month starts */}
+                        {Array.from({ length: firstDay }).map((_, i) => (
+                          <div key={`empty-${i}`} className="p-2" />
+                        ))}
+
+                        {/* Day cells */}
+                        {Array.from({ length: daysInMonth }).map((_, i) => {
+                          const day = i + 1;
+                          const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+                          const iso = formatDate(date);
+                          const isAvailable = availableSet.has(iso);
+                          const isSelected = formData.date === iso;
+
+                          return (
+                            <button
+                              key={day}
+                              onClick={() => isAvailable && handleDateSelect(date)}
+                              disabled={!isAvailable}
+                              className={`p-2 rounded text-sm font-medium transition-colors ${
+                                isSelected
+                                  ? "bg-primary text-white"
+                                  : isAvailable
+                                    ? "bg-muted hover:bg-primary/20 cursor-pointer"
+                                    : "text-muted-foreground opacity-50 cursor-not-allowed"
+                              }`}
+                            >
+                              {day}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {formData.date && (
+                        <div className="p-4 bg-primary/10 rounded-lg border border-primary/20 mb-6">
+                          <p className="text-sm">
+                            <strong>{t("appointment.selectedDateLabel")}</strong> {parseDateLocal(formData.date).toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                          </p>
+                          {/* Time slots for selected date */}
+                          <div className="mt-4">
+                            <p className="text-sm mb-2">{t("appointment.selectTimePrompt")}</p>
+                            <div className="grid grid-cols-3 gap-2">
+                              {getTimeSlotsForDate(parseDateLocal(formData.date)).map((t) => (
+                                <button
+                                  key={t}
+                                  onClick={() => handleTimeSelect(t)}
+                                  className={`p-2 rounded text-sm transition-colors ${formData.time === t ? "bg-primary text-white" : "bg-muted hover:bg-primary/10"}`}
+                                >
+                                  {t}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+
+                  <div className="flex gap-4">
+                    <Button variant="outline" onClick={() => setStep("form")} className="flex-1">
+                      {t("appointment.backButton")}
+                    </Button>
+                    <Button onClick={handleSubmit} disabled={!formData.date || !formData.time} className="flex-1 bg-primary hover:bg-primary/90">
+                      {t("appointment.confirmButton")}
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
             </motion.div>
-          </div>
-        </section>
       </main>
 
       <Footer />

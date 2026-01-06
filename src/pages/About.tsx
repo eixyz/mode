@@ -4,35 +4,38 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Globe, Users, Handshake, Heart } from "lucide-react";
-
-const aboutItems = [
-  {
-    icon: Globe,
-    title: "About Mozambique",
-    description: "Geography, culture, economy, and tourism",
-    href: "/about/mozambique",
-  },
-  {
-    icon: Users,
-    title: "Ambassador",
-    description: "Official representative and diplomatic role",
-    href: "/about/ambassador",
-  },
-  {
-    icon: Handshake,
-    title: "Mission",
-    description: "Our mission statement and core objectives",
-    href: "/about/mission",
-  },
-  {
-    icon: Heart,
-    title: "Honorary Consuls",
-    description: "Contact information for regional consuls",
-    href: "/about/consuls",
-  },
-];
+import { useLanguage } from "@/lib/useLanguage";
 
 const AboutPage = () => {
+  const { t } = useLanguage();
+
+  const aboutItems = [
+    {
+      icon: Globe,
+      title: t("about.items.mozambique.title"),
+      description: t("about.items.mozambique.description"),
+      href: t("about.items.mozambique.href"),
+    },
+    {
+      icon: Users,
+      title: t("about.items.ambassador.title"),
+      description: t("about.items.ambassador.description"),
+      href: t("about.items.ambassador.href"),
+    },
+    {
+      icon: Handshake,
+      title: t("about.items.mission.title"),
+      description: t("about.items.mission.description"),
+      href: t("about.items.mission.href"),
+    },
+    {
+      icon: Heart,
+      title: t("about.items.consuls.title"),
+      description: t("about.items.consuls.description"),
+      href: t("about.items.consuls.href"),
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -49,10 +52,10 @@ const AboutPage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                About the Embassy
+                {t("about.pageTitle")}
               </h1>
               <p className="text-muted-foreground text-base">
-                Official diplomatic representation of the Republic of Mozambique in Berlin, Germany
+                {t("about.pageDesc")}
               </p>
             </motion.div>
           </div>
@@ -81,7 +84,7 @@ const AboutPage = () => {
                       </CardHeader>
                       <CardContent>
                         <Button variant="outline" size="sm" className="w-full">
-                          Learn More
+                          {t("services.learnMore")}
                         </Button>
                       </CardContent>
                     </Card>

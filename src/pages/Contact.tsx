@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { useLanguage } from "@/lib/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,34 +16,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Address",
-    content: ["Stromstraße 47", "10551 Berlin", "Germany"],
-  },
-  {
-    icon: Phone,
-    title: "Phone",
-    content: ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"],
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    content: ["info@embassy-of-mozambique.de"],
-  },
-  {
-    icon: Clock,
-    title: "Opening Hours",
-    content: [
-      "The Mission is open:", "Monday - Friday: 09:00 - 16:30",
-      "For Consular issues:",
-      "The Embassy is open to the Public:", "Monday - Friday: 09:30 - 15:00",
-    ],
-  },
-];
-
 const ContactPage = () => {
+  const { t } = useLanguage();
+
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: t("contact.info.address.title"),
+      content: t("contact.info.address.lines") as unknown as string[],
+    },
+    {
+      icon: Phone,
+      title: t("contact.info.phone.title"),
+      content: t("contact.info.phone.lines") as unknown as string[],
+    },
+    {
+      icon: Mail,
+      title: t("contact.info.email.title"),
+      content: t("contact.info.email.lines") as unknown as string[],
+    },
+    {
+      icon: Clock,
+      title: t("contact.info.hours.title"),
+      content: t("contact.info.hours.lines") as unknown as string[],
+    },
+  ];
+
   const [formData, setFormData] = useState({
     title: "",
     firstName: "",
@@ -83,10 +82,10 @@ const ContactPage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Contact Us
+                {t("contact.pageTitle")}
               </h1>
               <p className="text-muted-foreground text-lg">
-                Have questions? Get in touch with us and we'll be happy to assist you.
+                {t("contact.pageDesc")}
               </p>
             </motion.div>
 
@@ -107,11 +106,15 @@ const ContactPage = () => {
                         <item.icon className="w-5 h-5 text-primary" />
                       </div>
                       <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                      {item.content.map((line, i) => (
-                        <p key={i} className="text-sm text-muted-foreground">
-                          {line}
-                        </p>
-                      ))}
+                      {Array.isArray(item.content) ? (
+                        item.content.map((line, i) => (
+                          <p key={i} className="text-sm text-muted-foreground">
+                            {line}
+                          </p>
+                        ))
+                      ) : (
+                        <p className="text-sm text-muted-foreground">{item.content}</p>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -140,47 +143,47 @@ const ContactPage = () => {
               >
                 <form className="bg-card rounded-xl p-8 border border-border" onSubmit={handleSubmit}>
                   <h3 className="font-serif text-xl font-semibold text-foreground mb-6">
-                    Send us a Message
+                    {t("contact.form.sendButton")}
                   </h3>
                   <div className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="title">Title</Label>
+                        <Label htmlFor="title">{t("contact.form.titleLabel")}</Label>
                         <Select value={formData.title} onValueChange={handleSelectChange}>
                           <SelectTrigger id="title">
-                            <SelectValue placeholder="Select a title" />
+                            <SelectValue placeholder={t("contact.form.selectPlaceholder")} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="mr">Mr</SelectItem>
-                            <SelectItem value="ms">Ms</SelectItem>
-                            <SelectItem value="mrs">Mrs</SelectItem>
-                            <SelectItem value="dr">Dr</SelectItem>
-                            <SelectItem value="prof">Prof</SelectItem>
+                            <SelectItem value="mr">{t("contact.form.selectMr")}</SelectItem>
+                            <SelectItem value="ms">{t("contact.form.selectMs")}</SelectItem>
+                            <SelectItem value="mrs">{t("contact.form.selectMrs")}</SelectItem>
+                            <SelectItem value="dr">{t("contact.form.selectDr")}</SelectItem>
+                            <SelectItem value="prof">{t("contact.form.selectProf")}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" placeholder="John" value={formData.firstName} onChange={handleInputChange} />
+                        <Label htmlFor="firstName">{t("contact.form.firstNameLabel")}</Label>
+                        <Input id="firstName" placeholder={t("contact.form.firstNamePlaceholder")} value={formData.firstName} onChange={handleInputChange} />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" placeholder="Doe" value={formData.lastName} onChange={handleInputChange} />
+                        <Label htmlFor="lastName">{t("contact.form.lastNameLabel")}</Label>
+                        <Input id="lastName" placeholder={t("contact.form.lastNamePlaceholder")} value={formData.lastName} onChange={handleInputChange} />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="john@example.com" value={formData.email} onChange={handleInputChange} />
+                      <Label htmlFor="email">{t("contact.form.emailLabel")}</Label>
+                      <Input id="email" type="email" placeholder={t("contact.form.emailPlaceholder")} value={formData.email} onChange={handleInputChange} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Subject</Label>
-                      <Input id="subject" placeholder="How can we help?" value={formData.subject} onChange={handleInputChange} />
+                      <Label htmlFor="subject">{t("contact.form.subjectLabel")}</Label>
+                      <Input id="subject" placeholder={t("contact.form.subjectPlaceholder")} value={formData.subject} onChange={handleInputChange} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
+                      <Label htmlFor="message">{t("contact.form.messageLabel")}</Label>
                       <Textarea
                         id="message"
-                        placeholder="Your message..."
+                        placeholder={t("contact.form.messagePlaceholder")}
                         rows={5}
                         value={formData.message}
                         onChange={handleInputChange}
@@ -191,7 +194,7 @@ const ContactPage = () => {
                       className="w-full bg-primary hover:bg-embassy-green-dark text-primary-foreground"
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      Send Message
+                      {t("contact.form.sendButton")}
                     </Button>
                   </div>
                 </form>

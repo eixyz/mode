@@ -1,27 +1,28 @@
 import { Facebook, Twitter, Instagram, Linkedin, ExternalLink } from "lucide-react";
-
-const quickLinks = [
-  { label: "Visa Services", href: "/visa" },
-  { label: "Passport Services", href: "/passports" },
-  { label: "Trade & Investment", href: "/trade" },
-  { label: "About Us", href: "/about" },
-];
-
-const usefulLinks = [
-  { label: "Government of Mozambique", href: "https://www.portaldogoverno.gov.mz", external: true },
-  { label: "Tourism Mozambique", href: "https://www.visitmozambique.net", external: true },
-  { label: "Ministry of Foreign Affairs", href: "https://www.minec.gov.mz/", external: true },
-  // { label: "Invest Mozambique", href: "#", external: true },
-];
-
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-];
+import { useLanguage } from "@/lib/useLanguage";
 
 export const Footer = () => {
+  const { t } = useLanguage();
+
+  const quickLinks = [
+    { label: t("footer.visaServices"), href: "/visa" },
+    { label: t("footer.passportServices"), href: "/passports" },
+    { label: t("footer.tradeInvest"), href: "/trade" },
+    { label: t("footer.aboutUs"), href: "/about" },
+  ];
+
+  const usefulLinks = [
+    { label: t("footer.mozambiqueGov"), href: "https://www.portaldogoverno.gov.mz", external: true },
+    { label: t("footer.tourismMoz"), href: "https://www.visitmozambique.net", external: true },
+    { label: t("footer.foreignAffairs"), href: "https://www.minec.gov.mz/", external: true },
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
+  ];
   return (
     <footer className="bg-embassy-green-dark text-primary-foreground">
       {/* Main Footer */}
@@ -34,13 +35,12 @@ export const Footer = () => {
                 <img src="/emblem_mz.svg" alt="MZ" className="w-full h-full object-cover" />
               </div>
               <div>
-                <h3 className="font-serif text-lg font-semibold">Embassy of Mozambique</h3>
-                <p className="text-sm text-primary-foreground/70">Berlin, Germany</p>
+                <h3 className="font-serif text-lg font-semibold">{t("footer.embassy")}</h3>
+                <p className="text-sm text-primary-foreground/70">{t("footer.location")}</p>
               </div>
             </div>
             <p className="text-sm text-primary-foreground/80 mb-6 leading-relaxed">
-              Serving the Mozambican community in Germany and fostering diplomatic 
-              relations between our nations.
+              {t("footer.description")}
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social, index) => (
@@ -58,7 +58,7 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-6">Quick Links</h4>
+            <h4 className="font-serif text-lg font-semibold mb-6">{t("footer.quickLinksTitle")}</h4>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
@@ -75,7 +75,7 @@ export const Footer = () => {
 
           {/* Useful Links */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-6">Useful Links</h4>
+            <h4 className="font-serif text-lg font-semibold mb-6">{t("footer.usefulLinksTitle")}</h4>
             <ul className="space-y-3">
               {usefulLinks.map((link, index) => (
                 <li key={index}>
@@ -95,14 +95,14 @@ export const Footer = () => {
 
           {/* Emergency */}
           <div>
-            <h4 className="font-serif text-lg font-semibold mb-6">Emergency Contact</h4>
+            <h4 className="font-serif text-lg font-semibold mb-6">{t("footer.emergencyContactTitle")}</h4>
             <div className="bg-embassy-red/20 rounded-lg p-4 border border-embassy-red/30">
               <p className="text-sm text-primary-foreground/80 mb-2">
-                For emergencies outside office hours:
+                {t("footer.emergencyHours")}
               </p>
               <p className="text-lg font-semibold text-gold">+49 000 000 0000</p>
               <p className="text-xs text-primary-foreground/60 mt-2">
-                Available 24/7 for Mozambican citizens
+                {t("footer.emergencyAvailable")}
               </p>
             </div>
           </div>
@@ -113,11 +113,11 @@ export const Footer = () => {
       <div className="border-t border-primary-foreground/10">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-            <p>© 2025 Embassy of the Republic of Mozambique in Berlin. All rights reserved.</p>
+            <p>{t("footer.copyright")}</p>
             <div className="flex gap-6">
-              <a href="/privacy" className="hover:text-gold transition-colors">Privacy Policy</a>
-              <a href="/terms" className="hover:text-gold transition-colors">Terms of Service</a>
-              <a href="/accessibility" className="hover:text-gold transition-colors">Accessibility</a>
+              <a href="/privacy" className="hover:text-gold transition-colors">{t("footer.privacyPolicy")}</a>
+              <a href="/terms" className="hover:text-gold transition-colors">{t("footer.termsOfService")}</a>
+              <a href="/accessibility" className="hover:text-gold transition-colors">{t("footer.accessibility")}</a>
             </div>
           </div>
         </div>

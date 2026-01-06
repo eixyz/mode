@@ -4,109 +4,111 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Users, Plane, DollarSign, Building2 } from "lucide-react";
-
-const services = [
-  {
-    icon: Users,
-    title: "Passport & Consular Services",
-    description: "Issuing Mozambican passports and registering births and deaths",
-    href: "/services/passports",
-    details: [
-      "Passport issuance and renewal",
-      "Birth registration",
-      "Death registration",
-      "Consular registration for Mozambican citizens",
-    ],
-  },
-  {
-    icon: Plane,
-    title: "Visas",
-    description: "Information and assistance for Mozambique visa applications",
-    href: "/services/visas",
-    details: [
-      "Tourist visas",
-      "Business visas",
-      "Residence permits",
-      "Visa extensions",
-    ],
-  },
-  {
-    icon: Building2,
-    title: "Advisory Services",
-    description: "Help and assistance for Mozambican citizens in Germany and accredited countries",
-    href: "/services/advisory",
-    details: [
-      "Legal assistance to Mozambican nationals",
-      "Support for citizens in multiple accreditation countries",
-      "Administrative guidance and documentation",
-    ],
-  },
-  {
-    icon: DollarSign,
-    title: "Trade & Investment",
-    description: "Information on business opportunities in Mozambique",
-    href: "/services/trade",
-    details: [
-      "Trade opportunities in the Republic of Mozambique",
-      "Investment information",
-      "Business relations and economy updates",
-      "Contact with Mozambican authorities",
-    ],
-  },
-];
-
-const documents = [
-  {
-    title: "Visa Application Form",
-    description: "Complete visa application form for entry to Mozambique",
-    link: "http://embassy-of-mozambique.de/images/FORMULARIO-PEDIDO-DE-VISTO.pdf",
-  },
-  {
-    title: "Important Visa Information (German)",
-    description: "Important information about the visa application process",
-    link: "http://embassy-of-mozambique.de/images/Pedido.pdf",
-  },
-  {
-    title: "Important Visa Information (Portuguese)",
-    description: "Informações importantes sobre o pedido de visto",
-    link: "http://embassy-of-mozambique.de/images/Pedido-de-visto-Portugues.pdf",
-  },
-  {
-    title: "Fee Schedule (German)",
-    description: "Tabelle der Gebühren für Konsulardienstleistungen",
-    link: "http://embassy-of-mozambique.de/images/Tabelle_der_Gebuehren.pdf",
-  },
-  {
-    title: "Fee Schedule (Portuguese)",
-    description: "Tabela de Emolumentos para Serviços Consulares",
-    link: "http://embassy-of-mozambique.de/images/Tabela_de_Emolumentos.pdf",
-  },
-  {
-    title: "Payment Information (German)",
-    description: "Important information about methods of payment",
-    link: "http://embassy-of-mozambique.de/images/Informa%C3%A7ao_001_Barra_2017_Alemao.pdf",
-  },
-  {
-    title: "Payment Information (Portuguese)",
-    description: "Informações importantes sobre métodos de pagamento",
-    link: "http://embassy-of-mozambique.de/images/Informa%C3%A7ao_001_Barra_2017_Port.pdf",
-  },
-];
-
-const bankDetails = {
-  iban: "DE58 1007 0000 0237 0088 01",
-  bic: "DEUTDEBBXXX",
-  bank: "Deutsche Bank",
-};
+import { useLanguage } from "@/lib/useLanguage";
 
 const ServicesPage = () => {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Users,
+      title: t("services.passportTitle"),
+      description: t("services.passportDesc"),
+      href: "/services/passports",
+      details: [
+        t("services.passportDetail1"),
+        t("services.passportDetail2"),
+        t("services.passportDetail3"),
+        t("services.passportDetail4"),
+      ],
+    },
+    {
+      icon: Plane,
+      title: t("services.visasTitle"),
+      description: t("services.visasDesc"),
+      href: "/services/visas",
+      details: [
+        t("services.visasDetail1"),
+        t("services.visasDetail2"),
+        t("services.visasDetail3"),
+        t("services.visasDetail4"),
+      ],
+    },
+    {
+      icon: Building2,
+      title: t("services.advisoryTitle"),
+      description: t("services.advisoryDesc"),
+      href: "/services/advisory",
+      details: [
+        t("services.advisoryDetail1"),
+        t("services.advisoryDetail2"),
+        t("services.advisoryDetail3"),
+      ],
+    },
+    {
+      icon: DollarSign,
+      title: t("services.tradeTitle"),
+      description: t("services.tradeDesc"),
+      href: "/services/trade",
+      details: [
+        t("services.tradeDetail1"),
+        t("services.tradeDetail2"),
+        t("services.tradeDetail3"),
+        t("services.tradeDetail4"),
+      ],
+    },
+  ];
+
+  const documents = [
+    {
+      title: t("services.visaFormTitle"),
+      description: t("services.visaFormDesc"),
+      link: "http://embassy-of-mozambique.de/images/FORMULARIO-PEDIDO-DE-VISTO.pdf",
+    },
+    {
+      title: t("services.visaInfoGermanTitle"),
+      description: t("services.visaInfoGermanDesc"),
+      link: "http://embassy-of-mozambique.de/images/Pedido.pdf",
+    },
+    {
+      title: t("services.visaInfoPortugueseTitle"),
+      description: t("services.visaInfoPortugueseDesc"),
+      link: "http://embassy-of-mozambique.de/images/Pedido-de-visto-Portugues.pdf",
+    },
+    {
+      title: t("services.feeGermanTitle"),
+      description: t("services.feeGermanDesc"),
+      link: "http://embassy-of-mozambique.de/images/Tabelle_der_Gebuehren.pdf",
+    },
+    {
+      title: t("services.feePortugueseTitle"),
+      description: t("services.feePortugueseDesc"),
+      link: "http://embassy-of-mozambique.de/images/Tabela_de_Emolumentos.pdf",
+    },
+    {
+      title: t("services.paymentGermanTitle"),
+      description: t("services.paymentGermanDesc"),
+      link: "http://embassy-of-mozambique.de/images/Informa%C3%A7ao_001_Barra_2017_Alemao.pdf",
+    },
+    {
+      title: t("services.paymentPortugueseTitle"),
+      description: t("services.paymentPortugueseDesc"),
+      link: "http://embassy-of-mozambique.de/images/Informa%C3%A7ao_001_Barra_2017_Port.pdf",
+    },
+  ];
+
+  const bankDetails = {
+    iban: "DE58 1007 0000 0237 0088 01",
+    bic: "DEUTDEBBXXX",
+    bank: "Deutsche Bank",
+  };
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
       <main className="flex-1">
         {/* Page Header */}
-        <section className="py-24 bg-gradient-to-b from-primary/10 to-background">
+        <section className="py-12 bg-gradient-to-b from-primary/10 to-background">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -116,10 +118,10 @@ const ServicesPage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Services
+                {t("services.pageTitle")}
               </h1>
               <p className="text-muted-foreground text-lg">
-                Comprehensive consular and administrative services for Mozambican citizens and visitors
+                {t("services.pageDesc")}
               </p>
             </motion.div>
           </div>
@@ -156,7 +158,7 @@ const ServicesPage = () => {
                           ))}
                         </ul>
                         <Button variant="outline" size="sm" className="w-full">
-                          Learn More
+                          {t("services.learnMore")}
                         </Button>
                       </CardContent>
                     </Card>
@@ -179,10 +181,10 @@ const ServicesPage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Forms & Documents
+                {t("services.formsTitle")}
               </h2>
               <p className="text-muted-foreground">
-                Download essential documents and forms for visa applications and consular services
+                {t("services.formsDesc")}
               </p>
             </motion.div>
 
@@ -217,7 +219,7 @@ const ServicesPage = () => {
                       </CardHeader>
                       <CardContent>
                         <Button variant="outline" size="sm" className="w-full">
-                          Download PDF
+                          {t("services.downloadPdf")}
                         </Button>
                       </CardContent>
                     </Card>
@@ -240,14 +242,14 @@ const ServicesPage = () => {
             >
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle className="text-2xl">Bank Details for Payment</CardTitle>
+                  <CardTitle className="text-2xl">{t("services.bankTitle")}</CardTitle>
                   <CardDescription>
-                    Payment information for visa and consular services
+                    {t("services.bankDesc")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <label className="text-sm font-semibold text-muted-foreground">Bank</label>
+                    <label className="text-sm font-semibold text-muted-foreground">{t("services.bankLabel")}</label>
                     <p className="text-foreground mt-1">{bankDetails.bank}</p>
                   </div>
                   <div>
@@ -255,11 +257,11 @@ const ServicesPage = () => {
                     <p className="text-foreground font-mono mt-1">{bankDetails.iban}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-semibold text-muted-foreground">BIC (Swift-Code)</label>
+                    <label className="text-sm font-semibold text-muted-foreground">{t("services.bicLabel")}</label>
                     <p className="text-foreground font-mono mt-1">{bankDetails.bic}</p>
                   </div>
                   <p className="text-sm text-muted-foreground pt-4 border-t">
-                    <strong>Note:</strong> Payments must be in Euros and payable by bank transfer. After payment, you are entitled to a pick-up slip.
+                    <strong>{t("services.noteLabel")}</strong> {t("services.noteText")}
                   </p>
                 </CardContent>
               </Card>

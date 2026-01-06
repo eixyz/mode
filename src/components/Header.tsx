@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Globe, Phone, Mail } from "lucide-react";
+import { Menu, X, Globe, Phone, Mail, ChevronDown, ChevronUp } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,40 +8,49 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About us", href: "/about", hasDropdown: true },
-  { label: "Services", href: "/services", hasDropdown: true },
-  { label: "Contact", href: "/contact" },
-];
+import { useLanguage } from "@/lib/useLanguage";
 
 export const Header = () => {
+  const { language, setLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState<"de" | "en">("de");
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+
+  const languageOptions: { code: "en" | "de" | "pt"; label: string }[] = [
+    { code: "en", label: "English" },
+    { code: "de", label: "Deutsch" },
+    { code: "pt", label: "Português" },
+  ];
 
   return (
     <>
       {/* Top Bar */}
-      <div className="bg-primary text-primary-foreground py-2 text-sm">
+      <div className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white py-2 text-sm">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <a href="tel:+493039876500" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Phone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">+49 30 3987 6500</span>
+              <span className="hidden sm:inline">{t("header.phone")}</span>
             </a>
             <a href="mailto:info@embassy-of-mozambique.de" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Mail className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">info@embassy-of-mozambique.de</span>
+              <span className="hidden sm:inline">{t("header.email")}</span>
             </a>
           </div>
-          <button
-            onClick={() => setLanguage(language === "de" ? "en" : "de")}
-            className="flex items-center gap-2 hover:text-gold transition-colors"
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span>{language === "de" ? "Deutsch" : "English"}</span>
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-2 hover:text-gold transition-colors">
+                <Globe className="w-3.5 h-3.5" />
+                <span>{t("header.language")}</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {languageOptions.map((opt) => (
+                <DropdownMenuItem key={opt.code} onClick={() => setLanguage(opt.code)}>
+                  {opt.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
@@ -54,94 +63,89 @@ export const Header = () => {
               <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center overflow-hidden">
                 <img src="/mozambique-icone.png" alt="MZ" className="w-full h-full object-cover" />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="font-serif text-lg font-semibold text-foreground leading-tight">
-                  Embassy of Mozambique
+              <div className="block">
+                <h1 className="font-serif text-sm sm:text-lg font-semibold text-foreground leading-tight">
+                  {t("header.embassy")}
                 </h1>
-                <p className="text-xs text-muted-foreground">Berlin, Germany</p>
+                <p className="text-xs text-muted-foreground hidden sm:block">{t("header.location")}</p>
               </div>
             </a>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
-                {navItems.map((item) => {
-                  if (item.hasDropdown && item.label === "About us") {
-                    return (
-                      <DropdownMenu key={item.label}>
-                        <DropdownMenuTrigger asChild>
-                          <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative">
-                            {item.label}
-                            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
-                          </button>
-                        </DropdownMenuTrigger>
+              <a
+                href="/"
+                className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group"
+              >
+                {t("header.home")}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
+              </a>
 
-                        <DropdownMenuContent sideOffset={6} className="w-48">
-                          <DropdownMenuItem>
-                            <a href="/about/mozambique" className="w-full block">About Mozambique</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/about/ambassador" className="w-full block">Ambassador</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/about/mission" className="w-full block">Mission</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/about/consuls" className="w-full block">Honorary Consuls</a>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    );
-                  }
+              {/* About us dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group">
+                    {t("header.aboutUs")}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent sideOffset={6} className="w-48">
+                  <DropdownMenuItem>
+                    <a href="/about/mozambique" className="w-full block">{t("header.aboutMozambique")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/ambassador" className="w-full block">{t("header.ambassador")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/mission" className="w-full block">{t("header.mission")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/consuls" className="w-full block">{t("header.honoraryConsuls")}</a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-                  if (item.hasDropdown && item.label === "Services") {
-                    return (
-                      <DropdownMenu key={item.label}>
-                        <DropdownMenuTrigger asChild>
-                          <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative">
-                            {item.label}
-                            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
-                          </button>
-                        </DropdownMenuTrigger>
+              {/* Services dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group">
+                    {t("header.services")}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent sideOffset={6} className="w-48">
+                  <DropdownMenuItem>
+                    <a href="/services" className="w-full block">{t("header.allServices")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/services/passports" className="w-full block">{t("header.passports")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/services/visas" className="w-full block">{t("header.visas")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/services/advisory" className="w-full block">{t("header.advisory")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/services/trade" className="w-full block">{t("header.tradeInvest")}</a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-                        <DropdownMenuContent sideOffset={6} className="w-48">
-                          <DropdownMenuItem>
-                            <a href="/services" className="w-full block">All Services</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/services/passports" className="w-full block">Passports</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/services/visas" className="w-full block">Visas</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/services/advisory" className="w-full block">Advisory</a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <a href="/services/trade" className="w-full block">Trade & Invest</a>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    );
-                  }
-
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group"
-                    >
-                      {item.label}
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
-                    </a>
-                  );
-                })}
+              <a
+                href="/contact"
+                className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group"
+              >
+                {t("header.contact")}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
+              </a>
             </nav>
 
             {/* CTA Button */}
             <div className="hidden lg:block">
               <a href="/appointment">
                 <Button className="bg-primary hover:bg-embassy-green-dark text-primary-foreground">
-                  Book Appointment
+                  {t("header.bookAppointment")}
                 </Button>
               </a>
             </div>
@@ -166,38 +170,84 @@ export const Header = () => {
               className="lg:hidden bg-card border-t border-border"
             >
               <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
-                {navItems.map((item) => (
-                  <div key={item.label}>
+                <div>
+                  <a
+                    href="/"
+                    onClick={() => setIsOpen(false)}
+                    className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                  >
+                    {t("header.home")}
+                  </a>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between">
                     <a
-                      href={item.href}
+                      href="/about"
                       onClick={() => setIsOpen(false)}
                       className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
-                      {item.label}
+                      {t("header.aboutUs")}
                     </a>
-                    {item.hasDropdown && item.label === "About us" && (
-                      <div className="pl-4">
-                        <a href="/about/mozambique" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">About Mozambique</a>
-                        <a href="/about/ambassador" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Ambassador</a>
-                        <a href="/about/mission" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Mission</a>
-                        <a href="/about/consuls" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Honorary Consuls</a>
-                      </div>
-                    )}
-                    {item.hasDropdown && item.label === "Services" && (
-                      <div className="pl-4">
-                        <a href="/services" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">All Services</a>
-                        <a href="/services/passports" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Passports</a>
-                        <a href="/services/visas" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Visas</a>
-                        <a href="/services/advisory" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Advisory</a>
-                        <a href="/services/trade" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">Trade & Invest</a>
-                      </div>
-                    )}
+                    <button
+                      aria-expanded={openSubmenu === "aboutUs"}
+                      onClick={() => setOpenSubmenu(openSubmenu === "aboutUs" ? null : "aboutUs")}
+                      className="p-2 mr-2 text-foreground hover:text-primary"
+                    >
+                      {openSubmenu === "aboutUs" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </button>
                   </div>
-                ))}
+                  {openSubmenu === "aboutUs" && (
+                    <div className="pl-4">
+                      <a href="/about/mozambique" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.aboutMozambique")}</a>
+                      <a href="/about/ambassador" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.ambassador")}</a>
+                      <a href="/about/mission" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.mission")}</a>
+                      <a href="/about/consuls" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.honoraryConsuls")}</a>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <a
+                      href="/services"
+                      onClick={() => setIsOpen(false)}
+                      className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                    >
+                      {t("header.services")}
+                    </a>
+                    <button
+                      aria-expanded={openSubmenu === "services"}
+                      onClick={() => setOpenSubmenu(openSubmenu === "services" ? null : "services")}
+                      className="p-2 mr-2 text-foreground hover:text-primary"
+                    >
+                      {openSubmenu === "services" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  {openSubmenu === "services" && (
+                    <div className="pl-4">
+                      <a href="/services" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.allServices")}</a>
+                      <a href="/services/passports" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.passports")}</a>
+                      <a href="/services/visas" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.visas")}</a>
+                      <a href="/services/advisory" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.advisory")}</a>
+                      <a href="/services/trade" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.tradeInvest")}</a>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <a
+                    href="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                  >
+                    {t("header.contact")}
+                  </a>
+                </div>
 
                 <a href="/appointment">
-                  <Button className="mt-4 bg-primary hover:bg-embassy-green-dark text-primary-foreground">
-                    Book Appointment
+                  <Button className="mt-4 bg-primary hover:bg-embassy-green-dark text-primary-foreground w-full">
+                    {t("header.bookAppointment")}
                   </Button>
                 </a>
               </nav>
