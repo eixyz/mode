@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLanguage } from "@/lib/useLanguage";
 
 const MozambiquePage = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -20,10 +23,10 @@ const MozambiquePage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                About Mozambique
+                {t("mozambique.pageTitle")}
               </h1>
               <p className="text-muted-foreground text-base">
-                Discover Mozambique's geography, culture, and economic opportunities.
+                {t("mozambique.pageDesc")}
               </p>
             </motion.div>
           </div>
@@ -35,17 +38,15 @@ const MozambiquePage = () => {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <Card className="border-border mb-6">
                 <CardHeader>
-                  <CardTitle>Geography & Location</CardTitle>
+                  <CardTitle>{t("mozambique.geographyTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
+                  <p>{t("mozambique.geographyText")}</p>
                   <p>
-                    The Republic of Mozambique is a Southeast African nation located on the Indian Ocean coast. With a strategic geographic position, Mozambique serves as a gateway to Southern Africa and plays a vital role in regional trade and commerce.
-                  </p>
-                  <p>
-                    <strong>Capital:</strong> Maputo<br />
-                    <strong>Region:</strong> Southern Africa<br />
-                    <strong>Population:</strong> Approximately 33 million<br />
-                    <strong>Official Languages:</strong> Portuguese, Bantu languages
+                    <strong>{t("mozambique.capital")}:</strong> {t("mozambique.capitalValue")}<br />
+                    <strong>{t("mozambique.region")}:</strong> {t("mozambique.regionValue")}<br />
+                    <strong>{t("mozambique.population")}:</strong> {t("mozambique.populationValue")}<br />
+                    <strong>{t("mozambique.languages")}:</strong> {t("mozambique.languagesValue")}
                   </p>
                 </CardContent>
               </Card>
@@ -54,17 +55,15 @@ const MozambiquePage = () => {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
               <Card className="border-border mb-6">
                 <CardHeader>
-                  <CardTitle>Culture & Heritage</CardTitle>
+                  <CardTitle>{t("mozambique.cultureTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
-                  <p>
-                    Mozambique possesses a rich cultural heritage shaped by centuries of history, diverse ethnic groups, and vibrant traditions. The nation's culture reflects African heritage combined with Portuguese and Arab influences.
-                  </p>
+                  <p>{t("mozambique.cultureText")}</p>
                   <ul className="list-disc pl-5 space-y-2">
-                    <li>Traditional music and dance (Marrabenta, Timbila)</li>
-                    <li>Vibrant local arts and crafts</li>
-                    <li>Historical sites and monuments</li>
-                    <li>Diverse ethnic traditions and customs</li>
+                    <li>{t("mozambique.culture1")}</li>
+                    <li>{t("mozambique.culture2")}</li>
+                    <li>{t("mozambique.culture3")}</li>
+                    <li>{t("mozambique.culture4")}</li>
                   </ul>
                 </CardContent>
               </Card>
@@ -73,20 +72,18 @@ const MozambiquePage = () => {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
               <Card className="border-border mb-6">
                 <CardHeader>
-                  <CardTitle>Economy & Development</CardTitle>
+                  <CardTitle>{t("mozambique.economyTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
-                  <p>
-                    Mozambique is experiencing significant economic growth with vast natural resources and emerging business opportunities. The country is attracting international investment across multiple sectors.
-                  </p>
-                  <p><strong>Key Economic Sectors:</strong></p>
+                  <p>{t("mozambique.economyText")}</p>
+                  <p><strong>{t("mozambique.economySectors")}:</strong></p>
                   <ul className="list-disc pl-5 space-y-2">
-                    <li>Mining and natural resources (natural gas, coal, mineral sands)</li>
-                    <li>Agriculture and agro-processing</li>
-                    <li>Energy and renewable resources</li>
-                    <li>Tourism and hospitality</li>
-                    <li>Port and logistics services</li>
-                    <li>Manufacturing and light industries</li>
+                    <li>{t("mozambique.economy1")}</li>
+                    <li>{t("mozambique.economy2")}</li>
+                    <li>{t("mozambique.economy3")}</li>
+                    <li>{t("mozambique.economy4")}</li>
+                    <li>{t("mozambique.economy5")}</li>
+                    <li>{t("mozambique.economy6")}</li>
                   </ul>
                 </CardContent>
               </Card>
@@ -95,19 +92,17 @@ const MozambiquePage = () => {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle>Tourism & Natural Attractions</CardTitle>
+                  <CardTitle>{t("mozambique.tourismTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
-                  <p>
-                    Mozambique offers stunning natural attractions and diverse tourism experiences, from pristine beaches to wildlife reserves and historical sites.
-                  </p>
+                  <p>{t("mozambique.tourismText")}</p>
                   <ul className="list-disc pl-5 space-y-2">
-                    <li>Beautiful Indian Ocean coastline and beaches</li>
-                    <li>Gorongosa National Park for wildlife viewing</li>
-                    <li>Bazaruto Archipelago for marine biodiversity</li>
-                    <li>Colonial architecture and historical cities</li>
-                    <li>Water sports and diving opportunities</li>
-                    <li>Safari and wildlife experiences</li>
+                    <li>{t("mozambique.tourism1")}</li>
+                    <li>{t("mozambique.tourism2")}</li>
+                    <li>{t("mozambique.tourism3")}</li>
+                    <li>{t("mozambique.tourism4")}</li>
+                    <li>{t("mozambique.tourism5")}</li>
+                    <li>{t("mozambique.tourism6")}</li>
                   </ul>
                 </CardContent>
               </Card>

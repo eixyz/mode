@@ -18,7 +18,8 @@
     "passports": "Passports",
     "visas": "Visas",
     "advisory": "Advisory",
-    "tradeInvest": "Trade & Invest"
+    "tradeInvest": "Trade & Invest",
+    "news": "News"
   },
   "hero": {
     "welcomePrefix": "Welcome to the",
@@ -149,11 +150,13 @@
     "viewAllNews": "View All News",
     "readMore": "Read more",
     "readFullArticle": "Read full article",
-    "backToNews": "Back to news"
+    "backToNews": "Back to news",
+    "articleNotFound": "Article not found",
+    "articleNotFoundDesc": "The requested news article could not be located."
   },
   "contact": {
     "getInTouch": "Get in Touch",
-    "send": "Send"
+    "send": "Send",
     "pageTitle": "Contact Us",
     "pageDesc": "Have questions? Get in touch with us and we'll be happy to assist you.",
     "info": {
@@ -204,7 +207,90 @@
       "mission": { "title": "Mission", "description": "Our mission statement and core objectives", "href": "/about/mission" },
       "consuls": { "title": "Honorary Consuls", "description": "Contact information for regional consuls", "href": "/about/consuls" }
     }
-  }
+  },
+  "ambassador": {
+    "pageTitle": "Ambassador",
+    "pageDesc": "Official representative of the Republic of Mozambique in Germany.",
+    "profileTitle": "Ambassador Profile",
+    "name": "Name",
+    "nameValue": "[Ambassador Name - To be Updated]",
+    "position": "Position",
+    "positionValue": "Ambassador Extraordinary and Plenipotentiary",
+    "appointed": "Appointed",
+    "appointedValue": "[Year of appointment]",
+    "roleTitle": "Role & Responsibilities",
+    "role1": "Represent Mozambique's government in Germany",
+    "role2": "Foster diplomatic and trade relations",
+    "role3": "Support Mozambican citizens abroad",
+    "role4": "Promote cultural and educational exchange",
+    "role5": "Oversee Embassy operations and consular services"
+  },
+  "consuls": {
+    "pageTitle": "Honorary Consuls",
+    "pageDesc": "Honorary Consuls represent Mozambique's interests in key regions of Germany and neighboring countries. They provide consular assistance and promote bilateral relations in their respective areas.",
+    "munich": "Munich",
+    "bavaria": "Bavaria",
+    "hamburg": "Hamburg",
+    "northernGermany": "Northern Germany",
+    "stuttgart": "Stuttgart",
+    "badenWurttemberg": "Baden-Württemberg",
+    "vienna": "Vienna",
+    "austria": "Austria",
+    "tel": "Tel"
+  },
+  "mission": {
+    "pageTitle": "Our Mission",
+    "pageDesc": "The Embassy of Mozambique in Berlin works to represent Mozambique's interests and strengthen relationships between our nation and Germany.",
+    "statementTitle": "Mission Statement",
+    "statementText": "To represent the interests of the Republic of Mozambique in Germany and accredited countries, facilitate diplomatic relations, promote bilateral trade and investment opportunities, and provide efficient consular services to Mozambican citizens and visitors.",
+    "objectivesTitle": "Core Objectives",
+    "objective1": "Strengthen diplomatic ties with Germany",
+    "objective2": "Facilitate bilateral trade and investment",
+    "objective3": "Provide consular services to citizens",
+    "objective4": "Promote Mozambique's culture and values",
+    "focusTitle": "Areas of Focus",
+    "focus1": "Economic cooperation and trade",
+    "focus2": "Educational and cultural exchange",
+    "focus3": "Consular assistance and support",
+    "focus4": "Bilateral diplomatic cooperation"
+  },
+  "mozambique": {
+    "pageTitle": "About Mozambique",
+    "pageDesc": "Discover Mozambique's geography, culture, and economic opportunities.",
+    "geographyTitle": "Geography & Location",
+    "geographyText": "The Republic of Mozambique is a Southeast African nation located on the Indian Ocean coast. With a strategic geographic position, Mozambique serves as a gateway to Southern Africa and plays a vital role in regional trade and commerce.",
+    "capital": "Capital",
+    "capitalValue": "Maputo",
+    "region": "Region",
+    "regionValue": "Southern Africa",
+    "population": "Population",
+    "populationValue": "Approximately 33 million",
+    "languages": "Official Languages",
+    "languagesValue": "Portuguese, Bantu languages",
+    "cultureTitle": "Culture & Heritage",
+    "cultureText": "Mozambique possesses a rich cultural heritage shaped by centuries of history, diverse ethnic groups, and vibrant traditions. The nation's culture reflects African heritage combined with Portuguese and Arab influences.",
+    "culture1": "Traditional music and dance (Marrabenta, Timbila)",
+    "culture2": "Vibrant local arts and crafts",
+    "culture3": "Historical sites and monuments",
+    "culture4": "Diverse ethnic traditions and customs",
+    "economyTitle": "Economy & Development",
+    "economyText": "Mozambique is experiencing significant economic growth with vast natural resources and emerging business opportunities. The country is attracting international investment across multiple sectors.",
+    "economySectors": "Key Economic Sectors",
+    "economy1": "Mining and natural resources (natural gas, coal, mineral sands)",
+    "economy2": "Agriculture and agro-processing",
+    "economy3": "Energy and renewable resources",
+    "economy4": "Tourism and hospitality",
+    "economy5": "Port and logistics services",
+    "economy6": "Manufacturing and light industries",
+    "tourismTitle": "Tourism & Natural Attractions",
+    "tourismText": "Mozambique offers stunning natural attractions and diverse tourism experiences, from pristine beaches to wildlife reserves and historical sites.",
+    "tourism1": "Beautiful Indian Ocean coastline and beaches",
+    "tourism2": "Gorongosa National Park for wildlife viewing",
+    "tourism3": "Bazaruto Archipelago for marine biodiversity",
+    "tourism4": "Colonial architecture and historical cities",
+    "tourism5": "Water sports and diving opportunities",
+    "tourism6": "Safari and wildlife experiences"
+  },
   "footer": {
     "embassy": "Embassy of Mozambique",
     "location": "Berlin, Germany",
