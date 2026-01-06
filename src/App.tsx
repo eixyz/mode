@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import Appointment from "./pages/Appointment";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
+import NewsAdmin from "./pages/NewsAdmin";
 import Ambassador from "./pages/about/Ambassador";
 import Mission from "./pages/about/Mission";
 import Consuls from "./pages/about/Consuls";
@@ -49,6 +50,7 @@ const App = () => (
           <Route path="/about/consuls" element={<Consuls />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/admin" element={<NewsAdmin />} />
           <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />

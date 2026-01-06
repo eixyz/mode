@@ -3,8 +3,11 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/useLanguage";
 
 const PassportsPage = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -21,10 +24,10 @@ const PassportsPage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                Passport & Consular Services
+                {t("passportsPage.pageTitle")}
               </h1>
               <p className="text-muted-foreground text-base">
-                Issuing Mozambican passports and registering births and deaths for citizens in Germany and accredited countries.
+                {t("passportsPage.pageDesc")}
               </p>
             </motion.div>
           </div>
@@ -37,13 +40,13 @@ const PassportsPage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Passport Issuance & Renewal</CardTitle>
+                    <CardTitle>{t("passportsPage.passportIssuance")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Apply for a new Mozambican passport or renew an existing one. Our consular staff will guide you through the application process.
+                      {t("passportsPage.passportIssuanceDesc")}
                     </p>
-                    <Button className="w-full" variant="outline">Request Information</Button>
+                    <Button className="w-full" variant="outline">{t("passportsPage.requestInfo")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -51,13 +54,13 @@ const PassportsPage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Civil Registration</CardTitle>
+                    <CardTitle>{t("passportsPage.civilRegistration")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Register births and deaths of Mozambican citizens. Consular registration services available for important life events.
+                      {t("passportsPage.civilRegistrationDesc")}
                     </p>
-                    <Button className="w-full" variant="outline">Request Information</Button>
+                    <Button className="w-full" variant="outline">{t("passportsPage.requestInfo")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -65,13 +68,13 @@ const PassportsPage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Birth Registration</CardTitle>
+                    <CardTitle>{t("passportsPage.birthRegistration")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Register the birth of a child born to Mozambican parents in Germany or accredited countries.
+                      {t("passportsPage.birthRegistrationDesc")}
                     </p>
-                    <Button className="w-full" variant="outline">Request Information</Button>
+                    <Button className="w-full" variant="outline">{t("passportsPage.requestInfo")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -79,13 +82,13 @@ const PassportsPage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Death Registration</CardTitle>
+                    <CardTitle>{t("passportsPage.deathRegistration")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Official registration of deaths for Mozambican citizens residing abroad. Important for legal and administrative purposes.
+                      {t("passportsPage.deathRegistrationDesc")}
                     </p>
-                    <Button className="w-full" variant="outline">Request Information</Button>
+                    <Button className="w-full" variant="outline">{t("passportsPage.requestInfo")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -94,17 +97,17 @@ const PassportsPage = () => {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle>How to Apply</CardTitle>
+                  <CardTitle>{t("passportsPage.howToApply")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm text-muted-foreground">
-                  <p>1. Contact the Embassy to schedule an appointment or submit your request</p>
-                  <p>2. Prepare required documents (identification, civil status documents, etc.)</p>
-                  <p>3. Submit application with supporting documentation</p>
-                  <p>4. Pay the required fees via bank transfer</p>
-                  <p>5. Collect your documents at the scheduled time</p>
+                  <p>{t("passportsPage.step1")}</p>
+                  <p>{t("passportsPage.step2")}</p>
+                  <p>{t("passportsPage.step3")}</p>
+                  <p>{t("passportsPage.step4")}</p>
+                  <p>{t("passportsPage.step5")}</p>
                   <div className="pt-4 border-t">
                     <a href="/contact" className="text-primary hover:underline">
-                      Contact us to schedule your appointment →
+                      {t("passportsPage.contactSchedule")}
                     </a>
                   </div>
                 </CardContent>

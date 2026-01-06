@@ -3,8 +3,11 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/useLanguage";
 
 const VisasServicePage = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -21,10 +24,10 @@ const VisasServicePage = () => {
             >
               <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                Mozambique Visas
+                {t("visasPage.pageTitle")}
               </h1>
               <p className="text-muted-foreground text-base">
-                Information and assistance for Mozambique visa applications, including tourist, business, and residence permits.
+                {t("visasPage.pageDesc")}
               </p>
             </motion.div>
           </div>
@@ -37,18 +40,18 @@ const VisasServicePage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Tourist Visa</CardTitle>
+                    <CardTitle>{t("visasPage.touristVisa")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Travel to Mozambique for tourism purposes. Valid for tourism activities and leisure travel.
+                      {t("visasPage.touristVisaDesc")}
                     </p>
                     <ul className="text-xs text-muted-foreground space-y-2 mb-4">
-                      <li>• Typical validity: 30-90 days</li>
-                      <li>• Multiple entry options available</li>
-                      <li>• Processing time: 5-10 working days</li>
+                      <li>• {t("visasPage.typicalValidity")}</li>
+                      <li>• {t("visasPage.multipleEntry")}</li>
+                      <li>• {t("visasPage.processingTime")}</li>
                     </ul>
-                    <Button className="w-full" variant="outline">Apply Now</Button>
+                    <Button className="w-full" variant="outline">{t("visasPage.applyNow")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -56,18 +59,18 @@ const VisasServicePage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Business Visa</CardTitle>
+                    <CardTitle>{t("visasPage.businessVisa")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Conduct business activities in Mozambique including meetings, conferences, and trade activities.
+                      {t("visasPage.businessVisaDesc")}
                     </p>
                     <ul className="text-xs text-muted-foreground space-y-2 mb-4">
-                      <li>• Typical validity: 30-90 days</li>
-                      <li>• Required: Business invitation letter</li>
-                      <li>• Processing time: 5-10 working days</li>
+                      <li>• {t("visasPage.typicalValidity")}</li>
+                      <li>• {t("visasPage.businessRequired")}</li>
+                      <li>• {t("visasPage.processingTime")}</li>
                     </ul>
-                    <Button className="w-full" variant="outline">Apply Now</Button>
+                    <Button className="w-full" variant="outline">{t("visasPage.applyNow")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -75,18 +78,18 @@ const VisasServicePage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Residence Permit</CardTitle>
+                    <CardTitle>{t("visasPage.residencePermit")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Extended stay in Mozambique for work, study, or permanent residence purposes.
+                      {t("visasPage.residencePermitDesc")}
                     </p>
                     <ul className="text-xs text-muted-foreground space-y-2 mb-4">
-                      <li>• Validity: 1 year renewable</li>
-                      <li>• Required: Employment or study contract</li>
-                      <li>• Processing time: 10-15 working days</li>
+                      <li>• {t("visasPage.residenceValidity")}</li>
+                      <li>• {t("visasPage.residenceRequired")}</li>
+                      <li>• {t("visasPage.residenceProcessing")}</li>
                     </ul>
-                    <Button className="w-full" variant="outline">Apply Now</Button>
+                    <Button className="w-full" variant="outline">{t("visasPage.applyNow")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -94,18 +97,18 @@ const VisasServicePage = () => {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
                 <Card className="border-border h-full">
                   <CardHeader>
-                    <CardTitle>Visa Extension</CardTitle>
+                    <CardTitle>{t("visasPage.visaExtension")}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Extend your current visa if you need to stay longer in Mozambique than originally planned.
+                      {t("visasPage.visaExtensionDesc")}
                     </p>
                     <ul className="text-xs text-muted-foreground space-y-2 mb-4">
-                      <li>• Can be done in-country</li>
-                      <li>• Application required before expiry</li>
-                      <li>• Processing time: 5-7 working days</li>
+                      <li>• {t("visasPage.extensionInCountry")}</li>
+                      <li>• {t("visasPage.extensionBeforeExpiry")}</li>
+                      <li>• {t("visasPage.extensionProcessing")}</li>
                     </ul>
-                    <Button className="w-full" variant="outline">Apply Now</Button>
+                    <Button className="w-full" variant="outline">{t("visasPage.applyNow")}</Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -114,22 +117,22 @@ const VisasServicePage = () => {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle>Visa Requirements</CardTitle>
+                  <CardTitle>{t("visasPage.visaRequirements")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm text-muted-foreground">
-                  <p><strong>General Requirements:</strong></p>
+                  <p><strong>{t("visasPage.generalRequirements")}</strong></p>
                   <ul className="list-disc pl-5 space-y-2">
-                    <li>Valid passport (minimum 6 months validity)</li>
-                    <li>Completed visa application form</li>
-                    <li>Passport-size photograph (4x4 cm)</li>
-                    <li>Proof of travel arrangements</li>
-                    <li>Proof of accommodation in Mozambique</li>
-                    <li>Proof of financial means</li>
-                    <li>Yellow fever vaccination certificate (recommended)</li>
+                    <li>{t("visasPage.req1")}</li>
+                    <li>{t("visasPage.req2")}</li>
+                    <li>{t("visasPage.req3")}</li>
+                    <li>{t("visasPage.req4")}</li>
+                    <li>{t("visasPage.req5")}</li>
+                    <li>{t("visasPage.req6")}</li>
+                    <li>{t("visasPage.req7")}</li>
                   </ul>
                   <div className="pt-4 border-t">
                     <a href="/contact" className="text-primary hover:underline">
-                      Contact us for specific visa requirements →
+                      {t("visasPage.contactRequirements")}
                     </a>
                   </div>
                 </CardContent>
