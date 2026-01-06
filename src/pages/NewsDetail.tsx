@@ -2,12 +2,13 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getNewsById } from "@/lib/news";
+import { useNewsStore } from "@/lib/newsStore";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const NewsDetail = () => {
   const { id } = useParams();
+  const { getNewsById } = useNewsStore();
   const item = id ? getNewsById(id) : null;
 
   useEffect(() => {

@@ -1,12 +1,13 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { newsItems } from "@/lib/news";
+import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const NewsPage = () => {
+  const { newsItems } = useNewsStore();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
