@@ -3,19 +3,13 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Globe, Users, Handshake, Heart } from "lucide-react";
+import { Users, Handshake, Heart } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
 
 const AboutPage = () => {
   const { t } = useLanguage();
 
   const aboutItems = [
-    {
-      icon: Globe,
-      title: t("about.items.mozambique.title"),
-      description: t("about.items.mozambique.description"),
-      href: t("about.items.mozambique.href"),
-    },
     {
       icon: Users,
       title: t("about.items.ambassador.title"),
