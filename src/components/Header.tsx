@@ -36,21 +36,31 @@ export const Header = () => {
               <span className="hidden sm:inline">{t("header.email")}</span>
             </a>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 hover:text-gold transition-colors">
-                <Globe className="w-3.5 h-3.5" />
-                <span>{t("header.language")}</span>
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {languageOptions.map((opt) => (
-                <DropdownMenuItem key={opt.code} onClick={() => setLanguage(opt.code)}>
-                  {opt.label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex items-center gap-4">
+            {/* News link in top bar */}
+            <a href="/news" className="hover:text-gold transition-colors hidden sm:inline">
+              {t("header.news")}
+            </a>
+            {/* Contact link in top bar */}
+            <a href="/contact" className="hover:text-gold transition-colors hidden sm:inline">
+              {t("header.contact")}
+            </a>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2 hover:text-gold transition-colors">
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>{t("header.language")}</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languageOptions.map((opt) => (
+                  <DropdownMenuItem key={opt.code} onClick={() => setLanguage(opt.code)}>
+                    {opt.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
 
@@ -81,18 +91,15 @@ export const Header = () => {
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
               </a>
 
-              {/* About us dropdown */}
+              {/* The Embassy dropdown (formerly About Us) */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group">
-                    {t("header.aboutUs")}
+                    {t("header.theEmbassy")}
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent sideOffset={6} className="w-48">
-                  <DropdownMenuItem>
-                    <a href="/about/mozambique" className="w-full block">{t("header.aboutMozambique")}</a>
-                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <a href="/about/ambassador" className="w-full block">{t("header.ambassador")}</a>
                   </DropdownMenuItem>
@@ -105,11 +112,11 @@ export const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Services dropdown */}
+              {/* Consular Section dropdown (formerly Services) */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group">
-                    {t("header.services")}
+                    {t("header.consularSection")}
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
                   </button>
                 </DropdownMenuTrigger>
@@ -132,13 +139,23 @@ export const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <a
-                href="/contact"
-                className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group"
-              >
-                {t("header.contact")}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
-              </a>
+              {/* About Mozambique dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group">
+                    {t("header.aboutMozambique")}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent sideOffset={6} className="w-48">
+                  <DropdownMenuItem>
+                    <a href="/about/mozambique" className="w-full block">{t("header.discoverMozambique")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/useful-links" className="w-full block">{t("header.usefulLinks")}</a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
 
             {/* CTA Button */}
@@ -180,6 +197,7 @@ export const Header = () => {
                   </a>
                 </div>
 
+                {/* The Embassy (mobile) */}
                 <div>
                   <div className="flex items-center justify-between">
                     <a
@@ -187,19 +205,18 @@ export const Header = () => {
                       onClick={() => setIsOpen(false)}
                       className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
-                      {t("header.aboutUs")}
+                      {t("header.theEmbassy")}
                     </a>
                     <button
-                      aria-expanded={openSubmenu === "aboutUs"}
-                      onClick={() => setOpenSubmenu(openSubmenu === "aboutUs" ? null : "aboutUs")}
+                      aria-expanded={openSubmenu === "embassy"}
+                      onClick={() => setOpenSubmenu(openSubmenu === "embassy" ? null : "embassy")}
                       className="p-2 mr-2 text-foreground hover:text-primary"
                     >
-                      {openSubmenu === "aboutUs" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      {openSubmenu === "embassy" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                   </div>
-                  {openSubmenu === "aboutUs" && (
+                  {openSubmenu === "embassy" && (
                     <div className="pl-4">
-                      <a href="/about/mozambique" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.aboutMozambique")}</a>
                       <a href="/about/ambassador" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.ambassador")}</a>
                       <a href="/about/mission" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.mission")}</a>
                       <a href="/about/consuls" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.honoraryConsuls")}</a>
@@ -207,6 +224,7 @@ export const Header = () => {
                   )}
                 </div>
 
+                {/* Consular Section (mobile) */}
                 <div>
                   <div className="flex items-center justify-between">
                     <a
@@ -214,7 +232,7 @@ export const Header = () => {
                       onClick={() => setIsOpen(false)}
                       className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
-                      {t("header.services")}
+                      {t("header.consularSection")}
                     </a>
                     <button
                       aria-expanded={openSubmenu === "services"}
@@ -235,6 +253,44 @@ export const Header = () => {
                   )}
                 </div>
 
+                {/* About Mozambique (mobile) */}
+                <div>
+                  <div className="flex items-center justify-between">
+                    <a
+                      href="/about/mozambique"
+                      onClick={() => setIsOpen(false)}
+                      className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                    >
+                      {t("header.aboutMozambique")}
+                    </a>
+                    <button
+                      aria-expanded={openSubmenu === "mozambique"}
+                      onClick={() => setOpenSubmenu(openSubmenu === "mozambique" ? null : "mozambique")}
+                      className="p-2 mr-2 text-foreground hover:text-primary"
+                    >
+                      {openSubmenu === "mozambique" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  {openSubmenu === "mozambique" && (
+                    <div className="pl-4">
+                      <a href="/about/mozambique" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.discoverMozambique")}</a>
+                      <a href="/about/useful-links" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.usefulLinks")}</a>
+                    </div>
+                  )}
+                </div>
+
+                {/* News (mobile) */}
+                <div>
+                  <a
+                    href="/news"
+                    onClick={() => setIsOpen(false)}
+                    className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                  >
+                    {t("header.news")}
+                  </a>
+                </div>
+
+                {/* Contact (mobile) */}
                 <div>
                   <a
                     href="/contact"

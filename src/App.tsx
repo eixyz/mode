@@ -17,6 +17,7 @@ import Ambassador from "./pages/about/Ambassador";
 import Mission from "./pages/about/Mission";
 import Consuls from "./pages/about/Consuls";
 import Mozambique from "./pages/about/Mozambique";
+import UsefulLinks from "./pages/about/UsefulLinks";
 import Passports from "./pages/services/Passports";
 import VisasService from "./pages/services/Visas";
 import Advisory from "./pages/services/Advisory";
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/about/ambassador" element={<Ambassador />} />
           <Route path="/about/mission" element={<Mission />} />
           <Route path="/about/consuls" element={<Consuls />} />
+          <Route path="/about/useful-links" element={<UsefulLinks />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/admin" element={<NewsAdmin />} />
