@@ -414,6 +414,11 @@
   },
   "newsCms": {
     "manageNews": "Nachrichten verwalten",
+    "instructions": "Erstellen, bearbeiten und löschen Sie Nachrichtenartikel für die Botschaftswebsite.",
+    "howToAccess": "So gelangen Sie zu dieser Seite:",
+    "accessStep1": "Navigieren Sie zur Fußzeile einer beliebigen Seite und klicken Sie auf 'News Admin' unter Schnelllinks",
+    "accessStep2": "Oder besuchen Sie direkt /news/admin in Ihrem Browser",
+    "accessStep3": "Diese Seite ist nur für Botschaftsmitarbeiter - erwägen Sie Authentifizierung für die Produktion",
     "addArticle": "Artikel hinzufügen",
     "editArticle": "Artikel bearbeiten",
     "deleteArticle": "Artikel löschen",
