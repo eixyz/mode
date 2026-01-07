@@ -426,6 +426,11 @@
   },
   "newsCms": {
     "manageNews": "Manage News",
+    "instructions": "Create, edit, and delete news articles for the embassy website.",
+    "howToAccess": "How to access this page:",
+    "accessStep1": "Navigate to the footer of any page and click 'News Admin' under Quick Links",
+    "accessStep2": "Or directly visit /news/admin in your browser",
+    "accessStep3": "This page is for embassy staff only - consider adding authentication for production",
     "addArticle": "Add Article",
     "editArticle": "Edit Article",
     "deleteArticle": "Delete Article",

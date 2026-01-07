@@ -9,6 +9,7 @@ export const Footer = () => {
     { label: t("footer.passportServices"), href: "/passports" },
     { label: t("footer.tradeInvest"), href: "/trade" },
     { label: t("footer.aboutUs"), href: "/about" },
+    { label: "News Admin", href: "/news/admin" },
   ];
 
   const usefulLinks = [

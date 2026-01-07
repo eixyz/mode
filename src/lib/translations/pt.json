@@ -414,6 +414,11 @@
   },
   "newsCms": {
     "manageNews": "Gerenciar Notícias",
+    "instructions": "Criar, editar e excluir artigos de notícias para o site da embaixada.",
+    "howToAccess": "Como acessar esta página:",
+    "accessStep1": "Navegue até o rodapé de qualquer página e clique em 'News Admin' em Links Rápidos",
+    "accessStep2": "Ou acesse diretamente /news/admin no seu navegador",
+    "accessStep3": "Esta página é apenas para funcionários da embaixada - considere adicionar autenticação para produção",
     "addArticle": "Adicionar Artigo",
     "editArticle": "Editar Artigo",
     "deleteArticle": "Excluir Artigo",

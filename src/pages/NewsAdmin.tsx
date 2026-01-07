@@ -98,6 +98,22 @@ const NewsAdmin = () => {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-3xl mx-auto text-center mb-12">
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">{t("newsCms.manageNews")}</h1>
+              <p className="text-muted-foreground mt-3">{t("newsCms.instructions")}</p>
+            </motion.div>
+
+            {/* Access Instructions */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.4, delay: 0.1 }} 
+              className="max-w-2xl mx-auto mb-8 p-4 bg-muted/50 rounded-lg border border-border"
+            >
+              <h3 className="font-semibold text-foreground mb-2">{t("newsCms.howToAccess")}</h3>
+              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                <li>{t("newsCms.accessStep1")}</li>
+                <li>{t("newsCms.accessStep2")}</li>
+                <li>{t("newsCms.accessStep3")}</li>
+              </ul>
             </motion.div>
 
             <div className="max-w-4xl mx-auto mb-8">

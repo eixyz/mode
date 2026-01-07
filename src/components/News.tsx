@@ -3,9 +3,12 @@ import { Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { newsItems } from "@/lib/news";
+import { useNewsStore } from "@/lib/newsStore";
 
 export const News = () => {
+  const { newsItems } = useNewsStore();
+  const recentNews = newsItems.slice(0, 3); // Show only 3 most recent
+
   return (
     <section id="news" className="py-24 bg-background">
       <div className="container mx-auto px-4">
@@ -26,9 +29,9 @@ export const News = () => {
           </p>
         </motion.div>
 
-        {/* News Grid */}
+        {/* News Grid - Show only 3 recent */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {newsItems.map((item, index) => (
+          {recentNews.map((item, index) => (
             <motion.article
               key={index}
               initial={{ opacity: 0, y: 30 }}
