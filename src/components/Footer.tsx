@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Instagram, Linkedin, ExternalLink } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, ExternalLink, MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
 
 export const Footer = () => {
@@ -94,7 +94,38 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Emergency */}
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-serif text-lg font-semibold mb-6">{t("footer.contactInfoTitle")}</h4>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
+                <div className="text-sm text-primary-foreground/80">
+                  <p>Stromstraße 47</p>
+                  <p>10551 Berlin</p>
+                  <p>Germany</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-gold flex-shrink-0" />
+                <p className="text-sm text-primary-foreground/80">+49 30 3987 6500</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-gold flex-shrink-0" />
+                <p className="text-sm text-primary-foreground/80">info@embassy-of-mozambique.de</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Clock className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
+                <div className="text-sm text-primary-foreground/80">
+                  <p>{t("footer.hoursLine1")}</p>
+                  <p>{t("footer.hoursLine2")}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Emergency - Commented out for now */}
+          {/*
           <div>
             <h4 className="font-serif text-lg font-semibold mb-6">{t("footer.emergencyContactTitle")}</h4>
             <div className="bg-embassy-red/20 rounded-lg p-4 border border-embassy-red/30">
@@ -107,6 +138,7 @@ export const Footer = () => {
               </p>
             </div>
           </div>
+          */}
         </div>
       </div>
 

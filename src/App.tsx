@@ -17,6 +17,10 @@ import Ambassador from "./pages/about/Ambassador";
 import Mission from "./pages/about/Mission";
 import Consuls from "./pages/about/Consuls";
 import Mozambique from "./pages/about/Mozambique";
+import Geography from "./pages/about/Geography";
+import Culture from "./pages/about/Culture";
+import Economy from "./pages/about/Economy";
+import Tourism from "./pages/about/Tourism";
 import UsefulLinks from "./pages/about/UsefulLinks";
 import Passports from "./pages/services/Passports";
 import VisasService from "./pages/services/Visas";
@@ -46,6 +50,10 @@ const App = () => (
           <Route path="/visa" element={<Visa />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/mozambique" element={<Mozambique />} />
+          <Route path="/about/mozambique/geography" element={<Geography />} />
+          <Route path="/about/mozambique/culture" element={<Culture />} />
+          <Route path="/about/mozambique/economy" element={<Economy />} />
+          <Route path="/about/mozambique/tourism" element={<Tourism />} />
           <Route path="/about/ambassador" element={<Ambassador />} />
           <Route path="/about/mission" element={<Mission />} />
           <Route path="/about/consuls" element={<Consuls />} />
