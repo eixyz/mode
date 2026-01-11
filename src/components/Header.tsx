@@ -112,11 +112,11 @@ export const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Consular Section dropdown (formerly Services) */}
+              {/* Consular Services dropdown (formerly Consular Section) */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors relative group">
-                    {t("header.consularSection")}
+                    {t("header.consularServices")}
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
                   </button>
                 </DropdownMenuTrigger>
@@ -147,9 +147,21 @@ export const Header = () => {
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold group-hover:w-4/5 transition-all duration-300" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent sideOffset={6} className="w-48">
+                <DropdownMenuContent sideOffset={6} className="w-56">
                   <DropdownMenuItem>
                     <a href="/about/mozambique" className="w-full block">{t("header.discoverMozambique")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/mozambique/geography" className="w-full block">{t("header.geography")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/mozambique/culture" className="w-full block">{t("header.culture")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/mozambique/economy" className="w-full block">{t("header.economy")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/mozambique/tourism" className="w-full block">{t("header.tourism")}</a>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <a href="/about/useful-links" className="w-full block">{t("header.usefulLinks")}</a>
@@ -232,7 +244,7 @@ export const Header = () => {
                       onClick={() => setIsOpen(false)}
                       className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
-                      {t("header.consularSection")}
+                      {t("header.consularServices")}
                     </a>
                     <button
                       aria-expanded={openSubmenu === "services"}
@@ -274,6 +286,10 @@ export const Header = () => {
                   {openSubmenu === "mozambique" && (
                     <div className="pl-4">
                       <a href="/about/mozambique" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.discoverMozambique")}</a>
+                      <a href="/about/mozambique/geography" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.geography")}</a>
+                      <a href="/about/mozambique/culture" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.culture")}</a>
+                      <a href="/about/mozambique/economy" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.economy")}</a>
+                      <a href="/about/mozambique/tourism" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.tourism")}</a>
                       <a href="/about/useful-links" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.usefulLinks")}</a>
                     </div>
                   )}

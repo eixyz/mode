@@ -71,13 +71,11 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-16 grid grid-cols-3 gap-8"
+            className="mt-16 grid grid-cols-2 gap-8"
           >
             {[
               { value: "1975", label: t("hero.estYear") },
-              { value: `${new Date().getFullYear()}`, label: t("hero.currentYear") },
-              { value: `${new Date().getFullYear() - 1975}`, label: t("hero.yearsOfService") },
-              { value: "24/7", label: t("hero.emergencyLine") },
+              { value: `${new Date().getFullYear() - 1975}+`, label: t("hero.yearsOfService") },
             ].map((stat, index) => (
               <div key={index} className="text-center sm:text-left">
                 <div className="text-2xl md:text-3xl font-serif font-bold text-gold">
