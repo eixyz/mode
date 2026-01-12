@@ -8,6 +8,7 @@
     "home": "Home",
     "theEmbassy": "The Embassy",
     "consularSection": "Consular Section",
+    "consularServices": "Consular Services",
     "aboutUs": "About us",
     "services": "Services",
     "contact": "Contact",
@@ -23,7 +24,11 @@
     "visas": "Visas",
     "advisory": "Advisory",
     "tradeInvest": "Trade & Invest",
-    "news": "News"
+    "news": "News",
+    "geography": "Geography & Location",
+    "culture": "Culture & Heritage",
+    "economy": "Economy & Development",
+    "tourism": "Tourism & Attractions"
   },
   "hero": {
     "welcomePrefix": "Welcome to the",
@@ -294,7 +299,7 @@
     "tourism5": "Water sports and diving opportunities",
     "tourism6": "Safari and wildlife experiences"
   },
-"footer": {
+  "footer": {
     "embassy": "Embassy of Mozambique",
     "location": "Berlin, Germany",
     "description": "Serving the Mozambican community in Germany and fostering diplomatic relations between our nations.",
@@ -307,6 +312,9 @@
     "mozambiqueGov": "Government of Mozambique",
     "tourismMoz": "Tourism Mozambique",
     "foreignAffairs": "Ministry of Foreign Affairs",
+    "contactInfoTitle": "Contact Information",
+    "hoursLine1": "Mon - Fri: 09:00 - 16:30",
+    "hoursLine2": "Consular: 09:30 - 15:00",
     "emergencyContactTitle": "Emergency Contact",
     "emergencyHours": "For emergencies outside office hours:",
     "emergencyAvailable": "Available 24/7 for Mozambican citizens",
@@ -466,18 +474,6 @@
     "updateTip3": "Contact IT support for website content changes",
     "noteLabel": "Note:",
     "noteText": "Changes are saved locally. For permanent storage, contact your IT administrator."
-  },
-  "header": {
-    "consularServices": "Consular Services",
-    "geography": "Geography & Location",
-    "culture": "Culture & Heritage",
-    "economy": "Economy & Development",
-    "tourism": "Tourism & Attractions"
-  },
-  "footer": {
-    "contactInfoTitle": "Contact Information",
-    "hoursLine1": "Mon - Fri: 09:00 - 16:30",
-    "hoursLine2": "Consular: 09:30 - 15:00"
   },
   "geography": {
     "pageTitle": "Geography & Location",
