@@ -5,11 +5,10 @@ export const Footer = () => {
   const { t } = useLanguage();
 
   const quickLinks = [
-    { label: t("footer.visaServices"), href: "/visa" },
-    { label: t("footer.passportServices"), href: "/passports" },
-    { label: t("footer.tradeInvest"), href: "/trade" },
+    { label: t("footer.visaServices"), href: "/services/visas" },
+    { label: t("footer.passportServices"), href: "/services/passports" },
+    { label: t("footer.tradeInvest"), href: "/services/trade" },
     { label: t("footer.aboutUs"), href: "/about" },
-    { label: "News Admin", href: "/news/admin" },
   ];
 
   const usefulLinks = [
