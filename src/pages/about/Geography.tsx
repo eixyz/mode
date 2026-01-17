@@ -4,38 +4,54 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
 import { MapPin, Globe, Users, Languages } from "lucide-react";
+import geographyImage from "@/assets/mozambique-geography.jpg";
 
 const GeographyPage = () => {
   const { t } = useLanguage();
+
+  const facts = [
+    { icon: MapPin, key: "capital" },
+    { icon: Globe, key: "area" },
+    { icon: Users, key: "population" },
+    { icon: Languages, key: "languages" },
+  ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
       <main className="flex-1">
-        {/* Page Header */}
-        <section className="py-12 bg-gradient-to-b from-primary/8 to-background">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                {t("geography.pageTitle")}
-              </h1>
-              <p className="text-muted-foreground text-base">
-                {t("geography.pageDesc")}
-              </p>
-            </motion.div>
+        {/* Hero Image */}
+        <section className="relative h-64 md:h-80 overflow-hidden">
+          <img 
+            src={geographyImage} 
+            alt={t("geography.pageTitle")} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="container mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="gold-accent h-1 w-16 mb-4 rounded-full" />
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+                  {t("geography.pageTitle")}
+                </h1>
+                <p className="text-muted-foreground text-base mt-2 max-w-2xl">
+                  {t("geography.pageDesc")}
+                </p>
+              </motion.div>
+            </div>
           </div>
         </section>
 
-        {/* Interactive Map Section */}
-        <section className="py-8">
+        {/* Content */}
+        <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
+            {/* Interactive Maps - Mozambique with neighbors and provinces */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -44,68 +60,72 @@ const GeographyPage = () => {
             >
               <Card className="border-border overflow-hidden">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-primary" />
-                    {t("geography.mapTitle")}
-                  </CardTitle>
+                  <CardTitle>{t("geography.mapTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <div className="aspect-video w-full">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7669045.665548652!2d31.5!3d-18.665695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d4aa0a6de49d33%3A0x35e14f0e3da2eb89!2sMozambique!5e0!3m2!1sen!2sde!4v1704067200000!5m2!1sen!2sde"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Map of Mozambique"
-                      className="w-full h-full"
-                    />
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    {/* Map showing Mozambique and neighbors */}
+                    <div className="aspect-video lg:aspect-square">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7665989.395361648!2d31.25!3d-18.25!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d4aca0de5d9f93%3A0x19f8f0e02a00cd7!2sMozambique!5e0!3m2!1sen!2sde!4v1700000000000!5m2!1sen!2sde"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0, minHeight: "300px" }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Mozambique Map"
+                      />
+                    </div>
+                    {/* Provinces Map - Terrain view */}
+                    <div className="aspect-video lg:aspect-square">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846879.7974692127!2d32.5!3d-19.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d4aca0de5d9f93%3A0x19f8f0e02a00cd7!2sMozambique!5e1!3m2!1sen!2sde!4v1700000000001!5m2!1sen!2sde"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0, minHeight: "300px" }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Mozambique Provinces Map"
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
 
-            {/* Key Facts Grid */}
+            {/* Key Facts */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+              className="mb-8"
             >
-              <Card className="border-border text-center">
-                <CardContent className="pt-6">
-                  <Globe className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h4 className="font-semibold text-foreground">{t("geography.capital")}</h4>
-                  <p className="text-muted-foreground">{t("geography.capitalValue")}</p>
-                </CardContent>
-              </Card>
-              <Card className="border-border text-center">
-                <CardContent className="pt-6">
-                  <MapPin className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h4 className="font-semibold text-foreground">{t("geography.area")}</h4>
-                  <p className="text-muted-foreground">{t("geography.areaValue")}</p>
-                </CardContent>
-              </Card>
-              <Card className="border-border text-center">
-                <CardContent className="pt-6">
-                  <Users className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h4 className="font-semibold text-foreground">{t("geography.population")}</h4>
-                  <p className="text-muted-foreground">{t("geography.populationValue")}</p>
-                </CardContent>
-              </Card>
-              <Card className="border-border text-center">
-                <CardContent className="pt-6">
-                  <Languages className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h4 className="font-semibold text-foreground">{t("geography.languages")}</h4>
-                  <p className="text-muted-foreground">{t("geography.languagesValue")}</p>
-                </CardContent>
-              </Card>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {facts.map((fact, index) => (
+                  <motion.div
+                    key={fact.key}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
+                  >
+                    <Card className="border-border text-center">
+                      <CardContent className="pt-6">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                          <fact.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <p className="text-xs text-muted-foreground">{t(`geography.${fact.key}`)}</p>
+                        <p className="text-sm font-semibold text-foreground mt-1">{t(`geography.${fact.key}Value`)}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
 
-            {/* Detailed Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Location & Climate */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -125,7 +145,7 @@ const GeographyPage = () => {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
               >
                 <Card className="border-border h-full">
                   <CardHeader>
@@ -137,57 +157,115 @@ const GeographyPage = () => {
                   </CardContent>
                 </Card>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <Card className="border-border h-full">
-                  <CardHeader>
-                    <CardTitle>{t("geography.bordersTitle")}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">
-                    <ul className="list-disc pl-5 space-y-2">
-                      <li>{t("geography.border1")}</li>
-                      <li>{t("geography.border2")}</li>
-                      <li>{t("geography.border3")}</li>
-                      <li>{t("geography.border4")}</li>
-                      <li>{t("geography.border5")}</li>
-                      <li>{t("geography.border6")}</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                <Card className="border-border h-full">
-                  <CardHeader>
-                    <CardTitle>{t("geography.provincesTitle")}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">
-                    <p className="mb-3">{t("geography.provincesText")}</p>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <span>• Maputo City</span>
-                      <span>• Maputo Province</span>
-                      <span>• Gaza</span>
-                      <span>• Inhambane</span>
-                      <span>• Sofala</span>
-                      <span>• Manica</span>
-                      <span>• Tete</span>
-                      <span>• Zambézia</span>
-                      <span>• Nampula</span>
-                      <span>• Niassa</span>
-                      <span>• Cabo Delgado</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
             </div>
+
+            {/* Borders */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mb-8"
+            >
+              <Card className="border-border">
+                <CardHeader>
+                  <CardTitle>{t("geography.bordersTitle")}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground">
+                  <p className="mb-4">{t("geography.bordersText")}</p>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span>{t("geography.border1")}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span>{t("geography.border2")}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span>{t("geography.border3")}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span>{t("geography.border4")}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span>{t("geography.border5")}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span>{t("geography.border6")}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Languages Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="mb-8"
+            >
+              <Card className="border-border bg-primary/5">
+                <CardHeader>
+                  <CardTitle>{t("geography.languagesTitle")}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground space-y-3">
+                  <p>{t("geography.languagesText")}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">{t("geography.officialLanguage")}</h4>
+                      <p>{t("geography.officialLanguageText")}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">{t("geography.bantuLanguages")}</h4>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>Emakhuwa (26%)</li>
+                        <li>Xichangana (11%)</li>
+                        <li>Elomwe (8%)</li>
+                        <li>Cisena (7%)</li>
+                        <li>Echuwabo (6%)</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <h4 className="font-semibold text-foreground mb-2">{t("geography.influentialLanguages")}</h4>
+                    <p>{t("geography.influentialLanguagesText")}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Provinces */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <Card className="border-border">
+                <CardHeader>
+                  <CardTitle>{t("geography.provincesTitle")}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground">
+                  <p className="mb-4">{t("geography.provincesText")}</p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {[
+                      "Maputo City", "Maputo Province", "Gaza", "Inhambane",
+                      "Sofala", "Manica", "Tete", "Zambézia",
+                      "Nampula", "Cabo Delgado", "Niassa"
+                    ].map((province) => (
+                      <div key={province} className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        <span>{province}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </section>
       </main>

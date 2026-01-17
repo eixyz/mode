@@ -3,7 +3,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
-import { Music, Palette, BookOpen, Users } from "lucide-react";
+import { Music, Palette, BookOpen, Users, Landmark } from "lucide-react";
+import cultureImage from "@/assets/mozambique-culture.jpg";
 
 const CulturePage = () => {
   const { t } = useLanguage();
@@ -13,23 +14,30 @@ const CulturePage = () => {
       <Header />
 
       <main className="flex-1">
-        {/* Page Header */}
-        <section className="py-12 bg-gradient-to-b from-primary/8 to-background">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                {t("culture.pageTitle")}
-              </h1>
-              <p className="text-muted-foreground text-base">
-                {t("culture.pageDesc")}
-              </p>
-            </motion.div>
+        {/* Hero Image */}
+        <section className="relative h-64 md:h-80 overflow-hidden">
+          <img 
+            src={cultureImage} 
+            alt={t("culture.pageTitle")} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="container mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="gold-accent h-1 w-16 mb-4 rounded-full" />
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+                  {t("culture.pageTitle")}
+                </h1>
+                <p className="text-muted-foreground text-base mt-2 max-w-2xl">
+                  {t("culture.pageDesc")}
+                </p>
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -157,7 +165,10 @@ const CulturePage = () => {
             >
               <Card className="border-border bg-primary/5">
                 <CardHeader>
-                  <CardTitle>{t("culture.heritageTitle")}</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <Landmark className="w-5 h-5 text-primary" />
+                    {t("culture.heritageTitle")}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
                   <p>{t("culture.heritageText")}</p>
