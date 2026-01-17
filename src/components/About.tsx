@@ -1,30 +1,25 @@
 import { motion } from "framer-motion";
-import { MapPin, Users, Handshake, Award } from "lucide-react";
+import { MapPin, Users, Handshake, Award, Globe, Music, TrendingUp, Palmtree, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/useLanguage";
+import { Link } from "react-router-dom";
 
 const highlights = [
-  {
-    icon: MapPin,
-    title: "Strategic Location",
-    description: "Located in the heart of Berlin, easily accessible by public transport.",
-  },
-  {
-    icon: Users,
-    title: "Dedicated Team",
-    description: "Our experienced staff is committed to providing excellent service.",
-  },
-  {
-    icon: Handshake,
-    title: "Diplomatic Relations",
-    description: "Fostering strong ties between Mozambique and Germany since 1975.",
-  },
-  {
-    icon: Award,
-    title: "Excellence in Service",
-    description: "Committed to efficiency, transparency, and professionalism.",
-  },
+  { icon: MapPin, titleKey: "about.highlight1Title", descKey: "about.highlight1Desc" },
+  { icon: Users, titleKey: "about.highlight2Title", descKey: "about.highlight2Desc" },
+  { icon: Handshake, titleKey: "about.highlight3Title", descKey: "about.highlight3Desc" },
+  { icon: Award, titleKey: "about.highlight4Title", descKey: "about.highlight4Desc" },
+];
+
+const discoverLinks = [
+  { icon: Globe, href: "/about/geography", titleKey: "header.geography" },
+  { icon: Music, href: "/about/culture", titleKey: "header.culture" },
+  { icon: TrendingUp, href: "/about/economy", titleKey: "header.economy" },
+  { icon: Palmtree, href: "/about/tourism", titleKey: "header.tourism" },
 ];
 
 export const About = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="about" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -38,30 +33,33 @@ export const About = () => {
           >
             <div className="gold-accent h-1 w-16 mb-6 rounded-full" />
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6">
-              About the Embassy
+              {t("about.sectionTitle")}
             </h2>
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              The Embassy of the Republic of Mozambique in Berlin serves as the diplomatic 
-              representation of Mozambique in the Federal Republic of Germany. We work to 
-              strengthen bilateral relations, promote trade and investment, and provide 
-              consular services to Mozambican citizens and visitors.
+              {t("about.sectionText1")}
             </p>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Mozambique, located on the southeastern coast of Africa, is a country rich 
-              in natural beauty, cultural heritage, and economic opportunities. From the 
-              pristine beaches of the Bazaruto Archipelago to the vibrant capital of Maputo, 
-              our nation welcomes visitors from around the world.
+              {t("about.sectionText2")}
             </p>
 
-            {/* Ambassador Info */}
+            {/* Discover Mozambique Links */}
             <div className="bg-card rounded-xl p-6 border border-border">
-              <h3 className="font-serif text-lg font-semibold text-foreground mb-2">
-                Ambassador
+              <h3 className="font-serif text-lg font-semibold text-foreground mb-4">
+                {t("header.discoverMozambique")}
               </h3>
-              <p className="text-primary font-medium">H.E. Ambassador of Mozambique</p>
-              <p className="text-muted-foreground text-sm mt-1">
-                Extraordinary and Plenipotentiary to the Federal Republic of Germany
-              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {discoverLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                  >
+                    <link.icon className="w-4 h-4 text-primary" />
+                    <span>{t(link.titleKey)}</span>
+                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -86,10 +84,10 @@ export const About = () => {
                   <item.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-serif text-lg font-semibold text-foreground mb-2">
-                  {item.title}
+                  {t(item.titleKey)}
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  {item.description}
+                  {t(item.descKey)}
                 </p>
               </motion.div>
             ))}

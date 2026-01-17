@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
 import { TrendingUp, Factory, Leaf, Fuel, Ship, Building2 } from "lucide-react";
+import economyImage from "@/assets/mozambique-economy.jpg";
 
 const EconomyPage = () => {
   const { t } = useLanguage();
@@ -22,23 +23,30 @@ const EconomyPage = () => {
       <Header />
 
       <main className="flex-1">
-        {/* Page Header */}
-        <section className="py-12 bg-gradient-to-b from-primary/8 to-background">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                {t("economy.pageTitle")}
-              </h1>
-              <p className="text-muted-foreground text-base">
-                {t("economy.pageDesc")}
-              </p>
-            </motion.div>
+        {/* Hero Image */}
+        <section className="relative h-64 md:h-80 overflow-hidden">
+          <img 
+            src={economyImage} 
+            alt={t("economy.pageTitle")} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="container mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="gold-accent h-1 w-16 mb-4 rounded-full" />
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+                  {t("economy.pageTitle")}
+                </h1>
+                <p className="text-muted-foreground text-base mt-2 max-w-2xl">
+                  {t("economy.pageDesc")}
+                </p>
+              </motion.div>
+            </div>
           </div>
         </section>
 

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
 import { Palmtree, Fish, Camera, Mountain, Compass, Anchor } from "lucide-react";
+import tourismImage from "@/assets/mozambique-tourism.jpg";
 
 const TourismPage = () => {
   const { t } = useLanguage();
@@ -22,29 +23,37 @@ const TourismPage = () => {
       <Header />
 
       <main className="flex-1">
-        {/* Page Header */}
-        <section className="py-12 bg-gradient-to-b from-primary/8 to-background">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <div className="gold-accent h-1 w-16 mx-auto mb-4 rounded-full" />
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
-                {t("tourism.pageTitle")}
-              </h1>
-              <p className="text-muted-foreground text-base">
-                {t("tourism.pageDesc")}
-              </p>
-            </motion.div>
+        {/* Hero Image */}
+        <section className="relative h-64 md:h-80 overflow-hidden">
+          <img 
+            src={tourismImage} 
+            alt={t("tourism.pageTitle")} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="container mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="gold-accent h-1 w-16 mb-4 rounded-full" />
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+                  {t("tourism.pageTitle")}
+                </h1>
+                <p className="text-muted-foreground text-base mt-2 max-w-2xl">
+                  {t("tourism.pageDesc")}
+                </p>
+              </motion.div>
+            </div>
           </div>
         </section>
 
-        {/* Interactive Map */}
-        <section className="py-8">
+        {/* Content */}
+        <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
+            {/* Tourism Maps - Bazaruto & Gorongosa */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -56,18 +65,33 @@ const TourismPage = () => {
                   <CardTitle>{t("tourism.mapTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <div className="aspect-video w-full">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7669045.665548652!2d31.5!3d-18.665695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d4aa0a6de49d33%3A0x35e14f0e3da2eb89!2sMozambique!5e0!3m2!1sen!2sde!4v1704067200000!5m2!1sen!2sde"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Tourist Map of Mozambique"
-                      className="w-full h-full"
-                    />
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    {/* Bazaruto Archipelago */}
+                    <div className="aspect-video">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462875.6!2d35.0!3d-21.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee7c0ef8de67b17%3A0x9b5d4db5d4d71f35!2sBazaruto%20Archipelago!5e0!3m2!1sen!2sde!4v1700000000002!5m2!1sen!2sde"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0, minHeight: "250px" }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Bazaruto Archipelago"
+                      />
+                    </div>
+                    {/* Gorongosa National Park */}
+                    <div className="aspect-video">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d491584.7!2d34.3!3d-18.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18de7af73b0c9b27%3A0x2c4b8d5a6c8e9f3a!2sGorongosa%20National%20Park!5e0!3m2!1sen!2sde!4v1700000000003!5m2!1sen!2sde"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0, minHeight: "250px" }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Gorongosa National Park"
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
