@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
 import { MapPin, Globe, Users, Languages } from "lucide-react";
 import geographyImage from "@/assets/mozambique-geography.jpg";
+import mapImage from "@/assets/mapa-mz.jpeg";
 
 const GeographyPage = () => {
   const { t } = useLanguage();
@@ -51,7 +52,7 @@ const GeographyPage = () => {
         {/* Content */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
-            {/* Interactive Maps - Mozambique with neighbors and provinces */}
+            {/* Map Image */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -63,34 +64,11 @@ const GeographyPage = () => {
                   <CardTitle>{t("geography.mapTitle")}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                    {/* Map showing Mozambique and neighbors */}
-                    <div className="aspect-video lg:aspect-square">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7665989.395361648!2d31.25!3d-18.25!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d4aca0de5d9f93%3A0x19f8f0e02a00cd7!2sMozambique!5e0!3m2!1sen!2sde!4v1700000000000!5m2!1sen!2sde"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0, minHeight: "300px" }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Mozambique Map"
-                      />
-                    </div>
-                    {/* Provinces Map - Terrain view */}
-                    <div className="aspect-video lg:aspect-square">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846879.7974692127!2d32.5!3d-19.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d4aca0de5d9f93%3A0x19f8f0e02a00cd7!2sMozambique!5e1!3m2!1sen!2sde!4v1700000000001!5m2!1sen!2sde"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0, minHeight: "300px" }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Mozambique Provinces Map"
-                      />
-                    </div>
-                  </div>
+                  <img 
+                    src={mapImage} 
+                    alt="Map of Mozambique" 
+                    className="w-full h-auto max-h-[500px] object-contain bg-muted"
+                  />
                 </CardContent>
               </Card>
             </motion.div>

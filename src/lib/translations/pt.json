@@ -513,7 +513,7 @@
   "geography": {
     "pageTitle": "Geografia e Localização",
     "pageDesc": "Explore a localização estratégica de Moçambique no Sudeste da África",
-    "mapTitle": "Mapa Interativo de Moçambique",
+    "mapTitle": "Mapa de Moçambique",
     "capital": "Capital",
     "capitalValue": "Maputo",
     "area": "Área",
@@ -529,6 +529,7 @@
     "climateText1": "Moçambique tem um clima tropical com duas estações principais: uma estação chuvosa de outubro a março e uma estação seca de abril a setembro.",
     "climateText2": "As áreas costeiras desfrutam de temperaturas moderadas durante todo o ano, enquanto o interior pode experimentar condições mais extremas.",
     "bordersTitle": "Países Vizinhos",
+    "bordersText": "Moçambique faz fronteira com seis países:",
     "border1": "Tanzânia (norte)",
     "border2": "Malawi (noroeste)",
     "border3": "Zâmbia (noroeste)",
@@ -536,7 +537,14 @@
     "border5": "África do Sul (sul e sudoeste)",
     "border6": "Eswatini (sudoeste)",
     "provincesTitle": "Províncias",
-    "provincesText": "Moçambique está dividido em 10 províncias e 1 cidade capital:"
+    "provincesText": "Moçambique está dividido em 10 províncias e 1 cidade capital:",
+    "languagesTitle": "Idiomas de Moçambique",
+    "languagesText": "Moçambique é uma nação linguisticamente diversa com mais de 40 idiomas falados em todo o país.",
+    "officialLanguage": "Idioma Oficial",
+    "officialLanguageText": "O português é o idioma oficial, usado no governo, educação e mídia. Serve como língua franca conectando diferentes grupos étnicos.",
+    "bantuLanguages": "Principais Idiomas Bantu",
+    "influentialLanguages": "Outros Idiomas Influentes",
+    "influentialLanguagesText": "O inglês é cada vez mais usado nos negócios e turismo. O suaíli é falado nas regiões do norte perto da Tanzânia. Influências árabes podem ser encontradas em comunidades comerciais costeiras."
   },
   "culture": {
     "pageTitle": "Cultura e Patrimônio",
