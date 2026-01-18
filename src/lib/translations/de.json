@@ -513,7 +513,7 @@
   "geography": {
     "pageTitle": "Geographie & Lage",
     "pageDesc": "Erkunden Sie Mosambiks strategische Lage in Südostafrika",
-    "mapTitle": "Interaktive Karte von Mosambik",
+    "mapTitle": "Karte von Mosambik",
     "capital": "Hauptstadt",
     "capitalValue": "Maputo",
     "area": "Fläche",
@@ -529,6 +529,7 @@
     "climateText1": "Mosambik hat ein tropisches Klima mit zwei Hauptjahreszeiten: eine Regenzeit von Oktober bis März und eine Trockenzeit von April bis September.",
     "climateText2": "Küstengebiete genießen ganzjährig gemäßigte Temperaturen, während das Landesinnere extremere Bedingungen erleben kann.",
     "bordersTitle": "Nachbarländer",
+    "bordersText": "Mosambik teilt Grenzen mit sechs Ländern:",
     "border1": "Tansania (Norden)",
     "border2": "Malawi (Nordwesten)",
     "border3": "Sambia (Nordwesten)",
@@ -536,7 +537,14 @@
     "border5": "Südafrika (Süden und Südwesten)",
     "border6": "Eswatini (Südwesten)",
     "provincesTitle": "Provinzen",
-    "provincesText": "Mosambik ist in 10 Provinzen und 1 Hauptstadt unterteilt:"
+    "provincesText": "Mosambik ist in 10 Provinzen und 1 Hauptstadt unterteilt:",
+    "languagesTitle": "Sprachen Mosambiks",
+    "languagesText": "Mosambik ist eine sprachlich vielfältige Nation mit über 40 gesprochenen Sprachen im ganzen Land.",
+    "officialLanguage": "Amtssprache",
+    "officialLanguageText": "Portugiesisch ist die Amtssprache, die in Regierung, Bildung und Medien verwendet wird. Sie dient als Lingua franca zur Verbindung verschiedener ethnischer Gruppen.",
+    "bantuLanguages": "Wichtige Bantu-Sprachen",
+    "influentialLanguages": "Weitere einflussreiche Sprachen",
+    "influentialLanguagesText": "Englisch wird zunehmend in Wirtschaft und Tourismus verwendet. Suaheli wird in nördlichen Regionen nahe Tansania gesprochen. Arabische Einflüsse finden sich in Küstenhandelsgemeinschaften."
   },
   "culture": {
     "pageTitle": "Kultur & Erbe",
