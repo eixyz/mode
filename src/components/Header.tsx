@@ -109,6 +109,9 @@ export const Header = () => {
                   <DropdownMenuItem>
                     <a href="/about/consuls" className="w-full block">{t("header.honoraryConsuls")}</a>
                   </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/about/holidays" className="w-full block">{t("header.holidays")}</a>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -232,6 +235,7 @@ export const Header = () => {
                       <a href="/about/ambassador" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.ambassador")}</a>
                       <a href="/about/mission" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.mission")}</a>
                       <a href="/about/consuls" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.honoraryConsuls")}</a>
+                      <a href="/about/holidays" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.holidays")}</a>
                     </div>
                   )}
                 </div>

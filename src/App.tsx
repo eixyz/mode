@@ -16,6 +16,7 @@ import NewsAdmin from "./pages/NewsAdmin";
 import Ambassador from "./pages/about/Ambassador";
 import Mission from "./pages/about/Mission";
 import Consuls from "./pages/about/Consuls";
+import Holidays from "./pages/about/Holidays";
 import Mozambique from "./pages/about/Mozambique";
 import Geography from "./pages/about/Geography";
 import Culture from "./pages/about/Culture";
@@ -57,6 +58,7 @@ const App = () => (
           <Route path="/about/ambassador" element={<Ambassador />} />
           <Route path="/about/mission" element={<Mission />} />
           <Route path="/about/consuls" element={<Consuls />} />
+          <Route path="/about/holidays" element={<Holidays />} />
           <Route path="/about/useful-links" element={<UsefulLinks />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
