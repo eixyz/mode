@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Handshake, Heart } from "lucide-react";
+import { Users, Handshake, Heart, Calendar } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
 
 const AboutPage = () => {
@@ -27,6 +27,12 @@ const AboutPage = () => {
       title: t("about.items.consuls.title"),
       description: t("about.items.consuls.description"),
       href: t("about.items.consuls.href"),
+    },
+    {
+      icon: Calendar,
+      title: t("about.items.holidays.title"),
+      description: t("about.items.holidays.description"),
+      href: t("about.items.holidays.href"),
     },
   ];
 
