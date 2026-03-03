@@ -8,10 +8,10 @@ import { Link } from "react-router-dom";
 import { Globe, Music, TrendingUp, Palmtree, ArrowRight } from "lucide-react";
 
 const subpageLinks = [
-  { icon: Globe, href: "/about/geography", titleKey: "header.geography", descKey: "mozambique.geographyLinkDesc" },
-  { icon: Music, href: "/about/culture", titleKey: "header.culture", descKey: "mozambique.cultureLinkDesc" },
-  { icon: TrendingUp, href: "/about/economy", titleKey: "header.economy", descKey: "mozambique.economyLinkDesc" },
-  { icon: Palmtree, href: "/about/tourism", titleKey: "header.tourism", descKey: "mozambique.tourismLinkDesc" },
+  { icon: Globe, href: "/about/mozambique/geography", titleKey: "header.geography", descKey: "mozambique.geographyLinkDesc" },
+  { icon: Music, href: "/about/mozambique/culture", titleKey: "header.culture", descKey: "mozambique.cultureLinkDesc" },
+  { icon: TrendingUp, href: "/about/mozambique/economy", titleKey: "header.economy", descKey: "mozambique.economyLinkDesc" },
+  { icon: Palmtree, href: "/about/mozambique/tourism", titleKey: "header.tourism", descKey: "mozambique.tourismLinkDesc" },
 ];
 
 const MozambiquePage = () => {
@@ -43,7 +43,7 @@ const MozambiquePage = () => {
         </section>
 
         {/* Subpage Navigation Links */}
-        <section className="py-8">
+        {/* <section className="py-8">
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
               {subpageLinks.map((link, index) => (
@@ -71,7 +71,7 @@ const MozambiquePage = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Content */}
         <section className="pb-12">
@@ -89,7 +89,7 @@ const MozambiquePage = () => {
                     <strong>{t("mozambique.population")}:</strong> {t("mozambique.populationValue")}<br />
                     <strong>{t("mozambique.languages")}:</strong> {t("mozambique.languagesValue")}
                   </p>
-                  <Link to="/about/geography">
+                  <Link to="/about/mozambique/geography">
                     <Button variant="outline" size="sm" className="mt-2 gap-1">
                       {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
                     </Button>
@@ -111,7 +111,7 @@ const MozambiquePage = () => {
                     <li>{t("mozambique.culture3")}</li>
                     <li>{t("mozambique.culture4")}</li>
                   </ul>
-                  <Link to="/about/culture">
+                  <Link to="/about/mozambique/culture">
                     <Button variant="outline" size="sm" className="mt-2 gap-1">
                       {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
                     </Button>
@@ -136,7 +136,7 @@ const MozambiquePage = () => {
                     <li>{t("mozambique.economy5")}</li>
                     <li>{t("mozambique.economy6")}</li>
                   </ul>
-                  <Link to="/about/economy">
+                  <Link to="/about/mozambique/economy">
                     <Button variant="outline" size="sm" className="mt-2 gap-1">
                       {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
                     </Button>
@@ -160,7 +160,7 @@ const MozambiquePage = () => {
                     <li>{t("mozambique.tourism5")}</li>
                     <li>{t("mozambique.tourism6")}</li>
                   </ul>
-                  <Link to="/about/tourism">
+                  <Link to="/about/mozambique/tourism">
                     <Button variant="outline" size="sm" className="mt-2 gap-1">
                       {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
                     </Button>
