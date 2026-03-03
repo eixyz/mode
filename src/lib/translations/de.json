@@ -317,7 +317,11 @@
     "tourism3": "Bazaruto-Archipel für Meeresbiodiversität",
     "tourism4": "Kolonialarchitektur und historische Städte",
     "tourism5": "Wassersport- und Tauchmöglichkeiten",
-    "tourism6": "Safari- und Wildtiererlebnisse"
+    "tourism6": "Safari- und Wildtiererlebnisse",
+    "geographyLinkDesc": "Erkunden Sie Mosambiks Lage, Grenzen, Klima und Provinzen.",
+    "cultureLinkDesc": "Entdecken Sie das reiche kulturelle Erbe, Musik, Tanz und Traditionen.",
+    "economyLinkDesc": "Erfahren Sie mehr über Wirtschaftswachstum, Schlüsselsektoren und Investitionsmöglichkeiten.",
+    "tourismLinkDesc": "Finden Sie atemberaubende Strände, Nationalparks, Inseln und Abenteueraktivitäten."
   },
   "footer": {
     "embassy": "Botschaft von Mosambik",

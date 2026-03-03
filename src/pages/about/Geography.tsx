@@ -52,53 +52,49 @@ const GeographyPage = () => {
         {/* Content */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
-            {/* Map Image */}
+            {/* Map + Key Facts Side by Side */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="mb-8"
             >
-              <Card className="border-border overflow-hidden">
-                <CardHeader>
-                  <CardTitle>{t("geography.mapTitle")}</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <img 
-                    src={mapImage} 
-                    alt="Map of Mozambique" 
-                    className="w-full h-auto max-h-[500px] object-contain bg-muted"
-                  />
-                </CardContent>
-              </Card>
-            </motion.div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                {/* Map on the left */}
+                <Card className="border-border overflow-hidden">
+                  <CardHeader>
+                    <CardTitle>{t("geography.mapTitle")}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <img 
+                      src={mapImage} 
+                      alt="Map of Mozambique" 
+                      className="w-full h-auto max-h-[500px] object-contain bg-muted"
+                    />
+                  </CardContent>
+                </Card>
 
-            {/* Key Facts */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mb-8"
-            >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {facts.map((fact, index) => (
-                  <motion.div
-                    key={fact.key}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
-                  >
-                    <Card className="border-border text-center">
-                      <CardContent className="pt-6">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                          <fact.icon className="w-5 h-5 text-primary" />
-                        </div>
-                        <p className="text-xs text-muted-foreground">{t(`geography.${fact.key}`)}</p>
-                        <p className="text-sm font-semibold text-foreground mt-1">{t(`geography.${fact.key}Value`)}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                {/* Key Facts on the right */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {facts.map((fact, index) => (
+                    <motion.div
+                      key={fact.key}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
+                    >
+                      <Card className="border-border text-center h-full">
+                        <CardContent className="pt-6">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                            <fact.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <p className="text-xs text-muted-foreground">{t(`geography.${fact.key}`)}</p>
+                          <p className="text-sm font-semibold text-foreground mt-1">{t(`geography.${fact.key}Value`)}</p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
 

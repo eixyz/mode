@@ -317,7 +317,11 @@
     "tourism3": "Arquipélago de Bazaruto para biodiversidade marinha",
     "tourism4": "Arquitetura colonial e cidades históricas",
     "tourism5": "Oportunidades de esportes aquáticos e mergulho",
-    "tourism6": "Experiências de safári e vida selvagem"
+    "tourism6": "Experiências de safári e vida selvagem",
+    "geographyLinkDesc": "Explore a localização, fronteiras, clima e províncias de Moçambique.",
+    "cultureLinkDesc": "Descubra o rico patrimônio cultural, música, dança e tradições.",
+    "economyLinkDesc": "Saiba mais sobre crescimento econômico, setores-chave e oportunidades de investimento.",
+    "tourismLinkDesc": "Encontre praias deslumbrantes, parques nacionais, ilhas e atividades de aventura."
   },
   "footer": {
     "embassy": "Embaixada de Moçambique",
