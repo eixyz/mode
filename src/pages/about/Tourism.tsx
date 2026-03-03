@@ -54,41 +54,40 @@ const TourismPage = () => {
         {/* Content */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
-            {/* Tourism Map */}
+            {/* Tourism Map + Introduction Side by Side */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="mb-8"
             >
-              <Card className="border-border overflow-hidden">
-                <CardHeader>
-                  <CardTitle>{t("tourism.mapTitle")}</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <img 
-                    src={mapImage} 
-                    alt="Tourist Map of Mozambique" 
-                    className="w-full h-auto max-h-[500px] object-contain bg-muted"
-                  />
-                </CardContent>
-              </Card>
-            </motion.div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                {/* Map on the left */}
+                <Card className="border-border overflow-hidden">
+                  <CardHeader>
+                    <CardTitle>{t("tourism.mapTitle")}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <img 
+                      src={mapImage} 
+                      alt="Tourist Map of Mozambique" 
+                      className="w-full h-auto max-h-[500px] object-contain bg-muted"
+                    />
+                  </CardContent>
+                </Card>
 
-            {/* Introduction */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mb-8"
-            >
-              <Card className="border-border">
-                <CardContent className="pt-6">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t("tourism.introText")}
-                  </p>
-                </CardContent>
-              </Card>
+                {/* Introduction text on the right */}
+                <Card className="border-border h-full">
+                  <CardHeader>
+                    <CardTitle>{t("tourism.pageTitle")}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed text-sm">
+                      {t("tourism.introText")}
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             </motion.div>
 
             {/* Attractions Grid */}

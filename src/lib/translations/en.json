@@ -329,7 +329,11 @@
     "tourism3": "Bazaruto Archipelago for marine biodiversity",
     "tourism4": "Colonial architecture and historical cities",
     "tourism5": "Water sports and diving opportunities",
-    "tourism6": "Safari and wildlife experiences"
+    "tourism6": "Safari and wildlife experiences",
+    "geographyLinkDesc": "Explore Mozambique's location, borders, climate, and provinces.",
+    "cultureLinkDesc": "Discover the rich cultural heritage, music, dance, and traditions.",
+    "economyLinkDesc": "Learn about economic growth, key sectors, and investment opportunities.",
+    "tourismLinkDesc": "Find stunning beaches, national parks, islands, and adventure activities."
   },
   "footer": {
     "embassy": "Embassy of Mozambique",

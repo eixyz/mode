@@ -3,6 +3,15 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
+import { Link } from "react-router-dom";
+import { Globe, Music, TrendingUp, Palmtree, ArrowRight } from "lucide-react";
+
+const subpageLinks = [
+  { icon: Globe, href: "/about/geography", titleKey: "header.geography", descKey: "mozambique.geographyLinkDesc" },
+  { icon: Music, href: "/about/culture", titleKey: "header.culture", descKey: "mozambique.cultureLinkDesc" },
+  { icon: TrendingUp, href: "/about/economy", titleKey: "header.economy", descKey: "mozambique.economyLinkDesc" },
+  { icon: Palmtree, href: "/about/tourism", titleKey: "header.tourism", descKey: "mozambique.tourismLinkDesc" },
+];
 
 const MozambiquePage = () => {
   const { t } = useLanguage();
@@ -32,8 +41,39 @@ const MozambiquePage = () => {
           </div>
         </section>
 
+        {/* Subpage Navigation Links */}
+        <section className="py-8">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+              {subpageLinks.map((link, index) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.07 }}
+                >
+                  <Link to={link.href} className="block group">
+                    <Card className="border-border hover:border-primary/40 hover:shadow-md transition-all h-full">
+                      <CardContent className="flex items-center gap-4 py-5">
+                        <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                          <link.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground text-sm">{t(link.titleKey)}</h3>
+                          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{t(link.descKey)}</p>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Content */}
-        <section className="py-12">
+        <section className="pb-12">
           <div className="container mx-auto px-4 max-w-4xl">
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <Card className="border-border mb-6">
