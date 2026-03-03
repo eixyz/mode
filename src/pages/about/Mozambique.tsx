@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
 import { Link } from "react-router-dom";
 import { Globe, Music, TrendingUp, Palmtree, ArrowRight } from "lucide-react";
@@ -88,6 +89,11 @@ const MozambiquePage = () => {
                     <strong>{t("mozambique.population")}:</strong> {t("mozambique.populationValue")}<br />
                     <strong>{t("mozambique.languages")}:</strong> {t("mozambique.languagesValue")}
                   </p>
+                  <Link to="/about/geography">
+                    <Button variant="outline" size="sm" className="mt-2 gap-1">
+                      {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
@@ -105,6 +111,11 @@ const MozambiquePage = () => {
                     <li>{t("mozambique.culture3")}</li>
                     <li>{t("mozambique.culture4")}</li>
                   </ul>
+                  <Link to="/about/culture">
+                    <Button variant="outline" size="sm" className="mt-2 gap-1">
+                      {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
@@ -125,6 +136,11 @@ const MozambiquePage = () => {
                     <li>{t("mozambique.economy5")}</li>
                     <li>{t("mozambique.economy6")}</li>
                   </ul>
+                  <Link to="/about/economy">
+                    <Button variant="outline" size="sm" className="mt-2 gap-1">
+                      {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
@@ -144,6 +160,11 @@ const MozambiquePage = () => {
                     <li>{t("mozambique.tourism5")}</li>
                     <li>{t("mozambique.tourism6")}</li>
                   </ul>
+                  <Link to="/about/tourism">
+                    <Button variant="outline" size="sm" className="mt-2 gap-1">
+                      {t("services.learnMore")} <ArrowRight className="w-3 h-3" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
