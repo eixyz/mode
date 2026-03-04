@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
-import { MapPin, Globe, Users, Languages } from "lucide-react";
+import { MapPin, Globe, Users, Languages, Thermometer, TreePine } from "lucide-react";
 import geographyImage from "@/assets/mozambique-geography.jpg";
 import mapImage from "@/assets/mapa-mz.jpeg";
 
@@ -15,6 +15,8 @@ const GeographyPage = () => {
     { icon: Globe, key: "area" },
     { icon: Users, key: "population" },
     { icon: Languages, key: "languages" },
+    { icon: Thermometer, key: "climate" },
+    { icon: TreePine, key: "terrain" },
   ];
 
   return (
@@ -22,109 +24,78 @@ const GeographyPage = () => {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Image */}
         <section className="relative h-64 md:h-80 overflow-hidden">
-          <img 
-            src={geographyImage} 
-            alt={t("geography.pageTitle")} 
-            className="w-full h-full object-cover"
-          />
+          <img src={geographyImage} alt={t("geography.pageTitle")} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <div className="container mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <div className="gold-accent h-1 w-16 mb-4 rounded-full" />
-                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
-                  {t("geography.pageTitle")}
-                </h1>
-                <p className="text-muted-foreground text-base mt-2 max-w-2xl">
-                  {t("geography.pageDesc")}
-                </p>
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">{t("geography.pageTitle")}</h1>
+                <p className="text-muted-foreground text-base mt-2 max-w-2xl">{t("geography.pageDesc")}</p>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Content */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
-            {/* Map + Key Facts Side by Side */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-8"
-            >
+            {/* Map + Key Facts */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                {/* Map on the left */}
                 <Card className="border-border overflow-hidden">
                   <CardHeader>
                     <CardTitle>{t("geography.mapTitle")}</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <img 
-                      src={mapImage} 
-                      alt="Map of Mozambique" 
-                      className="w-full h-auto max-h-[500px] object-contain bg-muted"
-                    />
+                    <img src={mapImage} alt="Map of Mozambique" className="w-full h-auto max-h-[500px] object-contain bg-muted" />
                   </CardContent>
                 </Card>
 
-                {/* Key Facts on the right */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {facts.map((fact, index) => (
-                    <motion.div
-                      key={fact.key}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
-                    >
-                      <Card className="border-border text-center h-full">
-                        <CardContent className="pt-6">
-                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                            <fact.icon className="w-5 h-5 text-primary" />
-                          </div>
-                          <p className="text-xs text-muted-foreground">{t(`geography.${fact.key}`)}</p>
-                          <p className="text-sm font-semibold text-foreground mt-1">{t(`geography.${fact.key}Value`)}</p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {facts.map((fact, index) => (
+                      <motion.div key={fact.key} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}>
+                        <Card className="border-border text-center h-full">
+                          <CardContent className="pt-6">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                              <fact.icon className="w-5 h-5 text-primary" />
+                            </div>
+                            <p className="text-xs text-muted-foreground">{t(`geography.${fact.key}`)}</p>
+                            <p className="text-sm font-semibold text-foreground mt-1">{t(`geography.${fact.key}Value`)}</p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Extra info box to fill the gap */}
+                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
+                    <Card className="border-border bg-primary/5">
+                      <CardContent className="pt-6">
+                        <h4 className="font-semibold text-foreground mb-2">{t("geography.overviewTitle")}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{t("geography.overviewText")}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
 
             {/* Location & Climate */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <Card className="border-border h-full">
-                  <CardHeader>
-                    <CardTitle>{t("geography.locationTitle")}</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle>{t("geography.locationTitle")}</CardTitle></CardHeader>
                   <CardContent className="text-sm text-muted-foreground space-y-3">
                     <p>{t("geography.locationText1")}</p>
                     <p>{t("geography.locationText2")}</p>
                   </CardContent>
                 </Card>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }}>
                 <Card className="border-border h-full">
-                  <CardHeader>
-                    <CardTitle>{t("geography.climateTitle")}</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle>{t("geography.climateTitle")}</CardTitle></CardHeader>
                   <CardContent className="text-sm text-muted-foreground space-y-3">
                     <p>{t("geography.climateText1")}</p>
                     <p>{t("geography.climateText2")}</p>
@@ -134,59 +105,27 @@ const GeographyPage = () => {
             </div>
 
             {/* Borders */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mb-8"
-            >
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mb-8">
               <Card className="border-border">
-                <CardHeader>
-                  <CardTitle>{t("geography.bordersTitle")}</CardTitle>
-                </CardHeader>
+                <CardHeader><CardTitle>{t("geography.bordersTitle")}</CardTitle></CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
                   <p className="mb-4">{t("geography.bordersText")}</p>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span>{t("geography.border1")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span>{t("geography.border2")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span>{t("geography.border3")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span>{t("geography.border4")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span>{t("geography.border5")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                      <span>{t("geography.border6")}</span>
-                    </div>
+                    {[1,2,3,4,5,6].map(i => (
+                      <div key={i} className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        <span>{t(`geography.border${i}`)}</span>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
 
-            {/* Languages Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="mb-8"
-            >
+            {/* Languages */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.35 }} className="mb-8">
               <Card className="border-border bg-primary/5">
-                <CardHeader>
-                  <CardTitle>{t("geography.languagesTitle")}</CardTitle>
-                </CardHeader>
+                <CardHeader><CardTitle>{t("geography.languagesTitle")}</CardTitle></CardHeader>
                 <CardContent className="text-sm text-muted-foreground space-y-3">
                   <p>{t("geography.languagesText")}</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -214,23 +153,13 @@ const GeographyPage = () => {
             </motion.div>
 
             {/* Provinces */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
               <Card className="border-border">
-                <CardHeader>
-                  <CardTitle>{t("geography.provincesTitle")}</CardTitle>
-                </CardHeader>
+                <CardHeader><CardTitle>{t("geography.provincesTitle")}</CardTitle></CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
                   <p className="mb-4">{t("geography.provincesText")}</p>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {[
-                      "Maputo City", "Maputo Province", "Gaza", "Inhambane",
-                      "Sofala", "Manica", "Tete", "Zambézia",
-                      "Nampula", "Cabo Delgado", "Niassa"
-                    ].map((province) => (
+                    {["Maputo City", "Maputo Province", "Gaza", "Inhambane", "Sofala", "Manica", "Tete", "Zambézia", "Nampula", "Cabo Delgado", "Niassa"].map((province) => (
                       <div key={province} className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-primary" />
                         <span>{province}</span>
