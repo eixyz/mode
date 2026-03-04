@@ -60,11 +60,36 @@ const ContactPage = () => {
     setFormData((prev) => ({ ...prev, title: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData);
-    // Handle form submission here
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to send message");
+    }
+
+    alert(t("contact.form.successMessage"));
+    setFormData({
+      title: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  } catch (err) {
+    console.error(err);
+    alert(t("contact.form.errorMessage"));
+  }
+};
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
