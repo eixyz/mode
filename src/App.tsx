@@ -27,6 +27,7 @@ import Passports from "./pages/services/Passports";
 import VisasService from "./pages/services/Visas";
 import Advisory from "./pages/services/Advisory";
 import Trade from "./pages/services/Trade";
+import FormsDocuments from "./pages/services/FormsDocuments";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Accessibility from "./pages/Accessibility";
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/services/visas" element={<VisasService />} />
           <Route path="/services/advisory" element={<Advisory />} />
           <Route path="/services/trade" element={<Trade />} />
+          <Route path="/services/forms" element={<FormsDocuments />} />
           <Route path="/visa" element={<Visa />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/mozambique" element={<Mozambique />} />

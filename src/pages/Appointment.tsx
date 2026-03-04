@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
@@ -30,6 +31,8 @@ interface AppointmentFormData {
 
 const AppointmentPage = () => {
   const { t } = useLanguage();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const services: { value: Service; label: string }[] = [
     { value: "passport", label: t("appointment.passportService") },
@@ -55,6 +58,7 @@ const AppointmentPage = () => {
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d);
   };
+
   const [formData, setFormData] = useState<AppointmentFormData>({
     service: "",
     firstName: "",
@@ -110,7 +114,7 @@ const AppointmentPage = () => {
     if (formData.firstName && formData.lastName && formData.email && formData.phone) {
       setStep("calendar");
     } else {
-      alert("Please fill in all required fields");
+      alert(t("appointment.fillRequired"));
     }
   };
 
@@ -123,13 +127,33 @@ const AppointmentPage = () => {
     setFormData({ ...formData, time });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.date || !formData.time) {
-      alert("Please select a date and time");
+      alert(t("appointment.selectDateTimeRequired"));
       return;
     }
-    console.log("Appointment booked:", formData);
-    alert(`Appointment booked!\nService: ${formData.service}\nDate: ${formData.date} ${formData.time}\nA confirmation will be sent to ${formData.email}`);
+    if (!agreedToTerms) {
+      alert(t("contact.form.agreeRequired"));
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/appointment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error("Failed to book appointment");
+      alert(t("appointment.successMessage"));
+      setFormData({ service: "", firstName: "", lastName: "", email: "", phone: "", date: "" });
+      setAgreedToTerms(false);
+      setStep("service");
+    } catch (err) {
+      console.error(err);
+      alert(t("appointment.errorMessage"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderServiceForm = () => {
@@ -144,9 +168,7 @@ const AppointmentPage = () => {
             <div>
               <Label htmlFor="passportValidity">{t("appointment.passportValidityLabel")}</Label>
               <Select value={formData.passportValidity || ""} onValueChange={(v) => handleSelectChange("passportValidity", v)}>
-                <SelectTrigger id="passportValidity">
-                  <SelectValue placeholder={t("appointment.selectValidity")} />
-                </SelectTrigger>
+                <SelectTrigger id="passportValidity"><SelectValue placeholder={t("appointment.selectValidity")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="valid">{t("appointment.validMoreYear")}</SelectItem>
                   <SelectItem value="expires-soon">{t("appointment.expiresSoon")}</SelectItem>
@@ -158,9 +180,7 @@ const AppointmentPage = () => {
             <div>
               <Label htmlFor="idValidity">{t("appointment.idValidityLabel")}</Label>
               <Select value={formData.idValidity || ""} onValueChange={(v) => handleSelectChange("idValidity", v)}>
-                <SelectTrigger id="idValidity">
-                  <SelectValue placeholder={t("appointment.selectIdValidity")} />
-                </SelectTrigger>
+                <SelectTrigger id="idValidity"><SelectValue placeholder={t("appointment.selectIdValidity")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="valid">{t("appointment.valid")}</SelectItem>
                   <SelectItem value="expires-soon">{t("appointment.expiresSoon")}</SelectItem>
@@ -180,9 +200,7 @@ const AppointmentPage = () => {
             <div>
               <Label htmlFor="visaType">{t("appointment.visaTypeLabel")}</Label>
               <Select value={formData.visaType || ""} onValueChange={(v) => handleSelectChange("visaType", v)}>
-                <SelectTrigger id="visaType">
-                  <SelectValue placeholder={t("appointment.selectVisaType")} />
-                </SelectTrigger>
+                <SelectTrigger id="visaType"><SelectValue placeholder={t("appointment.selectVisaType")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="tourist">{t("appointment.touristVisa")}</SelectItem>
                   <SelectItem value="business">{t("appointment.businessVisa")}</SelectItem>
@@ -203,9 +221,7 @@ const AppointmentPage = () => {
             <div>
               <Label htmlFor="idsType">{t("appointment.idCardTypeLabel")}</Label>
               <Select value={formData.idsType || ""} onValueChange={(v) => handleSelectChange("idsType", v)}>
-                <SelectTrigger id="idsType">
-                  <SelectValue placeholder={t("appointment.selectIdType")} />
-                </SelectTrigger>
+                <SelectTrigger id="idsType"><SelectValue placeholder={t("appointment.selectIdType")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="national">{t("appointment.nationalId")}</SelectItem>
                   <SelectItem value="birth">{t("appointment.birthCertificate")}</SelectItem>
@@ -217,9 +233,7 @@ const AppointmentPage = () => {
             <div>
               <Label htmlFor="idValidity">{t("appointment.idValidityLabel")}</Label>
               <Select value={formData.idValidity || ""} onValueChange={(v) => handleSelectChange("idValidity", v)}>
-                <SelectTrigger id="idValidity">
-                  <SelectValue placeholder={t("appointment.selectIdValidity")} />
-                </SelectTrigger>
+                <SelectTrigger id="idValidity"><SelectValue placeholder={t("appointment.selectIdValidity")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="valid">{t("appointment.valid")}</SelectItem>
                   <SelectItem value="expires-soon">{t("appointment.expiresSoon")}</SelectItem>
@@ -242,11 +256,9 @@ const AppointmentPage = () => {
         <div className="container mx-auto px-4 py-8 max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold mb-3">{t("appointment.pageTitle")}</h1>
-            <p className="text-muted-foreground text-sm sm:text-base mb-8">
-              {t("appointment.pageDesc")}
-            </p>
+            <p className="text-muted-foreground text-sm sm:text-base mb-8">{t("appointment.pageDesc")}</p>
 
-            {/* Step Indicator - Mobile optimized */}
+            {/* Step Indicator */}
             <div className="mb-8 flex items-center justify-between gap-1">
               <div className={`flex items-center gap-1.5 ${step === "service" ? "text-primary font-semibold" : "text-muted-foreground"}`}>
                 <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm shrink-0 ${step === "service" ? "bg-primary text-primary-foreground" : "bg-muted"}`}>1</div>
@@ -264,17 +276,14 @@ const AppointmentPage = () => {
               </div>
             </div>
 
-            {/* Step 1: Select Service */}
+            {/* Step 1 */}
             {step === "service" && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
                 <p className="text-sm text-muted-foreground mb-4">{t("appointment.selectServicePrompt")}</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {services.map((svc) => (
-                    <button
-                      key={svc.value}
-                      onClick={() => handleServiceSelect(svc.value)}
-                      className="p-4 border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all text-left"
-                    >
+                    <button key={svc.value} onClick={() => handleServiceSelect(svc.value)}
+                      className="p-4 border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all text-left">
                       <h3 className="font-semibold text-foreground text-sm sm:text-base">{svc.label}</h3>
                       <p className="text-xs text-muted-foreground mt-1">{t("appointment.selectToContinue")}</p>
                     </button>
@@ -283,7 +292,7 @@ const AppointmentPage = () => {
               </motion.div>
             )}
 
-            {/* Step 2: Form Details */}
+            {/* Step 2 */}
             {step === "form" && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
                 <Card>
@@ -294,83 +303,36 @@ const AppointmentPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="firstName">{t("appointment.firstNameLabel")} *</Label>
-                        <Input
-                          id="firstName"
-                          name="firstName"
-                          value={formData.firstName}
-                          onChange={handleInputChange}
-                          placeholder={t("appointment.firstNamePlaceholder")}
-                          className="mt-1"
-                        />
+                        <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder={t("appointment.firstNamePlaceholder")} className="mt-1" />
                       </div>
                       <div>
                         <Label htmlFor="lastName">{t("appointment.lastNameLabel")} *</Label>
-                        <Input
-                          id="lastName"
-                          name="lastName"
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          placeholder={t("appointment.lastNamePlaceholder")}
-                          className="mt-1"
-                        />
+                        <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder={t("appointment.lastNamePlaceholder")} className="mt-1" />
                       </div>
                     </div>
-
                     <div>
                       <Label htmlFor="email">{t("appointment.emailLabel")} *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="john@example.com"
-                        className="mt-1"
-                      />
+                      <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="john@example.com" className="mt-1" />
                     </div>
-
                     <div>
                       <Label htmlFor="phone">{t("appointment.phoneLabel")} *</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder="+49 30 1234 5678"
-                        className="mt-1"
-                      />
+                      <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder="+49 30 1234 5678" className="mt-1" />
                     </div>
-
-                    {/* Service-specific fields */}
                     {renderServiceForm()}
-
                     <div>
                       <Label htmlFor="additionalInfo">{t("appointment.additionalInfoLabel")}</Label>
-                      <Input
-                        id="additionalInfo"
-                        name="additionalInfo"
-                        value={formData.additionalInfo}
-                        onChange={handleInputChange}
-                        placeholder={t("appointment.additionalInfoPlaceholder")}
-                        className="mt-1"
-                      />
+                      <Input id="additionalInfo" name="additionalInfo" value={formData.additionalInfo} onChange={handleInputChange} placeholder={t("appointment.additionalInfoPlaceholder")} className="mt-1" />
                     </div>
                   </CardContent>
                 </Card>
-
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button variant="outline" onClick={() => setStep("service")} className="sm:flex-1">
-                    {t("appointment.backButton")}
-                  </Button>
-                  <Button onClick={handleProceedToCalendar} className="sm:flex-1 bg-primary hover:bg-primary/90">
-                    {t("appointment.continueToDate")}
-                  </Button>
+                  <Button variant="outline" onClick={() => setStep("service")} className="sm:flex-1">{t("appointment.backButton")}</Button>
+                  <Button onClick={handleProceedToCalendar} className="sm:flex-1 bg-primary hover:bg-primary/90">{t("appointment.continueToDate")}</Button>
                 </div>
               </motion.div>
             )}
 
-            {/* Step 3: Calendar */}
+            {/* Step 3 */}
             {step === "calendar" && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
                 <Card>
@@ -379,55 +341,30 @@ const AppointmentPage = () => {
                     <CardDescription className="text-xs sm:text-sm">{t("appointment.availableDates")} {currentMonth.toLocaleString(undefined, { month: "long", year: "numeric" })}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    {/* Calendar Navigation */}
                     <div className="flex items-center justify-between mb-4">
-                      <button
-                        onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                        className="p-2 hover:bg-muted rounded"
-                      >
+                      <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))} className="p-2 hover:bg-muted rounded">
                         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                       <h3 className="font-semibold text-sm sm:text-base">{currentMonth.toLocaleString(undefined, { month: "long", year: "numeric" })}</h3>
-                      <button
-                        onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                        className="p-2 hover:bg-muted rounded"
-                      >
+                      <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))} className="p-2 hover:bg-muted rounded">
                         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
 
-                    {/* Calendar Grid */}
                     <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-4">
                       {[t("calendar.sun"), t("calendar.mon"), t("calendar.tue"), t("calendar.wed"), t("calendar.thu"), t("calendar.fri"), t("calendar.sat")].map((day) => (
-                        <div key={day} className="text-center text-[10px] sm:text-xs font-semibold text-muted-foreground p-1 sm:p-2">
-                          {day}
-                        </div>
+                        <div key={day} className="text-center text-[10px] sm:text-xs font-semibold text-muted-foreground p-1 sm:p-2">{day}</div>
                       ))}
-
-                      {Array.from({ length: firstDay }).map((_, i) => (
-                        <div key={`empty-${i}`} className="p-1 sm:p-2" />
-                      ))}
-
+                      {Array.from({ length: firstDay }).map((_, i) => (<div key={`empty-${i}`} className="p-1 sm:p-2" />))}
                       {Array.from({ length: daysInMonth }).map((_, i) => {
                         const day = i + 1;
                         const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
                         const iso = formatDate(date);
                         const isAvailable = availableSet.has(iso);
                         const isSelected = formData.date === iso;
-
                         return (
-                          <button
-                            key={day}
-                            onClick={() => isAvailable && handleDateSelect(date)}
-                            disabled={!isAvailable}
-                            className={`p-1.5 sm:p-2 rounded text-xs sm:text-sm font-medium transition-colors ${
-                              isSelected
-                                ? "bg-primary text-primary-foreground"
-                                : isAvailable
-                                  ? "bg-muted hover:bg-primary/20 cursor-pointer"
-                                  : "text-muted-foreground opacity-50 cursor-not-allowed"
-                            }`}
-                          >
+                          <button key={day} onClick={() => isAvailable && handleDateSelect(date)} disabled={!isAvailable}
+                            className={`p-1.5 sm:p-2 rounded text-xs sm:text-sm font-medium transition-colors ${isSelected ? "bg-primary text-primary-foreground" : isAvailable ? "bg-muted hover:bg-primary/20 cursor-pointer" : "text-muted-foreground opacity-50 cursor-not-allowed"}`}>
                             {day}
                           </button>
                         );
@@ -443,11 +380,8 @@ const AppointmentPage = () => {
                           <p className="text-xs sm:text-sm mb-2">{t("appointment.selectTimePrompt")}</p>
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-1.5 sm:gap-2">
                             {getTimeSlotsForDate(parseDateLocal(formData.date)).map((slot) => (
-                              <button
-                                key={slot}
-                                onClick={() => handleTimeSelect(slot)}
-                                className={`p-1.5 sm:p-2 rounded text-xs sm:text-sm transition-colors ${formData.time === slot ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-primary/10"}`}
-                              >
+                              <button key={slot} onClick={() => handleTimeSelect(slot)}
+                                className={`p-1.5 sm:p-2 rounded text-xs sm:text-sm transition-colors ${formData.time === slot ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-primary/10"}`}>
                                 {slot}
                               </button>
                             ))}
@@ -458,12 +392,21 @@ const AppointmentPage = () => {
                   </CardContent>
                 </Card>
 
+                {/* T&C Checkbox */}
+                <div className="flex items-start gap-3 px-1">
+                  <Checkbox id="terms" checked={agreedToTerms} onCheckedChange={(checked) => setAgreedToTerms(checked === true)} />
+                  <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
+                    {t("contact.form.agreeTerms")}{" "}
+                    <a href="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</a>
+                    {" & "}
+                    <a href="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</a>
+                  </label>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button variant="outline" onClick={() => setStep("form")} className="sm:flex-1">
-                    {t("appointment.backButton")}
-                  </Button>
-                  <Button onClick={handleSubmit} disabled={!formData.date || !formData.time} className="sm:flex-1 bg-primary hover:bg-primary/90">
-                    {t("appointment.confirmButton")}
+                  <Button variant="outline" onClick={() => setStep("form")} className="sm:flex-1">{t("appointment.backButton")}</Button>
+                  <Button onClick={handleSubmit} disabled={!formData.date || !formData.time || !agreedToTerms || isSubmitting} className="sm:flex-1 bg-primary hover:bg-primary/90">
+                    {isSubmitting ? t("contact.form.sending") : t("appointment.confirmButton")}
                   </Button>
                 </div>
               </motion.div>

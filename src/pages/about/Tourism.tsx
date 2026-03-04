@@ -24,84 +24,48 @@ const TourismPage = () => {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Image */}
         <section className="relative h-64 md:h-80 overflow-hidden">
-          <img 
-            src={tourismImage} 
-            alt={t("tourism.pageTitle")} 
-            className="w-full h-full object-cover"
-          />
+          <img src={tourismImage} alt={t("tourism.pageTitle")} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <div className="container mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <div className="gold-accent h-1 w-16 mb-4 rounded-full" />
-                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
-                  {t("tourism.pageTitle")}
-                </h1>
-                <p className="text-muted-foreground text-base mt-2 max-w-2xl">
-                  {t("tourism.pageDesc")}
-                </p>
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">{t("tourism.pageTitle")}</h1>
+                <p className="text-muted-foreground text-base mt-2 max-w-2xl">{t("tourism.pageDesc")}</p>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Content */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-5xl">
-            {/* Tourism Map + Introduction Side by Side */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-8"
-            >
+            {/* Map + Introduction Side by Side */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                {/* Map on the left */}
                 <Card className="border-border overflow-hidden">
-                  <CardHeader>
-                    <CardTitle>{t("tourism.mapTitle")}</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle>{t("tourism.mapTitle")}</CardTitle></CardHeader>
                   <CardContent className="p-0">
-                    <img 
-                      src={mapImage} 
-                      alt="Tourist Map of Mozambique" 
-                      className="w-full h-auto max-h-[500px] object-contain bg-muted"
-                    />
+                    <img src={mapImage} alt="Tourist Map of Mozambique" className="w-full h-auto max-h-[500px] object-contain bg-muted" />
                   </CardContent>
                 </Card>
 
-                {/* Introduction text on the right */}
                 <Card className="border-border h-full">
-                  <CardHeader>
-                    <CardTitle>{t("tourism.pageTitle")}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed text-sm">
-                      {t("tourism.introText")}
-                    </p>
+                  <CardHeader><CardTitle>{t("tourism.pageTitle")}</CardTitle></CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{t("tourism.introText")}</p>
+                    <p className="text-muted-foreground leading-relaxed text-sm">{t("tourism.introText2")}</p>
+                    <p className="text-muted-foreground leading-relaxed text-sm">{t("tourism.introText3")}</p>
                   </CardContent>
                 </Card>
               </div>
             </motion.div>
 
             {/* Attractions Grid */}
-            <h2 className="font-serif text-2xl font-bold text-foreground mb-6 text-center">
-              {t("tourism.attractionsTitle")}
-            </h2>
+            <h2 className="font-serif text-2xl font-bold text-foreground mb-6 text-center">{t("tourism.attractionsTitle")}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
               {attractions.map((attraction, index) => (
-                <motion.div
-                  key={attraction.key}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
-                >
+                <motion.div key={attraction.key} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}>
                   <Card className="border-border h-full hover:shadow-md transition-shadow">
                     <CardHeader className="pb-2">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
@@ -118,16 +82,9 @@ const TourismPage = () => {
             </div>
 
             {/* Top Destinations */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mb-8"
-            >
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="mb-8">
               <Card className="border-border">
-                <CardHeader>
-                  <CardTitle>{t("tourism.destinationsTitle")}</CardTitle>
-                </CardHeader>
+                <CardHeader><CardTitle>{t("tourism.destinationsTitle")}</CardTitle></CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -152,15 +109,9 @@ const TourismPage = () => {
             </motion.div>
 
             {/* Travel Tips */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.5 }}>
               <Card className="border-border bg-primary/5">
-                <CardHeader>
-                  <CardTitle>{t("tourism.tipsTitle")}</CardTitle>
-                </CardHeader>
+                <CardHeader><CardTitle>{t("tourism.tipsTitle")}</CardTitle></CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
                   <ul className="list-disc pl-5 space-y-2">
                     <li>{t("tourism.tip1")}</li>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useSearchParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -18,6 +20,9 @@ import {
 
 const ContactPage = () => {
   const { t } = useLanguage();
+  const [searchParams] = useSearchParams();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactInfo = [
     {
@@ -51,6 +56,13 @@ const ContactPage = () => {
     message: "",
   });
 
+  useEffect(() => {
+    const subjectParam = searchParams.get("subject");
+    if (subjectParam) {
+      setFormData((prev) => ({ ...prev, subject: subjectParam }));
+    }
+  }, [searchParams]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -61,35 +73,29 @@ const ContactPage = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to send message");
+    e.preventDefault();
+    if (!agreedToTerms) {
+      alert(t("contact.form.agreeRequired"));
+      return;
     }
-
-    alert(t("contact.form.successMessage"));
-    setFormData({
-      title: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
-  } catch (err) {
-    console.error(err);
-    alert(t("contact.form.errorMessage"));
-  }
-};
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error("Failed to send message");
+      alert(t("contact.form.successMessage"));
+      setFormData({ title: "", firstName: "", lastName: "", email: "", subject: "", message: "" });
+      setAgreedToTerms(false);
+    } catch (err) {
+      console.error(err);
+      alert(t("contact.form.errorMessage"));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -98,7 +104,6 @@ const ContactPage = () => {
       <main className="flex-1">
         <section className="py-24 bg-muted/30">
           <div className="container mx-auto px-4">
-            {/* Page Header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -123,19 +128,14 @@ const ContactPage = () => {
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                   {contactInfo.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-card rounded-xl p-5 border border-border"
-                    >
+                    <div key={index} className="bg-card rounded-xl p-5 border border-border">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                         <item.icon className="w-5 h-5 text-primary" />
                       </div>
                       <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                       {Array.isArray(item.content) ? (
                         item.content.map((line, i) => (
-                          <p key={i} className="text-sm text-muted-foreground">
-                            {line}
-                          </p>
+                          <p key={i} className="text-sm text-muted-foreground">{line}</p>
                         ))
                       ) : (
                         <p className="text-sm text-muted-foreground">{item.content}</p>
@@ -143,18 +143,11 @@ const ContactPage = () => {
                     </div>
                   ))}
                 </div>
-
-                {/* Map */}
                 <div className="bg-card rounded-xl border border-border overflow-hidden h-64">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.0!2d13.3435!3d52.5320!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDMxJzU1LjIiTiAxM8KwMjAnMzYuNiJF!5e0!3m2!1sen!2sde!4v1234567890"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Embassy Location"
+                    width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade" title="Embassy Location"
                     className="grayscale hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
@@ -166,7 +159,7 @@ const ContactPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <form className="bg-card rounded-xl p-8 border border-border" onSubmit={handleSubmit}>
+                <form className="bg-card rounded-xl p-6 sm:p-8 border border-border" onSubmit={handleSubmit}>
                   <h3 className="font-serif text-xl font-semibold text-foreground mb-6">
                     {t("contact.form.sendButton")}
                   </h3>
@@ -189,37 +182,45 @@ const ContactPage = () => {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="firstName">{t("contact.form.firstNameLabel")}</Label>
-                        <Input id="firstName" placeholder={t("contact.form.firstNamePlaceholder")} value={formData.firstName} onChange={handleInputChange} />
+                        <Input id="firstName" placeholder={t("contact.form.firstNamePlaceholder")} value={formData.firstName} onChange={handleInputChange} required />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">{t("contact.form.lastNameLabel")}</Label>
-                        <Input id="lastName" placeholder={t("contact.form.lastNamePlaceholder")} value={formData.lastName} onChange={handleInputChange} />
+                        <Input id="lastName" placeholder={t("contact.form.lastNamePlaceholder")} value={formData.lastName} onChange={handleInputChange} required />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">{t("contact.form.emailLabel")}</Label>
-                      <Input id="email" type="email" placeholder={t("contact.form.emailPlaceholder")} value={formData.email} onChange={handleInputChange} />
+                      <Input id="email" type="email" placeholder={t("contact.form.emailPlaceholder")} value={formData.email} onChange={handleInputChange} required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="subject">{t("contact.form.subjectLabel")}</Label>
-                      <Input id="subject" placeholder={t("contact.form.subjectPlaceholder")} value={formData.subject} onChange={handleInputChange} />
+                      <Input id="subject" placeholder={t("contact.form.subjectPlaceholder")} value={formData.subject} onChange={handleInputChange} required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">{t("contact.form.messageLabel")}</Label>
-                      <Textarea
-                        id="message"
-                        placeholder={t("contact.form.messagePlaceholder")}
-                        rows={5}
-                        value={formData.message}
-                        onChange={handleInputChange}
+                      <Textarea id="message" placeholder={t("contact.form.messagePlaceholder")} rows={5} value={formData.message} onChange={handleInputChange} required />
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Checkbox
+                        id="terms"
+                        checked={agreedToTerms}
+                        onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
                       />
+                      <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
+                        {t("contact.form.agreeTerms")}{" "}
+                        <a href="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</a>
+                        {" & "}
+                        <a href="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</a>
+                      </label>
                     </div>
                     <Button
                       type="submit"
+                      disabled={!agreedToTerms || isSubmitting}
                       className="w-full bg-primary hover:bg-embassy-green-dark text-primary-foreground"
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      {t("contact.form.sendButton")}
+                      {isSubmitting ? t("contact.form.sending") : t("contact.form.sendButton")}
                     </Button>
                   </div>
                 </form>

@@ -128,7 +128,7 @@ export const Header = () => {
                     <a href="/services" className="w-full block">{t("header.allServices")}</a>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <a href="/services/passports" className="w-full block">{t("header.passports")}</a>
+                    <a href="/services/passports" className="w-full block">{t("header.passportsIds")}</a>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <a href="/services/visas" className="w-full block">{t("header.visas")}</a>
@@ -138,6 +138,9 @@ export const Header = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <a href="/services/trade" className="w-full block">{t("header.tradeInvest")}</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <a href="/services/forms" className="w-full block">{t("header.formsDocuments")}</a>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -261,10 +264,11 @@ export const Header = () => {
                   {openSubmenu === "services" && (
                     <div className="pl-4">
                       <a href="/services" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.allServices")}</a>
-                      <a href="/services/passports" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.passports")}</a>
+                      <a href="/services/passports" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.passportsIds")}</a>
                       <a href="/services/visas" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.visas")}</a>
                       <a href="/services/advisory" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.advisory")}</a>
                       <a href="/services/trade" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.tradeInvest")}</a>
+                      <a href="/services/forms" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.formsDocuments")}</a>
                     </div>
                   )}
                 </div>
