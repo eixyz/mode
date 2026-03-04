@@ -78,6 +78,7 @@
     "bankDesc": "Informações de pagamento para serviços de visto e consulares",
     "bankLabel": "Banco",
     "bicLabel": "BIC (Código Swift)",
+    "accountHolder": "Titular da Conta",
     "noteLabel": "Nota:",
     "noteText": "Os pagamentos devem ser em Euros e pagáveis por transferência bancária. Após o pagamento, você tem direito a um comprovante de levantamento.",
     "visaFormTitle": "Formulário de Candidatura de Visto",
