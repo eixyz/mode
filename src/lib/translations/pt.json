@@ -200,7 +200,12 @@
       "subjectPlaceholder": "Como podemos ajudar?",
       "messageLabel": "Mensagem",
       "messagePlaceholder": "Sua mensagem...",
-      "sendButton": "Enviar Mensagem"
+      "sendButton": "Enviar Mensagem",
+      "agreeTerms": "Eu concordo com os",
+      "agreeRequired": "Você deve concordar com os termos e condições para prosseguir.",
+      "successMessage": "Sua mensagem foi enviada com sucesso! Você receberá um e-mail de confirmação em breve.",
+      "errorMessage": "Falha ao enviar sua mensagem. Tente novamente ou contate-nos diretamente.",
+      "sending": "Enviando..."
     }
   },
   "about": {
