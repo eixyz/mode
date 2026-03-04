@@ -78,6 +78,7 @@
     "bankDesc": "Zahlungsinformationen für Visa- und Konsulardienste",
     "bankLabel": "Bank",
     "bicLabel": "BIC (Swift-Code)",
+    "accountHolder": "Kontoinhaber",
     "noteLabel": "Hinweis:",
     "noteText": "Zahlungen müssen in Euro erfolgen und per Banküberweisung bezahlt werden. Nach Zahlung erhalten Sie einen Abholschein.",
     "visaFormTitle": "Visumantrag",
@@ -141,11 +142,15 @@
     "selectTimePrompt": "Wählen Sie eine Uhrzeit:",
     "selectedDateLabel": "Ausgewähltes Datum:",
     "confirmButton": "Termin bestätigen",
-    "passportService": "Pass",
+    "passportService": "Pass & Ausweise",
     "visaService": "Visum",
     "idsService": "Ausweise",
     "advisoryService": "Beratungsdienste",
-    "tradeService": "Handel & Investitionen"
+    "tradeService": "Handel & Investitionen",
+    "fillRequired": "Bitte füllen Sie alle Pflichtfelder aus",
+    "selectDateTimeRequired": "Bitte wählen Sie ein Datum und eine Uhrzeit",
+    "successMessage": "Termin erfolgreich gebucht! Eine Bestätigungs-E-Mail wurde gesendet.",
+    "errorMessage": "Termin konnte nicht gebucht werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
   },
   "calendar": {
     "sun": "So",
@@ -195,7 +200,12 @@
       "subjectPlaceholder": "Wie können wir helfen?",
       "messageLabel": "Nachricht",
       "messagePlaceholder": "Ihre Nachricht...",
-      "sendButton": "Nachricht senden"
+      "sendButton": "Nachricht senden",
+      "agreeTerms": "Ich stimme den",
+      "agreeRequired": "Sie müssen den Geschäftsbedingungen zustimmen, um fortzufahren.",
+      "successMessage": "Ihre Nachricht wurde erfolgreich gesendet! Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
+      "errorMessage": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+      "sending": "Wird gesendet..."
     }
   },
   "about": {
