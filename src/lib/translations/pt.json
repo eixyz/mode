@@ -142,11 +142,15 @@
     "selectTimePrompt": "Selecione um horário:",
     "selectedDateLabel": "Data Selecionada:",
     "confirmButton": "Confirmar Consulta",
-    "passportService": "Passaporte",
+    "passportService": "Passaporte & Documentos",
     "visaService": "Visto",
     "idsService": "Cartões de Identidade",
     "advisoryService": "Serviços de Consultoria",
-    "tradeService": "Comércio e Investimento"
+    "tradeService": "Comércio e Investimento",
+    "fillRequired": "Por favor, preencha todos os campos obrigatórios",
+    "selectDateTimeRequired": "Por favor, selecione uma data e horário",
+    "successMessage": "Consulta agendada com sucesso! Um e-mail de confirmação foi enviado.",
+    "errorMessage": "Falha ao agendar consulta. Tente novamente ou contate-nos diretamente."
   },
   "calendar": {
     "sun": "Dom",
