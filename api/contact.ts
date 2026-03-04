@@ -1,18 +1,16 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
 import nodemailer from "nodemailer";
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse
-) {
+export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    res.statusCode = 405;
+    return res.end("Method not allowed");
   }
 
   const { title, firstName, lastName, email, subject, message } = req.body;
 
   if (!email || !message) {
-    return res.status(400).json({ message: "Missing required fields" });
+    res.statusCode = 400;
+    return res.end("Missing required fields");
   }
 
   try {
@@ -28,7 +26,7 @@ export default async function handler(
       from: `"Embassy Website Demo" <${process.env.CONTACT_EMAIL}>`,
       to: process.env.CONTACT_EMAIL,
       replyTo: email,
-      subject: `[Website Contact] ${subject}`,
+      subject: `[Website Contact] ${subject || "Contact Form"}`,
       text: `
 Title: ${title}
 Name: ${firstName} ${lastName}
@@ -39,9 +37,11 @@ ${message}
       `,
     });
 
-    return res.status(200).json({ ok: true });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Email failed" });
+    res.statusCode = 200;
+    res.end(JSON.stringify({ ok: true }));
+  } catch (err) {
+    console.error(err);
+    res.statusCode = 500;
+    res.end("Email failed");
   }
 }
