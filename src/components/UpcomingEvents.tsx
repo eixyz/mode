@@ -60,16 +60,16 @@ export const UpcomingEvents = () => {
           </p>
         </motion.div>
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] lg:items-stretch">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-stretch max-w-6xl mx-auto">
           <motion.article
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="overflow-hidden rounded-3xl border border-primary/10 bg-card shadow-sm h-full lg:h-[36rem]"
+            className="overflow-hidden rounded-3xl border border-primary/10 bg-card shadow-sm"
           >
-            <div className="hero-gradient p-7 text-primary-foreground md:p-8 h-full">
-              <div className="mb-6 flex flex-wrap items-center gap-3">
+            <div className="hero-gradient p-6 sm:p-7 md:p-8 text-primary-foreground h-full flex flex-col">
+              <div className="mb-5 flex flex-wrap items-center gap-2">
                 <Badge className="bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/20">
                   Featured event
                 </Badge>
