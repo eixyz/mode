@@ -66,12 +66,6 @@ const EventsPage = () => {
               <p className="text-muted-foreground mt-3">
                 Embassy briefings, cultural gatherings, and public-facing events in one place.
               </p>
-              <div className="mt-6 flex justify-center">
-                <Link to="/events/admin" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                  <Lock className="h-4 w-4" />
-                  Staff access
-                </Link>
-              </div>
             </motion.div>
 
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] max-w-6xl mx-auto lg:items-stretch">
