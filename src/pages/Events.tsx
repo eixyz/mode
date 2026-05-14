@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, CalendarDays, Clock3, Lock, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Clock3, MapPin } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
