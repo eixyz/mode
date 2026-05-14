@@ -135,9 +135,9 @@ const TradeInvestPage = () => {
                     <li>{t("tradePage.sector7")}</li>
                   </ul>
                   <div className="pt-4 border-t">
-                    <a href="/contact" className="text-primary hover:underline">
+                      <Link to="/contact" className="text-primary hover:underline">
                       {t("tradePage.contactTrade")}
-                    </a>
+                      </Link>
                   </div>
                 </CardContent>
               </Card>

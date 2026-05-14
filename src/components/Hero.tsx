@@ -2,6 +2,7 @@
 import { ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-mozambique.jpg";
 
 export const Hero = () => {
@@ -45,7 +46,7 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <a href="/appointment">
+            <Link to="/appointment">
               <Button
                 size="lg"
                 className="bg-gold hover:bg-gold-light text-foreground font-semibold group"
@@ -54,8 +55,8 @@ export const Hero = () => {
                 {t("hero.scheduleAppointment")}
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </a>
-            <a href="/services">
+            </Link>
+            <Link to="/services">
               <Button
                 size="lg"
                 variant="outline"
@@ -63,7 +64,7 @@ export const Hero = () => {
               >
                 {t("hero.exploreServices")}
               </Button>
-            </a>
+            </Link>
           </motion.div>
 
           {/* Stats */}

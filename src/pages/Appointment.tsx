@@ -10,11 +10,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
-
-type Service = "passport" | "visa" | "ids" | "advisory" | "trade";
+import { Link } from "react-router-dom";
+import {
+  getAvailableDatesForMonth,
+  getServiceWeekdaySummary,
+  getTimeSlotsForServiceDate,
+  type AppointmentService,
+} from "@/lib/appointmentAvailability";
 
 interface AppointmentFormData {
-  service: Service | "";
+  service: AppointmentService | "";
   firstName: string;
   lastName: string;
   email: string;
@@ -34,7 +39,7 @@ const AppointmentPage = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const services: { value: Service; label: string }[] = [
+  const services: { value: AppointmentService; label: string }[] = [
     { value: "passport", label: t("appointment.passportService") },
     { value: "visa", label: t("appointment.visaService") },
     { value: "ids", label: t("appointment.idsService") },
@@ -48,10 +53,11 @@ const AppointmentPage = () => {
   });
   
   const formatDate = (date: Date) => {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
   };
   
   const parseDateLocal = (iso: string) => {
@@ -68,35 +74,20 @@ const AppointmentPage = () => {
     date: "",
   });
 
-  const getAvailableDates = () => {
-    const today = new Date();
-    const availableDates = [];
-    const days = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
-    for (let i = 1; i <= days; i++) {
-      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i);
-      const ds = formatDate(date);
-      if (ds >= formatDate(today) && date.getDay() !== 0 && date.getDay() !== 6) {
-        availableDates.push(ds);
-      }
-    }
-    return availableDates;
-  };
-
   const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
   const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
-  const availableDates = getAvailableDates();
+  const availableDates = formData.service ? getAvailableDatesForMonth(formData.service, currentMonth) : [];
   const availableSet = new Set(availableDates);
 
-  const getTimeSlotsForDate = (_date: Date) => {
-    const slots: string[] = [];
-    for (let hour = 9; hour <= 16; hour++) {
-      slots.push(`${String(hour).padStart(2, "0")}:00`);
-      slots.push(`${String(hour).padStart(2, "0")}:30`);
+  const getTimeSlotsForDate = (date: Date) => {
+    if (!formData.service) {
+      return [];
     }
-    return slots;
+
+    return getTimeSlotsForServiceDate(formData.service, date);
   };
 
-  const handleServiceSelect = (service: Service) => {
+  const handleServiceSelect = (service: AppointmentService) => {
     setFormData({ ...formData, service });
     setStep("form");
   };
@@ -143,14 +134,17 @@ const AppointmentPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (!res.ok) throw new Error("Failed to book appointment");
-      alert(t("appointment.successMessage"));
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to book appointment");
+      }
+      alert(data?.message || t("appointment.successMessage"));
       setFormData({ service: "", firstName: "", lastName: "", email: "", phone: "", date: "" });
       setAgreedToTerms(false);
       setStep("service");
     } catch (err) {
       console.error(err);
-      alert(t("appointment.errorMessage"));
+      alert(err instanceof Error ? err.message : t("appointment.errorMessage"));
     } finally {
       setIsSubmitting(false);
     }
@@ -338,7 +332,10 @@ const AppointmentPage = () => {
                 <Card>
                   <CardHeader className="pb-4">
                     <CardTitle className="text-base sm:text-lg">{t("appointment.selectDateTitle")}</CardTitle>
-                    <CardDescription className="text-xs sm:text-sm">{t("appointment.availableDates")} {currentMonth.toLocaleString(undefined, { month: "long", year: "numeric" })}</CardDescription>
+                    <CardDescription className="text-xs sm:text-sm">
+                      {t("appointment.availableDates")} {currentMonth.toLocaleString(undefined, { month: "long", year: "numeric" })}
+                      {formData.service ? ` • ${getServiceWeekdaySummary(formData.service)}` : ""}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center justify-between mb-4">
@@ -397,9 +394,9 @@ const AppointmentPage = () => {
                   <Checkbox id="terms" checked={agreedToTerms} onCheckedChange={(checked) => setAgreedToTerms(checked === true)} />
                   <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
                     {t("contact.form.agreeTerms")}{" "}
-                    <a href="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</a>
+                    <Link to="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</Link>
                     {" & "}
-                    <a href="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</a>
+                    <Link to="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</Link>
                   </label>
                 </div>
 

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, Clock, FileText, AlertTriangle } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/useLanguage";
 
 const visaTypes = [
@@ -302,11 +303,11 @@ const VisasServicePage = () => {
               <p className="text-muted-foreground mb-8">
                 {t("visasPage.downloadForms")}
               </p>
-              <a href="/services">
+              <Link to="/services">
                 <Button size="lg" className="bg-primary hover:bg-embassy-green-dark text-primary-foreground">
                   {t("visasPage.viewDocuments")}
                 </Button>
-              </a>
+              </Link>
             </motion.div>
           </div>
         </section>

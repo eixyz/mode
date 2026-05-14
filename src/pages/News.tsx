@@ -5,9 +5,14 @@ import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Lock } from "lucide-react";
 
 const NewsPage = () => {
   const { newsItems } = useNewsStore();
+  const featuredNews = newsItems[0];
+  const sidebarNews = newsItems.slice(1, 3);
+  const remainingNews = newsItems.slice(3);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -19,29 +24,81 @@ const NewsPage = () => {
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">News & Announcements</h1>
               <p className="text-muted-foreground mt-3">All recent news and announcements from the Embassy.</p>
+              <div className="mt-6 flex justify-center">
+                <Link to="/news/admin" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                  <Lock className="h-4 w-4" />
+                  Staff access
+                </Link>
+              </div>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-              {newsItems.map((n) => (
-                <motion.div key={n.id} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
-                  <Link to={`/news/${n.id}`}>
-                    <Card className="cursor-pointer hover:shadow-lg overflow-hidden">
-                      {n.image && (
-                        <img src={n.image} alt={n.title} className="w-full h-48 object-cover" />
+            {featuredNews && (
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] max-w-6xl mx-auto mb-10 lg:items-start">
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                  <Link to={`/news/${featuredNews.id}`}>
+                    <Card className="cursor-pointer hover:shadow-lg overflow-hidden border-border hover:border-primary/25 transition-colors">
+                      {featuredNews.image && (
+                        <img src={featuredNews.image} alt={featuredNews.title} className="w-full h-56 object-cover" />
                       )}
-                      <CardHeader>
-                        <CardTitle className="text-lg">{n.title}</CardTitle>
-                        <CardDescription className="text-sm text-muted-foreground">{n.date} • {n.category}</CardDescription>
+                      <CardHeader className="pb-4">
+                        <CardDescription className="text-sm text-muted-foreground">{featuredNews.date} • {featuredNews.category}</CardDescription>
+                        <CardTitle className="text-2xl [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">{featuredNews.title}</CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-muted-foreground mb-4">{n.excerpt}</p>
+                      <CardContent className="flex flex-col">
+                        <p className="text-sm md:text-base text-muted-foreground mb-6 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden">{featuredNews.excerpt}</p>
                         <Button variant="outline">Read full article</Button>
                       </CardContent>
                     </Card>
                   </Link>
                 </motion.div>
-              ))}
-            </div>
+
+                <div className="grid gap-4">
+                  {sidebarNews.map((n, index) => (
+                    <motion.div key={n.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.08 }}>
+                      <Link to={`/news/${n.id}`}>
+                        <Card className="cursor-pointer hover:shadow-lg overflow-hidden border-border hover:border-primary/25 transition-colors">
+                          {n.image && (
+                            <img src={n.image} alt={n.title} className="w-full h-32 object-cover" />
+                          )}
+                          <CardHeader className="pb-4">
+                            <CardDescription className="text-sm text-muted-foreground">{n.date} • {n.category}</CardDescription>
+                            <CardTitle className="text-lg [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">{n.title}</CardTitle>
+                          </CardHeader>
+                          <CardContent className="flex flex-col">
+                            <p className="text-sm text-muted-foreground mb-4 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">{n.excerpt}</p>
+                            <Button variant="outline">Read full article</Button>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {remainingNews.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {remainingNews.map((n) => (
+                  <motion.div key={n.id} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
+                    <Link to={`/news/${n.id}`}>
+                      <Card className="cursor-pointer hover:shadow-lg overflow-hidden h-full border-border hover:border-primary/25 transition-colors">
+                        {n.image && (
+                          <img src={n.image} alt={n.title} className="w-full h-48 object-cover" />
+                        )}
+                        <CardHeader>
+                          <CardDescription className="text-sm text-muted-foreground">{n.date} • {n.category}</CardDescription>
+                          <CardTitle className="text-lg">{n.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground mb-4">{n.excerpt}</p>
+                          <Button variant="outline">Read full article</Button>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>

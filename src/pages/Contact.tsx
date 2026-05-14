@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -85,13 +86,16 @@ const ContactPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (!res.ok) throw new Error("Failed to send message");
-      alert(t("contact.form.successMessage"));
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to send message");
+      }
+      alert(data?.message || t("contact.form.successMessage"));
       setFormData({ title: "", firstName: "", lastName: "", email: "", subject: "", message: "" });
       setAgreedToTerms(false);
     } catch (err) {
       console.error(err);
-      alert(t("contact.form.errorMessage"));
+      alert(err instanceof Error ? err.message : t("contact.form.errorMessage"));
     } finally {
       setIsSubmitting(false);
     }
@@ -172,11 +176,11 @@ const ContactPage = () => {
                             <SelectValue placeholder={t("contact.form.selectPlaceholder")} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="mr">{t("contact.form.selectMr")}</SelectItem>
-                            <SelectItem value="ms">{t("contact.form.selectMs")}</SelectItem>
-                            <SelectItem value="mrs">{t("contact.form.selectMrs")}</SelectItem>
-                            <SelectItem value="dr">{t("contact.form.selectDr")}</SelectItem>
-                            <SelectItem value="prof">{t("contact.form.selectProf")}</SelectItem>
+                            <SelectItem value="Mr">{t("contact.form.selectMr")}</SelectItem>
+                            <SelectItem value="Ms">{t("contact.form.selectMs")}</SelectItem>
+                            <SelectItem value="Mrs">{t("contact.form.selectMrs")}</SelectItem>
+                            <SelectItem value="Dr">{t("contact.form.selectDr")}</SelectItem>
+                            <SelectItem value="Prof">{t("contact.form.selectProf")}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -209,9 +213,9 @@ const ContactPage = () => {
                       />
                       <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
                         {t("contact.form.agreeTerms")}{" "}
-                        <a href="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</a>
+                        <Link to="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</Link>
                         {" & "}
-                        <a href="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</a>
+                        <Link to="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</Link>
                       </label>
                     </div>
                     <Button

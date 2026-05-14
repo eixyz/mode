@@ -7,7 +7,12 @@ import { useNewsStore } from "@/lib/newsStore";
 
 export const News = () => {
   const { newsItems } = useNewsStore();
-  const recentNews = newsItems.slice(0, 3); // Show only 3 most recent
+  const featuredNews = newsItems[0];
+  const sidebarNews = newsItems.slice(1, 3);
+
+  if (!featuredNews) {
+    return null;
+  }
 
   return (
     <section id="news" className="py-24 bg-background">
@@ -29,44 +34,78 @@ export const News = () => {
           </p>
         </motion.div>
 
-        {/* News Grid - Show only 3 recent */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {recentNews.map((item, index) => (
-            <motion.article
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group cursor-pointer"
-            >
-              {item.image && (
-                <img src={item.image} alt={item.title} className="w-full h-48 object-cover" />
-              )}
-              <div className="h-2 gold-accent" />
-              <div className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
-                    {item.category}
-                  </Badge>
-                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Calendar className="w-3 h-3" />
-                    {item.date}
-                  </span>
-                </div>
-                <h3 className="font-serif text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                  {item.excerpt}
-                </p>
-                <Link to={`/news/${item.id}`} className="inline-flex items-center text-sm text-primary font-medium group-hover:underline">
-                  Read more
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                </Link>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] max-w-6xl mx-auto lg:items-start">
+          <motion.article
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+          >
+            {featuredNews.image && (
+              <img src={featuredNews.image} alt={featuredNews.title} className="w-full h-52 md:h-56 lg:h-56 object-cover" />
+            )}
+            <div className="h-2 gold-accent" />
+            <div className="p-6 md:p-7 flex flex-col">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                  {featuredNews.category}
+                </Badge>
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Calendar className="w-3 h-3" />
+                  {featuredNews.date}
+                </span>
               </div>
-            </motion.article>
-          ))}
+              <h3 className="font-serif text-2xl md:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">
+                {featuredNews.title}
+              </h3>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-6 max-w-2xl [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden">
+                {featuredNews.excerpt}
+              </p>
+              <Link to={`/news/${featuredNews.id}`} className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
+                Read more
+                <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </motion.article>
+
+          <div className="grid gap-4">
+            {sidebarNews.map((item, index) => (
+              <motion.article
+                key={item.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+              >
+                {item.image && (
+                  <img src={item.image} alt={item.title} className="w-full h-32 object-cover" />
+                )}
+                <div className="p-5 flex flex-col">
+                  <div className="flex items-center gap-3 mb-3 flex-wrap">
+                    <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                      {item.category}
+                    </Badge>
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Calendar className="w-3 h-3" />
+                      {item.date}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">
+                    {item.excerpt}
+                  </p>
+                  <Link to={`/news/${item.id}`} className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
+                    Read more
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </div>
 
         {/* View All Button */}

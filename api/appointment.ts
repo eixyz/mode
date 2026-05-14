@@ -2,24 +2,59 @@ export const config = {
   runtime: "nodejs",
 };
 
-import nodemailer from "nodemailer";
+import { z } from "zod";
+import {
+  applyCors,
+  embassyMailbox,
+  escapeHtml,
+  formatDisplayDate,
+  formatMultilineHtml,
+  parseJsonBody,
+  renderDetailsTable,
+  renderEmailLayout,
+  renderPlainText,
+  sendEmail,
+} from "./_mail";
+
+const appointmentSchema = z.object({
+  service: z.enum(["passport", "visa", "ids", "advisory", "trade"]),
+  firstName: z.string().trim().min(1).max(80),
+  lastName: z.string().trim().min(1).max(80),
+  email: z.string().trim().email().max(160),
+  phone: z.string().trim().min(5).max(40),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  time: z.string().regex(/^\d{2}:\d{2}(?:\s?-\s?\d{2}:\d{2})?$/),
+  additionalInfo: z.string().trim().max(4000).optional().default(""),
+  passportValidity: z.string().trim().max(60).optional().default(""),
+  idValidity: z.string().trim().max(60).optional().default(""),
+  birthDate: z.string().trim().max(40).optional().default(""),
+  visaType: z.string().trim().max(80).optional().default(""),
+  idsType: z.string().trim().max(80).optional().default(""),
+});
 
 export default async function handler(req: any, res: any) {
-  // --- CORS ---
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  const isAllowedOrigin = applyCors(req, res);
 
   if (req.method === "OPTIONS") {
     return res.status(200).end();
+  }
+
+  if (!isAllowedOrigin) {
+    return res.status(403).json({ error: "Origin not allowed" });
   }
 
   if (req.method !== "POST") {
     return res.status(405).end("Method not allowed");
   }
 
-  // --- Safe body parsing ---
-  const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+  let body: z.infer<typeof appointmentSchema>;
+
+  try {
+    body = appointmentSchema.parse(parseJsonBody(req));
+  } catch (error) {
+    const validationError = error instanceof z.ZodError ? error.issues[0]?.message : "Invalid request payload";
+    return res.status(400).json({ error: validationError ?? "Invalid request payload" });
+  }
 
   const {
     service,
@@ -37,21 +72,9 @@ export default async function handler(req: any, res: any) {
     idsType,
   } = body;
 
-  if (!email || !firstName || !lastName || !service || !date || !time) {
-    return res.status(400).end("Missing required fields");
-  }
-
   try {
-    // --- Mail transporter ---
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.CONTACT_EMAIL,
-        pass: process.env.CONTACT_EMAIL_PASSWORD,
-      },
-    });
-
     const fullName = `${firstName} ${lastName}`;
+    const bookingReference = `APT-${Date.now().toString().slice(-6)}`;
 
     const serviceLabels: Record<string, string> = {
       passport: "Passport Services",
@@ -63,68 +86,84 @@ export default async function handler(req: any, res: any) {
 
     const serviceLabel = serviceLabels[service] || service;
 
-    const extraFields: string[] = [];
-    if (birthDate) extraFields.push(`<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Birth Date</td><td style="padding:8px;border:1px solid #ddd;">${birthDate}</td></tr>`);
-    if (passportValidity) extraFields.push(`<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Passport Validity</td><td style="padding:8px;border:1px solid #ddd;">${passportValidity}</td></tr>`);
-    if (idValidity) extraFields.push(`<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">ID Validity</td><td style="padding:8px;border:1px solid #ddd;">${idValidity}</td></tr>`);
-    if (visaType) extraFields.push(`<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Visa Type</td><td style="padding:8px;border:1px solid #ddd;">${visaType}</td></tr>`);
-    if (idsType) extraFields.push(`<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">ID Type</td><td style="padding:8px;border:1px solid #ddd;">${idsType}</td></tr>`);
-    if (additionalInfo) extraFields.push(`<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Additional Info</td><td style="padding:8px;border:1px solid #ddd;">${additionalInfo}</td></tr>`);
+    const internalRows = [
+      { label: "Reference", value: escapeHtml(bookingReference) },
+      { label: "Service", value: escapeHtml(serviceLabel) },
+      { label: "Applicant", value: escapeHtml(fullName) },
+      { label: "Email", value: `<a href="mailto:${escapeHtml(email)}" style="color:#0f5b46;text-decoration:none;">${escapeHtml(email)}</a>` },
+      { label: "Phone", value: escapeHtml(phone) },
+      { label: "Preferred date", value: escapeHtml(formatDisplayDate(date)) },
+      { label: "Preferred time", value: escapeHtml(time) },
+      ...(birthDate ? [{ label: "Birth date", value: escapeHtml(birthDate) }] : []),
+      ...(passportValidity ? [{ label: "Passport validity", value: escapeHtml(passportValidity) }] : []),
+      ...(idValidity ? [{ label: "ID validity", value: escapeHtml(idValidity) }] : []),
+      ...(visaType ? [{ label: "Visa type", value: escapeHtml(visaType) }] : []),
+      ...(idsType ? [{ label: "ID document type", value: escapeHtml(idsType) }] : []),
+      ...(additionalInfo ? [{ label: "Additional information", value: formatMultilineHtml(additionalInfo) }] : []),
+    ];
 
-    // --- Email to Embassy ---
-    await transporter.sendMail({
-      from: `"Embassy of Mozambique - Appointments" <${process.env.CONTACT_EMAIL}>`,
-      to: process.env.CONTACT_EMAIL,
+    const confirmationRows = [
+      { label: "Reference", value: bookingReference },
+      { label: "Service", value: serviceLabel },
+      { label: "Date", value: formatDisplayDate(date) },
+      { label: "Time", value: time },
+      { label: "Location", value: "Embassy of Mozambique, Stromstrasse 47, 10551 Berlin" },
+    ];
+
+    await sendEmail({
+      fromName: "Embassy of Mozambique - Appointments",
+      to: embassyMailbox(),
       replyTo: email,
-      subject: `[Appointment Booking] ${serviceLabel} - ${fullName} - ${date} ${time}`,
-      html: `
-        <h2>New Appointment Booking</h2>
-        <table style="border-collapse:collapse;width:100%;max-width:600px;">
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Service</td><td style="padding:8px;border:1px solid #ddd;">${serviceLabel}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Name</td><td style="padding:8px;border:1px solid #ddd;">${fullName}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Email</td><td style="padding:8px;border:1px solid #ddd;">${email}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Phone</td><td style="padding:8px;border:1px solid #ddd;">${phone || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Date</td><td style="padding:8px;border:1px solid #ddd;">${date}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Time</td><td style="padding:8px;border:1px solid #ddd;">${time}</td></tr>
-          ${extraFields.join("")}
-        </table>
-      `,
+      subject: `[Appointment Booking] ${serviceLabel} - ${fullName} (${bookingReference})`,
+      html: renderEmailLayout({
+        preheader: `New appointment booking for ${serviceLabel}`,
+        eyebrow: "Appointment Request",
+        title: "New Appointment Booking",
+        intro: "A new appointment request has been submitted via the embassy website.",
+        body: renderDetailsTable(internalRows),
+        note: "Please confirm internally whether the requested slot is available before making manual calendar changes.",
+      }),
+      text: renderPlainText({
+        title: "New Appointment Booking",
+        intro: "A new appointment request has been submitted.",
+        rows: internalRows.map((row) => ({ label: row.label, value: row.value.replace(/<[^>]+>/g, "") })),
+        closing: "Reply to the applicant using the email above if any clarification is needed.",
+      }),
     });
 
-    // --- Confirmation email to applicant ---
-    await transporter.sendMail({
-      from: `"Embassy of Mozambique in Berlin" <${process.env.CONTACT_EMAIL}>`,
+    await sendEmail({
+      fromName: "Embassy of Mozambique in Berlin",
       to: email,
-      subject: `Appointment Confirmation - ${serviceLabel} - ${date} at ${time}`,
-      html: `
-        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
-          <div style="background:#006B3F;padding:20px;text-align:center;">
-            <h1 style="color:white;margin:0;font-size:20px;">Embassy of the Republic of Mozambique</h1>
-            <p style="color:#FFD700;margin:4px 0 0;">Berlin, Germany</p>
+      subject: `Appointment request received (${bookingReference})`,
+      html: renderEmailLayout({
+        preheader: `Your appointment request ${bookingReference} has been received`,
+        eyebrow: "Appointment Confirmation",
+        title: "Your Appointment Request Has Been Received",
+        intro: `Dear ${fullName}, thank you for booking an appointment with the Embassy of the Republic of Mozambique in Berlin.`,
+        body: `
+          <p style="margin:0 0 18px;font-size:15px;line-height:1.8;color:#334155;">
+            We have received your requested appointment slot. This email confirms receipt of your request and the details submitted through the website.
+          </p>
+          ${renderDetailsTable(confirmationRows.map((row) => ({ label: row.label, value: escapeHtml(row.value) })))}
+          <div style="margin-top:18px;padding:18px;border-radius:18px;background:#f8faf9;">
+            <div style="font-size:14px;font-weight:700;color:#0f3b2e;margin-bottom:8px;">Before your visit</div>
+            <div style="font-size:14px;line-height:1.8;color:#475569;">
+              Please arrive 10 minutes early and bring all required supporting documents for ${escapeHtml(serviceLabel).toLowerCase()}.
+            </div>
           </div>
-          <div style="padding:24px;border:1px solid #e5e5e5;border-top:none;">
-            <p>Dear ${fullName},</p>
-            <p>Your appointment has been successfully booked.</p>
-            <table style="border-collapse:collapse;width:100%;margin:16px 0;">
-              <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Service</td><td style="padding:8px;border:1px solid #ddd;">${serviceLabel}</td></tr>
-              <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Date</td><td style="padding:8px;border:1px solid #ddd;">${date}</td></tr>
-              <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Time</td><td style="padding:8px;border:1px solid #ddd;">${time}</td></tr>
-            </table>
-            <p><strong>Location:</strong><br>Stromstraße 47, 10551 Berlin</p>
-            <p>Please arrive 10 minutes early and bring all required documents.</p>
-            <hr>
-            <p style="font-size:13px;color:#666;">
-              Tel: +49 30 3987 6500<br>
-              Email: info@embassy-of-mozambique.de
-            </p>
-          </div>
-        </div>
-      `,
+        `,
+      }),
+      text: renderPlainText({
+        title: "Your Appointment Request Has Been Received",
+        intro: `Dear ${fullName}, thank you for booking an appointment with the Embassy of the Republic of Mozambique in Berlin.`,
+        rows: confirmationRows,
+        closing: "Please arrive 10 minutes early and bring all required supporting documents.",
+      }),
     });
 
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, message: `Your appointment request has been received. Reference: ${bookingReference}` });
   } catch (error) {
     console.error("Appointment email error:", error);
-    return res.status(500).end("Booking email failed");
+    return res.status(500).json({ error: "We could not send your appointment request right now. Please try again shortly." });
   }
 }

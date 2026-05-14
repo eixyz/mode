@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Facebook, Twitter, Instagram, Linkedin, ExternalLink, MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
 
@@ -147,9 +148,9 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
             <p>{t("footer.copyright")}</p>
             <div className="flex gap-6">
-              <a href="/privacy" className="hover:text-gold transition-colors">{t("footer.privacyPolicy")}</a>
-              <a href="/terms" className="hover:text-gold transition-colors">{t("footer.termsOfService")}</a>
-              <a href="/accessibility" className="hover:text-gold transition-colors">{t("footer.accessibility")}</a>
+              <Link to="/privacy" className="hover:text-gold transition-colors">{t("footer.privacyPolicy")}</Link>
+              <Link to="/terms" className="hover:text-gold transition-colors">{t("footer.termsOfService")}</Link>
+              <Link to="/accessibility" className="hover:text-gold transition-colors">{t("footer.accessibility")}</Link>
             </div>
           </div>
         </div>
