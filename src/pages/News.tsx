@@ -5,7 +5,7 @@ import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Lock } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const NewsPage = () => {
   const { newsItems } = useNewsStore();
@@ -30,12 +30,6 @@ const NewsPage = () => {
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">News & Announcements</h1>
               <p className="text-muted-foreground mt-3">All recent news and announcements from the Embassy.</p>
-              <div className="mt-6 flex justify-center">
-                <Link to="/news/admin" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                  <Lock className="h-4 w-4" />
-                  Staff access
-                </Link>
-              </div>
             </motion.div>
 
             {featuredNews && (
