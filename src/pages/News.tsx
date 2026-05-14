@@ -5,7 +5,7 @@ import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Lock } from "lucide-react";
+import { ArrowLeft, Lock } from "lucide-react";
 
 const NewsPage = () => {
   const { newsItems } = useNewsStore();
@@ -18,9 +18,15 @@ const NewsPage = () => {
       <Header />
 
       <main className="flex-1">
-        <section className="py-24">
+        <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-3xl mx-auto text-center mb-12">
+            <div className="max-w-6xl mx-auto mb-6">
+              <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                <ArrowLeft className="h-4 w-4" />
+                Back to home
+              </Link>
+            </div>
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-3xl mx-auto text-center mb-10">
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
               <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">News & Announcements</h1>
               <p className="text-muted-foreground mt-3">All recent news and announcements from the Embassy.</p>
