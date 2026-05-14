@@ -140,9 +140,9 @@ const EventsPage = () => {
                     className="rounded-2xl border border-border bg-card p-5 shadow-sm"
                   >
                     <div className="flex gap-4 h-full">
-                      <div className="flex w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-muted px-2 py-3 text-center">
-                        <span className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">{formatMonth(event.date)}</span>
-                        <span className="font-serif text-2xl font-semibold text-foreground">{formatDay(event.date)}</span>
+                      <div className="self-start flex w-14 shrink-0 flex-col items-center rounded-xl bg-muted px-2 py-2 text-center">
+                        <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{formatMonth(event.date)}</span>
+                        <span className="font-serif text-xl font-semibold text-foreground leading-none mt-0.5">{formatDay(event.date)}</span>
                       </div>
                       <div className="min-w-0 flex-1 flex flex-col">
                         <div className="mb-3 flex flex-wrap items-center gap-2">
