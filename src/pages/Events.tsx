@@ -81,50 +81,50 @@ const EventsPage = () => {
                 transition={{ duration: 0.45 }}
                 className="overflow-hidden rounded-3xl border border-primary/10 bg-card shadow-sm"
               >
-                <div className="hero-gradient p-7 md:p-8 text-primary-foreground h-full flex flex-col">
-                  <div className="mb-6 flex flex-wrap items-center gap-3">
+                <div className="hero-gradient p-6 sm:p-7 md:p-8 text-primary-foreground h-full flex flex-col">
+                  <div className="mb-5 flex flex-wrap items-center gap-2">
                     <Badge className="bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/20">Featured event</Badge>
                     <Badge className="bg-gold/20 text-primary-foreground hover:bg-gold/30">{featuredEvent.category}</Badge>
                   </div>
 
-                  <div className="grid gap-6 md:grid-cols-[auto_minmax(0,1fr)] md:items-start flex-1 min-h-0">
-                    <div className="w-fit rounded-2xl border border-primary-foreground/15 bg-primary-foreground/10 px-5 py-4 text-center">
-                      <div className="text-xs uppercase tracking-[0.28em] text-primary-foreground/70">{formatMonth(featuredEvent.date)}</div>
-                      <div className="mt-1 font-serif text-4xl font-bold text-gold">{formatDay(featuredEvent.date)}</div>
+                  <div className="flex flex-col flex-1 min-h-0 gap-5">
+                    <div className="flex items-start gap-4">
+                      <div className="shrink-0 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/10 px-4 py-3 text-center">
+                        <div className="text-[11px] uppercase tracking-[0.24em] text-primary-foreground/70">{formatMonth(featuredEvent.date)}</div>
+                        <div className="mt-0.5 font-serif text-3xl font-bold text-gold leading-none">{formatDay(featuredEvent.date)}</div>
+                      </div>
+                      <h2 className="font-serif text-2xl md:text-3xl font-semibold leading-tight [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">{featuredEvent.title}</h2>
                     </div>
 
-                    <div className="flex flex-col h-full min-h-0">
-                      <h2 className="font-serif text-2xl md:text-3xl font-semibold leading-tight [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">{featuredEvent.title}</h2>
-                      <p className="mt-3 text-sm md:text-base leading-6 text-primary-foreground/85 max-w-2xl [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden">{featuredEvent.summary}</p>
+                    <p className="text-sm md:text-base leading-6 text-primary-foreground/85 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4] overflow-hidden">{featuredEvent.summary}</p>
 
-                      <div className="mt-6 grid gap-3 text-sm text-primary-foreground/85 sm:grid-cols-2">
-                        <div className="flex items-center gap-3 rounded-2xl bg-primary-foreground/10 px-4 py-3">
-                          <CalendarDays className="h-4 w-4 text-gold" />
-                          <span>{formatDate(featuredEvent.date)}</span>
-                        </div>
-                        <div className="flex items-center gap-3 rounded-2xl bg-primary-foreground/10 px-4 py-3">
-                          <Clock3 className="h-4 w-4 text-gold" />
-                          <span>{featuredEvent.time}</span>
-                        </div>
-                        <div className="flex items-center gap-3 rounded-2xl bg-primary-foreground/10 px-4 py-3 sm:col-span-2">
-                          <MapPin className="h-4 w-4 text-gold" />
-                          <span>{featuredEvent.venue}</span>
-                        </div>
+                    <div className="grid gap-2.5 text-sm text-primary-foreground/90 sm:grid-cols-2">
+                      <div className="flex items-center gap-2.5 rounded-xl bg-primary-foreground/10 px-3.5 py-2.5">
+                        <CalendarDays className="h-4 w-4 text-gold shrink-0" />
+                        <span className="truncate">{formatDate(featuredEvent.date)}</span>
                       </div>
+                      <div className="flex items-center gap-2.5 rounded-xl bg-primary-foreground/10 px-3.5 py-2.5">
+                        <Clock3 className="h-4 w-4 text-gold shrink-0" />
+                        <span className="truncate">{featuredEvent.time}</span>
+                      </div>
+                      <div className="flex items-center gap-2.5 rounded-xl bg-primary-foreground/10 px-3.5 py-2.5 sm:col-span-2">
+                        <MapPin className="h-4 w-4 text-gold shrink-0" />
+                        <span className="truncate">{featuredEvent.venue}</span>
+                      </div>
+                    </div>
 
-                      <div className="mt-auto pt-6 flex flex-wrap gap-3">
-                        <Link to={`/events/${featuredEvent.id}`}>
-                          <Button size="lg" variant="outline" className="border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10">
-                            View event details
-                          </Button>
-                        </Link>
-                        <Link to={getEventContactLink(featuredEvent)}>
-                          <Button size="lg" className="bg-gold text-foreground hover:bg-gold-light">
-                            {featuredEvent.ctaLabel}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
-                      </div>
+                    <div className="mt-auto pt-2 flex flex-wrap gap-3">
+                      <Link to={`/events/${featuredEvent.id}`} className="flex-1 sm:flex-none">
+                        <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10">
+                          View event details
+                        </Button>
+                      </Link>
+                      <Link to={getEventContactLink(featuredEvent)} className="flex-1 sm:flex-none">
+                        <Button size="lg" className="w-full sm:w-auto bg-gold text-foreground hover:bg-gold-light">
+                          {featuredEvent.ctaLabel}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
