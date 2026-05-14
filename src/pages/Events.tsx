@@ -130,14 +130,14 @@ const EventsPage = () => {
                 </div>
               </motion.article>
 
-              <div className="grid gap-4 lg:grid-rows-2 lg:h-[36rem]">
+              <div className="grid gap-4 sm:auto-rows-fr">
                 {sidebarEvents.map((event, index) => (
                   <motion.article
                     key={event.id}
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: index * 0.08 }}
-                    className="rounded-2xl border border-border bg-card p-5 shadow-sm h-full lg:h-[17.5rem]"
+                    className="rounded-2xl border border-border bg-card p-5 shadow-sm"
                   >
                     <div className="flex gap-4 h-full">
                       <div className="flex w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-muted px-2 py-3 text-center">
