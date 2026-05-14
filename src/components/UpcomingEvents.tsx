@@ -129,7 +129,7 @@ export const UpcomingEvents = () => {
             </div>
           </motion.article>
 
-          <div className="grid gap-4 lg:grid-rows-2 lg:h-[36rem]">
+          <div className="grid gap-4 sm:auto-rows-fr">
             {secondaryEvents.map((event, index) => (
               <motion.article
                 key={event.id}
@@ -137,7 +137,7 @@ export const UpcomingEvents = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                className="rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-md h-full lg:h-[17.5rem]"
+                className="rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-md"
               >
                 <div className="flex gap-4 h-full">
                   <div className="flex w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-muted px-2 py-3 text-center">
