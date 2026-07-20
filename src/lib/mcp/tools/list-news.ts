@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { newsItems } from "@/lib/news";
+import { newsItems } from "../../news";
 
 export default defineTool({
   name: "list_news",

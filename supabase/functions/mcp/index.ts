@@ -8,7 +8,57 @@ import { defineMcp } from "npm:@lovable.dev/mcp-js@0.24.0";
 // src/lib/mcp/tools/list-news.ts
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z } from "npm:zod@^4.4.3";
-import { newsItems } from "npm:@/lib/news";
+
+// src/lib/news.ts
+var newsItems = [
+  {
+    id: "embassy-hours-2025",
+    date: "January 3, 2025",
+    category: "Announcement",
+    title: "Embassy Opening Hours During Holiday Season",
+    excerpt: "Please note the modified opening hours during the holiday period. The embassy will operate with reduced hours from December 23 to January 3.",
+    content: "Please note the modified opening hours during the holiday period. The embassy will operate with reduced hours from December 23 to January 3. For emergencies please call the emergency line.",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop"
+  },
+  {
+    id: "trade-forum-2025",
+    date: "December 15, 2024",
+    category: "Trade",
+    title: "Mozambique-Germany Trade Forum 2025",
+    excerpt: "Join us for the annual trade forum highlighting investment opportunities in energy, agriculture, and tourism sectors.",
+    content: "Join us for the annual trade forum highlighting investment opportunities in energy, agriculture, and tourism sectors. Registration details will be shared soon.",
+    image: "https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop"
+  },
+  {
+    id: "independence-celebration-2024",
+    date: "December 1, 2024",
+    category: "Culture",
+    title: "Mozambican Independence Day Celebration",
+    excerpt: "The Embassy cordially invites you to celebrate the 49th anniversary of Mozambican Independence on June 25th.",
+    content: "The Embassy cordially invites you to celebrate the 49th anniversary of Mozambican Independence on June 25th. More information on the schedule will follow.",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop"
+  },
+  {
+    id: "visa-requirements-update",
+    date: "November 20, 2024",
+    category: "Visa",
+    title: "Updated Visa Requirements for 2025",
+    excerpt: "Important changes to visa application requirements will take effect starting January 2025. Please review the new documentation needed.",
+    content: "Important changes to visa application requirements will take effect starting January 2025. All applicants must now provide biometric data and updated financial documentation. Please visit our visa services page for complete details.",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop"
+  },
+  {
+    id: "cultural-week-2024",
+    date: "November 10, 2024",
+    category: "Culture",
+    title: "Mozambican Cultural Week in Berlin",
+    excerpt: "Experience the vibrant culture of Mozambique through music, dance, art, and culinary delights during our week-long celebration.",
+    content: "Experience the vibrant culture of Mozambique through music, dance, art, and culinary delights during our week-long celebration. The event will feature traditional Marrabenta music performances, art exhibitions, and authentic Mozambican cuisine. All are welcome to attend.",
+    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=400&fit=crop"
+  }
+];
+
+// src/lib/mcp/tools/list-news.ts
 var list_news_default = defineTool({
   name: "list_news",
   title: "List embassy news",
@@ -36,7 +86,6 @@ var list_news_default = defineTool({
 // src/lib/mcp/tools/get-news.ts
 import { defineTool as defineTool2 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z2 } from "npm:zod@^4.4.3";
-import { newsItems as newsItems2 } from "npm:@/lib/news";
 var get_news_default = defineTool2({
   name: "get_news",
   title: "Get news article",
@@ -46,7 +95,7 @@ var get_news_default = defineTool2({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ id }) => {
-    const item = newsItems2.find((i) => i.id === id);
+    const item = newsItems.find((i) => i.id === id);
     if (!item) {
       return {
         content: [{ type: "text", text: `No news article found with id '${id}'.` }],
@@ -64,7 +113,57 @@ ${item.content ?? item.excerpt}`;
 // src/lib/mcp/tools/list-events.ts
 import { defineTool as defineTool3 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z3 } from "npm:zod@^4.4.3";
-import { embassyEvents } from "npm:@/lib/events";
+
+// src/lib/events.ts
+var embassyEvents = [
+  {
+    id: "diaspora-consultation-2026",
+    date: "2026-05-28",
+    time: "17:30 - 19:00",
+    category: "Community",
+    title: "Diaspora Consultation Evening",
+    summary: "An open discussion with embassy representatives on consular priorities, documentation updates, and community support services in Germany.",
+    content: "An open discussion with embassy representatives on consular priorities, documentation updates, and community support services in Germany. The session is intended for members of the Mozambican diaspora and institutional partners seeking direct updates from the embassy.",
+    venue: "Embassy of Mozambique, Berlin",
+    ctaLabel: "Request details",
+    featured: true
+  },
+  {
+    id: "trade-briefing-2026",
+    date: "2026-06-12",
+    time: "10:00 - 12:30",
+    category: "Trade",
+    title: "Mozambique-Germany Trade Briefing",
+    summary: "A focused briefing for companies and institutions interested in partnerships across energy, logistics, agriculture, and tourism.",
+    content: "A focused briefing for companies and institutions interested in partnerships across energy, logistics, agriculture, and tourism. Embassy representatives will present market entry considerations, upcoming bilateral opportunities, and key institutional contacts.",
+    venue: "Business Forum Hall, Berlin",
+    ctaLabel: "Reserve a seat"
+  },
+  {
+    id: "independence-reception-2026",
+    date: "2026-06-25",
+    time: "18:00 - 21:00",
+    category: "Culture",
+    title: "Independence Day Reception",
+    summary: "A formal cultural evening marking Mozambican Independence Day with music, remarks, and invited guests from the diplomatic and business community.",
+    content: "A formal cultural evening marking Mozambican Independence Day with music, remarks, and invited guests from the diplomatic and business community. Attendance is subject to confirmation and capacity.",
+    venue: "Embassy Residence, Berlin",
+    ctaLabel: "RSVP interest"
+  },
+  {
+    id: "student-mobility-session-2026",
+    date: "2026-07-03",
+    time: "15:00 - 16:30",
+    category: "Education",
+    title: "Student Mobility Information Session",
+    summary: "Guidance for students and families on scholarships, document authentication, and study pathways between Mozambique and Germany.",
+    content: "Guidance for students and families on scholarships, document authentication, and study pathways between Mozambique and Germany. The session includes a moderated Q&A and practical next steps for document preparation.",
+    venue: "Online session",
+    ctaLabel: "Ask for access"
+  }
+];
+
+// src/lib/mcp/tools/list-events.ts
 var list_events_default = defineTool3({
   name: "list_events",
   title: "List embassy events",
@@ -98,7 +197,6 @@ var list_events_default = defineTool3({
 // src/lib/mcp/tools/get-event.ts
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z4 } from "npm:zod@^4.4.3";
-import { embassyEvents as embassyEvents2 } from "npm:@/lib/events";
 var get_event_default = defineTool4({
   name: "get_event",
   title: "Get event",
@@ -106,7 +204,7 @@ var get_event_default = defineTool4({
   inputSchema: { id: z4.string().describe("The event id (from list_events).") },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ id }) => {
-    const item = embassyEvents2.find((e) => e.id === id);
+    const item = embassyEvents.find((e) => e.id === id);
     if (!item) {
       return {
         content: [{ type: "text", text: `No event found with id '${id}'.` }],

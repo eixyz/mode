@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { embassyEvents } from "@/lib/events";
+import { embassyEvents } from "../../events";
 
 export default defineTool({
   name: "list_events",
