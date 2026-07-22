@@ -46,23 +46,22 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <Link to="/appointment">
+            <Link to="/services">
               <Button
                 size="lg"
                 className="bg-gold hover:bg-gold-light text-foreground font-semibold group"
               >
-                <Calendar className="w-5 h-5 mr-2" />
-                {t("hero.scheduleAppointment")}
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                {t("hero.exploreServices")}
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </Button>
             </Link>
-            <Link to="/services">
+            <Link to="/contact">
               <Button
                 size="lg"
                 variant="outline"
                 className="border-primary-foreground/30 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
               >
-                {t("hero.exploreServices")}
+                {t("header.contact")}
               </Button>
             </Link>
           </motion.div>
