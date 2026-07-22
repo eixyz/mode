@@ -47,7 +47,7 @@ export const useEventStore = create<EventStore>()(
       getEventById: (id) => get().events.find((event) => event.id === id) ?? null,
     }),
     {
-      name: "embassy-events-storage",
+      name: "embassy-events-storage-v2",
     },
   ),
 );

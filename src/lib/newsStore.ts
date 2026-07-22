@@ -33,7 +33,7 @@ export const useNewsStore = create<NewsStore>()(
       getNewsById: (id) => get().newsItems.find((n) => n.id === id) ?? null,
     }),
     {
-      name: 'embassy-news-storage',
+      name: 'embassy-news-storage-v2',
     }
   )
 );
