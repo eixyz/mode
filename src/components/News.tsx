@@ -43,7 +43,7 @@ export const News = () => {
             className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
           >
             {featuredNews.image && (
-              <img src={featuredNews.image} alt={featuredNews.title} className="w-full h-52 md:h-56 lg:h-56 object-cover" />
+              <img src={featuredNews.image} alt={featuredNews.title} loading="lazy" decoding="async" className="w-full h-52 md:h-56 lg:h-56 object-cover" />
             )}
             <div className="h-2 gold-accent" />
             <div className="p-6 md:p-7 flex flex-col">
@@ -80,7 +80,7 @@ export const News = () => {
                 className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
               >
                 {item.image && (
-                  <img src={item.image} alt={item.title} className="w-full h-32 object-cover" />
+                  <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="w-full h-32 object-cover" />
                 )}
                 <div className="p-5 flex flex-col">
                   <div className="flex items-center gap-3 mb-3 flex-wrap">
