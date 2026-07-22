@@ -20,13 +20,47 @@ const EventsPage = () => {
   const { events } = useEventStore();
   const sortedEvents = sortEmbassyEvents(events);
   const featuredEvent = sortedEvents.find((item) => item.featured) ?? sortedEvents[0];
-  const sidebarEvents = sortedEvents.filter((item) => item.id !== featuredEvent.id).slice(0, 2);
-  const remainingEvents = sortedEvents.filter((item) => item.id !== featuredEvent.id).slice(2);
+  const sidebarEvents = featuredEvent
+    ? sortedEvents.filter((item) => item.id !== featuredEvent.id).slice(0, 2)
+    : [];
+  const remainingEvents = featuredEvent
+    ? sortedEvents.filter((item) => item.id !== featuredEvent.id).slice(2)
+    : [];
   const locale = localeMap[language];
 
   if (!featuredEvent) {
-    return null;
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <section className="py-12 md:py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto mb-6">
+                <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to home
+                </Link>
+              </div>
+              <div className="max-w-3xl mx-auto text-center">
+                <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Upcoming Events</h1>
+                <div className="mt-8 rounded-2xl border border-dashed border-primary/20 bg-card/80 p-8 text-left sm:text-center">
+                  <p className="text-base leading-7 text-muted-foreground">
+                    There are currently no upcoming public events.
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    Official events, cultural activities and announcements will be published here as soon as they become available.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    );
   }
+
 
   const formatDate = (date: string) =>
     new Intl.DateTimeFormat(locale, {
