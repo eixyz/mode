@@ -178,21 +178,17 @@ export const Header = () => {
               </DropdownMenu>
             </nav>
 
-            {/* CTA Button */}
-            <div className="hidden lg:block">
-              <Link to="/appointment">
-                <Button className="bg-primary hover:bg-embassy-green-dark text-primary-foreground">
-                  {t("header.bookAppointment")}
-                </Button>
-              </Link>
-            </div>
+            {/* CTA Button intentionally hidden — appointment page remains reachable via direct link */}
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
+              className="lg:hidden p-2 text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -206,7 +202,7 @@ export const Header = () => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-card border-t border-border"
             >
-              <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+              <nav id="mobile-navigation" aria-label="Mobile" className="container mx-auto px-4 py-4 flex flex-col gap-2">
                 <div>
                   <Link
                     to="/"
@@ -327,11 +323,7 @@ export const Header = () => {
                   </Link>
                 </div>
 
-                <Link to="/appointment" onClick={closeMobileMenu}>
-                  <Button className="mt-4 bg-primary hover:bg-embassy-green-dark text-primary-foreground w-full">
-                    {t("header.bookAppointment")}
-                  </Button>
-                </Link>
+                {/* Book Appointment CTA hidden — appointment page still accessible via /appointment */}
               </nav>
             </motion.div>
           )}

@@ -19,12 +19,42 @@ export const UpcomingEvents = () => {
   const { events } = useEventStore();
   const upcomingEvents = sortEmbassyEvents(events);
   const featuredEvent = upcomingEvents.find((item) => item.featured) ?? upcomingEvents[0];
-  const secondaryEvents = upcomingEvents.filter((item) => item.id !== featuredEvent.id).slice(0, 2);
+  const secondaryEvents = featuredEvent
+    ? upcomingEvents.filter((item) => item.id !== featuredEvent.id).slice(0, 2)
+    : [];
   const locale = localeMap[language];
 
   if (!featuredEvent) {
-    return null;
+    return (
+      <section
+        id="events"
+        aria-labelledby="upcoming-events-title"
+        className="relative overflow-hidden bg-muted/40 py-24"
+      >
+        <div className="absolute inset-0 pattern-mozambique opacity-60" />
+        <div className="container relative mx-auto px-4">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="gold-accent mx-auto mb-6 h-1 w-16 rounded-full" />
+            <h2
+              id="upcoming-events-title"
+              className="font-serif text-3xl font-bold text-foreground md:text-4xl"
+            >
+              Upcoming Events
+            </h2>
+            <div className="mt-8 rounded-2xl border border-dashed border-primary/20 bg-card/80 p-8 text-left sm:text-center">
+              <p className="text-base leading-7 text-muted-foreground">
+                There are currently no upcoming public events.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                Official events, cultural activities and announcements will be published here as soon as they become available.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
+
 
   const formatMonth = (date: string) =>
     new Intl.DateTimeFormat(locale, { month: "short" }).format(new Date(date));
