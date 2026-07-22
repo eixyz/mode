@@ -202,7 +202,7 @@ export const Header = () => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-card border-t border-border"
             >
-              <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+              <nav id="mobile-navigation" aria-label="Mobile" className="container mx-auto px-4 py-4 flex flex-col gap-2">
                 <div>
                   <Link
                     to="/"

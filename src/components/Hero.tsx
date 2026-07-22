@@ -1,5 +1,5 @@
 ﻿import { motion } from "framer-motion";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
 import { Link } from "react-router-dom";
