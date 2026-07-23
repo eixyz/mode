@@ -1,0 +1,83 @@
+# Decap CMS configuration
+# NOTE: Fill in your GitHub repo details and configure a GitHub OAuth app
+# (via a Netlify-compatible OAuth provider, e.g. https://github.com/vencax/netlify-cms-github-oauth-provider
+# hosted separately) then set `base_url` below. Secrets must NOT be committed.
+
+backend:
+  name: github
+  repo: OWNER/REPO # TODO: replace with GitHub owner/repo, e.g. mozambique-embassy/website
+  branch: main
+  # OAuth flow — the client_id is public, but the client_secret lives on your
+  # OAuth proxy server (never in this file).
+  base_url: https://YOUR-OAUTH-PROXY.example.com # TODO
+  auth_endpoint: /auth
+
+# Where uploaded images go in the repo, and how they're served by the site.
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Show a "Publish" workflow with drafts / review before merging.
+publish_mode: editorial_workflow
+
+site_url: https://www.example.com # TODO: production URL
+display_url: https://www.example.com # TODO
+logo_url: /favicon.ico
+
+collections:
+  - name: news
+    label: News & Announcements
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{displayDate}} — {{title}}"
+    sortable_fields: [date, title]
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: id, label: ID (slug), widget: string, hint: "Stable URL slug — do not change after publishing." }
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Publish date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { name: displayDate, label: Display date (human readable), widget: string, hint: "e.g. 22 July 2026" }
+      - { name: category, label: Category, widget: select, options: [Announcement, Press Release, Consular, Cultural, Trade, Event] }
+      - { name: excerpt, label: Short excerpt, widget: text }
+      - { name: image, label: Cover image, widget: image, required: false }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: events
+    label: Events
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{date}} — {{title}}"
+    sortable_fields: [date, title]
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: id, label: ID (slug), widget: string }
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Event date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { name: time, label: Time, widget: string, hint: "e.g. 18:00 – 20:00" }
+      - { name: venue, label: Venue, widget: string }
+      - { name: category, label: Category, widget: select, options: [Cultural, Diplomatic, Trade, Public, Commemoration] }
+      - { name: summary, label: Summary, widget: text }
+      - { name: ctaLabel, label: CTA label, widget: string, default: "Request information" }
+      - { name: featured, label: Featured on homepage, widget: boolean, default: false, required: false }
+      - { name: image, label: Cover image, widget: image, required: false }
+      - { name: body, label: Details, widget: markdown, required: false }
+
+  - name: documents
+    label: Documents & Public Notices
+    folder: "content/documents"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { name: category, label: Category, widget: select, options: [Public Notice, Form, Consular Document, Trade, Other] }
+      - { name: file, label: PDF file, widget: file, media_library: { config: { multiple: false } } }
+      - { name: description, label: Description, widget: text, required: false }
