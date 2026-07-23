@@ -1,3 +1,5 @@
+import { loadEvents } from "./content";
+
 export type EmbassyEvent = {
   id: string;
   date: string;
@@ -12,7 +14,8 @@ export type EmbassyEvent = {
   featured?: boolean;
 };
 
-export const embassyEvents: EmbassyEvent[] = [];
+// Source of truth: Markdown files under /content/events managed by Decap CMS.
+export const embassyEvents: EmbassyEvent[] = loadEvents();
 
 export const sortEmbassyEvents = (events: EmbassyEvent[]) =>
   [...events].sort(

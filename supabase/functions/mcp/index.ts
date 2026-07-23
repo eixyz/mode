@@ -9,17 +9,80 @@ import { defineMcp } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z } from "npm:zod@^4.4.3";
 
+// src/lib/content.ts
+import matter from "npm:gray-matter@^4.0.3";
+var newsFiles = import.meta.glob("/content/news/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true
+});
+var eventFiles = import.meta.glob("/content/events/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true
+});
+var documentFiles = import.meta.glob("/content/documents/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true
+});
+var slugFromPath = (path) => path.split("/").pop().replace(/\.md$/, "");
+var formatDisplayDate = (iso) => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  }).format(d);
+};
+var loadNews = () => {
+  const items = Object.entries(newsFiles).map(([path, raw]) => {
+    const { data, content } = matter(raw);
+    const body = content.trim();
+    return {
+      id: data.id || slugFromPath(path),
+      date: data.displayDate || formatDisplayDate(String(data.date ?? "")),
+      category: data.category || "Announcement",
+      title: data.title || "Untitled",
+      excerpt: data.excerpt || body.split("\n\n")[0] || "",
+      content: body || void 0,
+      image: data.image || void 0,
+      // Sortable ISO date kept as a symbol on the object (non-enumerable-ish)
+      _sort: String(data.date ?? "")
+    };
+  });
+  items.sort((a, b) => {
+    const ax = a._sort ?? "";
+    const bx = b._sort ?? "";
+    return bx.localeCompare(ax);
+  });
+  return items;
+};
+var loadEvents = () => {
+  const items = Object.entries(eventFiles).map(([path, raw]) => {
+    const { data, content } = matter(raw);
+    const body = content.trim();
+    const isoDate = String(data.date ?? "").slice(0, 10);
+    return {
+      id: data.id || slugFromPath(path),
+      date: isoDate,
+      time: data.time || "",
+      category: data.category || "Public",
+      title: data.title || "Untitled",
+      summary: data.summary || body.split("\n\n")[0] || "",
+      content: body || void 0,
+      venue: data.venue || "",
+      image: data.image || void 0,
+      ctaLabel: data.ctaLabel || "Request information",
+      featured: Boolean(data.featured)
+    };
+  });
+  return items;
+};
+
 // src/lib/news.ts
-var newsItems = [
-  {
-    id: "official-website-launch-2026",
-    date: "22 July 2026",
-    category: "Announcement",
-    title: "Launch of the New Official Website",
-    excerpt: "The Embassy of the Republic of Mozambique in the Federal Republic of Germany is pleased to announce the launch of its new official website.",
-    content: "The Embassy of the Republic of Mozambique in the Federal Republic of Germany is pleased to announce the launch of its new official website.\n\nThe new platform offers improved navigation, updated information regarding consular services, visa procedures, trade and investment, tourism, and embassy contact information.\n\nThis modernized website has been designed to improve accessibility, provide multilingual content, and simplify communication between the Embassy and citizens, businesses and visitors."
-  }
-];
+var newsItems = loadNews();
 
 // src/lib/mcp/tools/list-news.ts
 var list_news_default = defineTool({
@@ -78,7 +141,7 @@ import { defineTool as defineTool3 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z3 } from "npm:zod@^4.4.3";
 
 // src/lib/events.ts
-var embassyEvents = [];
+var embassyEvents = loadEvents();
 
 // src/lib/mcp/tools/list-events.ts
 var list_events_default = defineTool3({
