@@ -1,17 +1,27 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+
+const PAGE_SIZE = 9;
 
 const NewsPage = () => {
   const { newsItems } = useNewsStore();
   const featuredNews = newsItems[0];
   const sidebarNews = newsItems.slice(1, 3);
-  const remainingNews = newsItems.slice(3);
+  const paginatedSource = useMemo(() => newsItems.slice(3), [newsItems]);
+  const [page, setPage] = useState(1);
+  const totalPages = Math.max(1, Math.ceil(paginatedSource.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const remainingNews = paginatedSource.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
