@@ -1,6 +1,26 @@
-import matter from "gray-matter";
 import type { NewsItem } from "./news";
 import type { EmbassyEvent } from "./events";
+
+// Lightweight browser-safe frontmatter parser (avoids gray-matter's Buffer dep).
+function matter(raw: string): { data: Record<string, unknown>; content: string } {
+  const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
+  if (!m) return { data: {}, content: raw };
+  const data: Record<string, unknown> = {};
+  for (const line of m[1].split(/\r?\n/)) {
+    const kv = /^([A-Za-z0-9_-]+)\s*:\s*(.*)$/.exec(line);
+    if (!kv) continue;
+    let v = kv[2].trim();
+    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+      v = v.slice(1, -1);
+    }
+    let parsed: unknown = v;
+    if (v === "true") parsed = true;
+    else if (v === "false") parsed = false;
+    else if (v !== "" && !isNaN(Number(v)) && /^-?\d+(\.\d+)?$/.test(v)) parsed = Number(v);
+    data[kv[1]] = parsed;
+  }
+  return { data, content: m[2] };
+}
 
 // Vite: import raw markdown at build time. Decap CMS writes to these folders
 // via GitHub; the next build picks them up.

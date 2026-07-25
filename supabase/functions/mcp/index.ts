@@ -10,7 +10,25 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z } from "npm:zod@^4.4.3";
 
 // src/lib/content.ts
-import matter from "npm:gray-matter@^4.0.3";
+function matter(raw) {
+  const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
+  if (!m) return { data: {}, content: raw };
+  const data = {};
+  for (const line of m[1].split(/\r?\n/)) {
+    const kv = /^([A-Za-z0-9_-]+)\s*:\s*(.*)$/.exec(line);
+    if (!kv) continue;
+    let v = kv[2].trim();
+    if (v.startsWith('"') && v.endsWith('"') || v.startsWith("'") && v.endsWith("'")) {
+      v = v.slice(1, -1);
+    }
+    let parsed = v;
+    if (v === "true") parsed = true;
+    else if (v === "false") parsed = false;
+    else if (v !== "" && !isNaN(Number(v)) && /^-?\d+(\.\d+)?$/.test(v)) parsed = Number(v);
+    data[kv[1]] = parsed;
+  }
+  return { data, content: m[2] };
+}
 var newsFiles = import.meta.glob("/content/news/*.md", {
   query: "?raw",
   import: "default",
