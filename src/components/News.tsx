@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { useNewsStore } from "@/lib/newsStore";
+import { useLanguage } from "@/lib/useLanguage";
 
 export const News = () => {
+  const { t } = useLanguage();
   const { newsItems } = useNewsStore();
   const featuredNews = newsItems[0];
   const sidebarNews = newsItems.slice(1, 3);
@@ -27,26 +29,26 @@ export const News = () => {
         >
           <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-            News & Announcements
+            {t("news.newsAnnouncements")}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Stay updated with the latest news, events, and announcements from the Embassy.
+            {t("news.description")}
           </p>
         </motion.div>
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] max-w-6xl mx-auto lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] max-w-6xl mx-auto lg:items-stretch">
           <motion.article
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+            className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group flex flex-col h-full"
           >
             {featuredNews.image && (
               <img src={featuredNews.image} alt={featuredNews.title} loading="lazy" decoding="async" className="w-full h-52 md:h-56 lg:h-56 object-cover" />
             )}
             <div className="h-2 gold-accent" />
-            <div className="p-6 md:p-7 flex flex-col">
+            <div className="p-6 md:p-7 flex flex-col flex-1">
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
                   {featuredNews.category}
@@ -63,13 +65,13 @@ export const News = () => {
                 {featuredNews.excerpt}
               </p>
               <Link to={`/news/${featuredNews.id}`} className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
-                Read more
+                {t("news.readMore")}
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.article>
 
-          <div className="grid gap-4">
+          <div className="grid gap-4 sm:auto-rows-fr">
             {sidebarNews.map((item, index) => (
               <motion.article
                 key={item.id}
@@ -77,12 +79,12 @@ export const News = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+                className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group flex flex-col h-full"
               >
                 {item.image && (
                   <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="w-full h-32 object-cover" />
                 )}
-                <div className="p-5 flex flex-col">
+                <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-center gap-3 mb-3 flex-wrap">
                     <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
                       {item.category}
@@ -99,7 +101,7 @@ export const News = () => {
                     {item.excerpt}
                   </p>
                   <Link to={`/news/${item.id}`} className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
-                    Read more
+                    {t("news.readMore")}
                     <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -118,7 +120,7 @@ export const News = () => {
         >
           <Link to="/news">
             <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              View All News
+              {t("news.viewAllNews")}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
