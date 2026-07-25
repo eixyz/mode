@@ -145,7 +145,7 @@ export const UpcomingEvents = () => {
                 <div className="mt-auto pt-2 flex flex-wrap gap-3">
                   <Link to={`/events/${featuredEvent.id}`} className="flex-1 sm:flex-none">
                     <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10">
-                      View event details
+                      {t("events.viewDetails")}
                     </Button>
                   </Link>
                   <Link to={getEventContactLink(featuredEvent)} className="flex-1 sm:flex-none">
@@ -201,7 +201,7 @@ export const UpcomingEvents = () => {
                         to={`/events/${event.id}`}
                         className="inline-flex items-center text-sm font-medium text-primary hover:underline"
                       >
-                        View details
+                        {t("events.viewDetails")}
                         <ArrowRight className="ml-1 h-4 w-4" />
                       </Link>
                     </div>
@@ -222,10 +222,10 @@ export const UpcomingEvents = () => {
         >
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <p className="text-sm leading-6 text-muted-foreground max-w-3xl">
-              Need more context before contacting the embassy? The full events page keeps the overview structured even when more highlights are added.
+              {t("events.browseIntro")}
             </p>
             <Link to="/events" className="inline-flex items-center text-sm font-medium text-primary hover:underline shrink-0">
-              Browse all upcoming events
+              {t("events.browseAll")}
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </div>
