@@ -15,7 +15,7 @@ const localeMap = {
 } as const;
 
 export const UpcomingEvents = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { events } = useEventStore();
   const upcomingEvents = sortEmbassyEvents(events);
   const featuredEvent = upcomingEvents.find((item) => item.featured) ?? upcomingEvents[0];
@@ -39,14 +39,14 @@ export const UpcomingEvents = () => {
               id="upcoming-events-title"
               className="font-serif text-3xl font-bold text-foreground md:text-4xl"
             >
-              Upcoming Events
+              {t("events.title")}
             </h2>
             <div className="mt-8 rounded-2xl border border-dashed border-primary/20 bg-card/80 p-8 text-left sm:text-center">
               <p className="text-base leading-7 text-muted-foreground">
-                There are currently no upcoming public events.
+                {t("events.empty")}
               </p>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Official events, cultural activities and announcements will be published here as soon as they become available.
+                {t("events.emptyDesc")}
               </p>
             </div>
           </div>
@@ -83,10 +83,10 @@ export const UpcomingEvents = () => {
         >
           <div className="gold-accent mx-auto mb-6 h-1 w-16 rounded-full" />
           <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-            Upcoming Events
+            {t("events.title")}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            A curated overview of the next embassy events, public briefings, and cultural gatherings.
+            {t("events.description")}
           </p>
         </motion.div>
 
@@ -101,7 +101,7 @@ export const UpcomingEvents = () => {
             <div className="hero-gradient p-6 sm:p-7 md:p-8 text-primary-foreground h-full flex flex-col">
               <div className="mb-5 flex flex-wrap items-center gap-2">
                 <Badge className="bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/20">
-                  Featured event
+                  {t("events.featured")}
                 </Badge>
                 <Badge className="bg-gold/20 text-primary-foreground hover:bg-gold/30">
                   {featuredEvent.category}
@@ -145,7 +145,7 @@ export const UpcomingEvents = () => {
                 <div className="mt-auto pt-2 flex flex-wrap gap-3">
                   <Link to={`/events/${featuredEvent.id}`} className="flex-1 sm:flex-none">
                     <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10">
-                      View event details
+                      {t("events.viewDetails")}
                     </Button>
                   </Link>
                   <Link to={getEventContactLink(featuredEvent)} className="flex-1 sm:flex-none">
@@ -201,7 +201,7 @@ export const UpcomingEvents = () => {
                         to={`/events/${event.id}`}
                         className="inline-flex items-center text-sm font-medium text-primary hover:underline"
                       >
-                        View details
+                        {t("events.viewDetails")}
                         <ArrowRight className="ml-1 h-4 w-4" />
                       </Link>
                     </div>
@@ -222,10 +222,10 @@ export const UpcomingEvents = () => {
         >
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <p className="text-sm leading-6 text-muted-foreground max-w-3xl">
-              Need more context before contacting the embassy? The full events page keeps the overview structured even when more highlights are added.
+              {t("events.browseIntro")}
             </p>
             <Link to="/events" className="inline-flex items-center text-sm font-medium text-primary hover:underline shrink-0">
-              Browse all upcoming events
+              {t("events.browseAll")}
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </div>

@@ -1,35 +1,38 @@
 import { motion } from "framer-motion";
 import { BookOpen, Plane, CalendarCheck, MessageSquare, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const highlights = [
-  {
-    icon: BookOpen,
-    title: "Passports & IDs",
-    description: "Apply for a new Mozambican passport, renew an existing one, or request identification documents.",
-    to: "/services/passports",
-  },
-  {
-    icon: Plane,
-    title: "Visa Services",
-    description: "Requirements and application steps for tourist, business, and transit visas to Mozambique.",
-    to: "/services/visas",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Appointment Request",
-    description: "Request an appointment for consular services at the Embassy in Berlin.",
-    to: "/appointment",
-  },
-  {
-    icon: MessageSquare,
-    title: "Contact",
-    description: "Reach the Embassy for general inquiries, media requests, or diplomatic correspondence.",
-    to: "/contact",
-  },
-];
+import { useLanguage } from "@/lib/useLanguage";
 
 export const Highlights = () => {
+  const { t } = useLanguage();
+
+  const highlights = [
+    {
+      icon: BookOpen,
+      title: t("highlights.passportsTitle"),
+      description: t("highlights.passportsDesc"),
+      to: "/services/passports",
+    },
+    {
+      icon: Plane,
+      title: t("highlights.visasTitle"),
+      description: t("highlights.visasDesc"),
+      to: "/services/visas",
+    },
+    {
+      icon: CalendarCheck,
+      title: t("highlights.appointmentTitle"),
+      description: t("highlights.appointmentDesc"),
+      to: "/appointment",
+    },
+    {
+      icon: MessageSquare,
+      title: t("highlights.contactTitle"),
+      description: t("highlights.contactDesc"),
+      to: "/contact",
+    },
+  ];
+
   return (
     <section
       id="highlights"
@@ -46,10 +49,10 @@ export const Highlights = () => {
         >
           <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
           <h2 id="highlights-title" className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-            How can we help?
+            {t("highlights.title")}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Quick access to the services most requested by our community and visitors.
+            {t("highlights.description")}
           </p>
         </motion.div>
 
@@ -77,7 +80,7 @@ export const Highlights = () => {
                   {item.description}
                 </p>
                 <span className="mt-4 inline-flex items-center text-sm font-medium text-primary">
-                  Learn more
+                  {t("highlights.learnMore")}
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>

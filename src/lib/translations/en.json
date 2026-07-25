@@ -171,6 +171,29 @@
     "articleNotFound": "Article not found",
     "articleNotFoundDesc": "The requested news article could not be located."
   },
+  "events": {
+    "title": "Upcoming Events",
+    "description": "A curated overview of the next embassy events, public briefings, and cultural gatherings.",
+    "empty": "There are currently no upcoming public events.",
+    "emptyDesc": "Official events, cultural activities and announcements will be published here as soon as they become available.",
+    "featured": "Featured event",
+    "viewDetails": "View event details",
+    "browseAll": "Browse all upcoming events",
+    "browseIntro": "Looking for something specific? See the complete calendar of embassy activities and cultural gatherings."
+  },
+  "highlights": {
+    "title": "How can we help?",
+    "description": "Quick access to the services most requested by our community and visitors.",
+    "learnMore": "Learn more",
+    "passportsTitle": "Passports & IDs",
+    "passportsDesc": "Apply for a new Mozambican passport, renew an existing one, or request identification documents.",
+    "visasTitle": "Visa Services",
+    "visasDesc": "Requirements and application steps for tourist, business, and transit visas to Mozambique.",
+    "appointmentTitle": "Appointment Request",
+    "appointmentDesc": "Request an appointment for consular services at the Embassy in Berlin.",
+    "contactTitle": "Contact",
+    "contactDesc": "Reach the Embassy for general inquiries, media requests, or diplomatic correspondence."
+  },
   "contact": {
     "getInTouch": "Get in Touch",
     "send": "Send",
