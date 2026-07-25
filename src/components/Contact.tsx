@@ -27,7 +27,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: ["info@mozambique-embassy.de", "consular@mozambique-embassy.de"],
+    content: ["support@mozambique-embassy.de", "emilivixviii@gmail.com"],
   },
   {
     icon: Clock,

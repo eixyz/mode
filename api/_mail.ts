@@ -29,7 +29,7 @@ const embassyAddress = [
 
 const footerMeta = [
   "Phone: +49 30 3987 6500",
-  "Email: info@embassy-of-mozambique.de",
+  "Email: support@mozambique-embassy.de",
 ];
 
 const originEnvKeys = ["WEBSITE_ORIGIN", "PUBLIC_SITE_URL", "APP_URL"] as const;
@@ -96,7 +96,9 @@ const createTransporter = () => {
   const { user, pass } = getMailCredentials();
 
   return nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.ionos.de", // use smtp.ionos.com if your account isn't the German one
+    port: 587,
+    secure: false, // false for port 587 (STARTTLS), true if you switch to port 465
     auth: { user, pass },
   });
 };
