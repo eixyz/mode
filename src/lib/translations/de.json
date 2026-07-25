@@ -171,6 +171,29 @@
     "articleNotFound": "Artikel nicht gefunden",
     "articleNotFoundDesc": "Der angeforderte Nachrichtenartikel konnte nicht gefunden werden."
   },
+  "events": {
+    "title": "Kommende Veranstaltungen",
+    "description": "Ein kuratierter Überblick über bevorstehende Botschaftsveranstaltungen, öffentliche Briefings und kulturelle Zusammenkünfte.",
+    "empty": "Derzeit sind keine öffentlichen Veranstaltungen geplant.",
+    "emptyDesc": "Offizielle Veranstaltungen, kulturelle Aktivitäten und Ankündigungen werden hier veröffentlicht, sobald sie verfügbar sind.",
+    "featured": "Hervorgehobene Veranstaltung",
+    "viewDetails": "Veranstaltungsdetails ansehen",
+    "browseAll": "Alle kommenden Veranstaltungen ansehen",
+    "browseIntro": "Suchen Sie etwas Bestimmtes? Sehen Sie den vollständigen Kalender der Botschaftsaktivitäten und kulturellen Veranstaltungen."
+  },
+  "highlights": {
+    "title": "Wie können wir helfen?",
+    "description": "Schnellzugriff auf die am häufigsten angefragten Dienstleistungen unserer Gemeinschaft und Besucher.",
+    "learnMore": "Mehr erfahren",
+    "passportsTitle": "Pässe & Ausweise",
+    "passportsDesc": "Beantragen Sie einen neuen mosambikanischen Pass, erneuern Sie einen bestehenden oder fordern Sie Ausweisdokumente an.",
+    "visasTitle": "Visa-Dienstleistungen",
+    "visasDesc": "Voraussetzungen und Antragsschritte für Touristen-, Geschäfts- und Transitvisa nach Mosambik.",
+    "appointmentTitle": "Terminanfrage",
+    "appointmentDesc": "Vereinbaren Sie einen Termin für konsularische Dienstleistungen in der Botschaft in Berlin.",
+    "contactTitle": "Kontakt",
+    "contactDesc": "Wenden Sie sich an die Botschaft für allgemeine Anfragen, Medienanfragen oder diplomatische Korrespondenz."
+  },
   "contact": {
     "getInTouch": "Kontaktieren Sie uns",
     "send": "Absenden",
