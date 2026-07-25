@@ -6,7 +6,7 @@ displayDate: 22 July 2026
 category: Announcement
 excerpt: The Embassy of the Republic of Mozambique in the Federal Republic of
   Germany is pleased to announce the launch of its new official website.
-image: ""
+image: /uploads/ilya-pavlov-oqtafyt5ktw-unsplash.jpg
 ---
 
 The Embassy of the Republic of Mozambique in the Federal Republic of Germany is pleased to announce the launch of its new official website.
