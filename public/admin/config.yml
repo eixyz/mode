@@ -5,11 +5,11 @@
 
 backend:
   name: github
-  repo: OWNER/REPO # TODO: replace with GitHub owner/repo, e.g. mozambique-embassy/website
+  repo: eixyz/mode # TODO: replace with GitHub owner/repo, e.g. mozambique-embassy/website
   branch: main
   # OAuth flow — the client_id is public, but the client_secret lives on your
   # OAuth proxy server (never in this file).
-  base_url: https://YOUR-OAUTH-PROXY.example.com # TODO
+  base_url: https://sveltia-cms-auth.mozemb.workers.dev # TODO
   auth_endpoint: /auth
 
 # Where uploaded images go in the repo, and how they're served by the site.
@@ -19,8 +19,8 @@ public_folder: "/uploads"
 # Show a "Publish" workflow with drafts / review before merging.
 publish_mode: editorial_workflow
 
-site_url: https://www.example.com # TODO: production URL
-display_url: https://www.example.com # TODO
+site_url: https://mozambique-embassy.de # TODO: production URL
+display_url: https://mozambique-embassy.de # TODO
 logo_url: /favicon.ico
 
 collections:
