@@ -15,7 +15,7 @@ const localeMap = {
 } as const;
 
 export const UpcomingEvents = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { events } = useEventStore();
   const upcomingEvents = sortEmbassyEvents(events);
   const featuredEvent = upcomingEvents.find((item) => item.featured) ?? upcomingEvents[0];
@@ -39,14 +39,14 @@ export const UpcomingEvents = () => {
               id="upcoming-events-title"
               className="font-serif text-3xl font-bold text-foreground md:text-4xl"
             >
-              Upcoming Events
+              {t("events.title")}
             </h2>
             <div className="mt-8 rounded-2xl border border-dashed border-primary/20 bg-card/80 p-8 text-left sm:text-center">
               <p className="text-base leading-7 text-muted-foreground">
-                There are currently no upcoming public events.
+                {t("events.empty")}
               </p>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Official events, cultural activities and announcements will be published here as soon as they become available.
+                {t("events.emptyDesc")}
               </p>
             </div>
           </div>
