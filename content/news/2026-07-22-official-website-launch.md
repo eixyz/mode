@@ -1,10 +1,11 @@
 ---
 id: official-website-launch-2026
 title: Launch of the New Official Website
-date: 2026-07-22
+date: 2026-07-25
 displayDate: 22 July 2026
 category: Announcement
-excerpt: The Embassy of the Republic of Mozambique in the Federal Republic of Germany is pleased to announce the launch of its new official website.
+excerpt: The Embassy of the Republic of Mozambique in the Federal Republic of
+  Germany is pleased to announce the launch of its new official website.
 image: ""
 ---
 
