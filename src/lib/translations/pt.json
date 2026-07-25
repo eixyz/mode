@@ -171,6 +171,29 @@
     "articleNotFound": "Artigo não encontrado",
     "articleNotFoundDesc": "O artigo de notícias solicitado não pôde ser localizado."
   },
+  "events": {
+    "title": "Próximos Eventos",
+    "description": "Uma visão curada dos próximos eventos da embaixada, briefings públicos e encontros culturais.",
+    "empty": "Não há eventos públicos programados no momento.",
+    "emptyDesc": "Eventos oficiais, atividades culturais e anúncios serão publicados aqui assim que estiverem disponíveis.",
+    "featured": "Evento em destaque",
+    "viewDetails": "Ver detalhes do evento",
+    "browseAll": "Ver todos os próximos eventos",
+    "browseIntro": "Procura algo específico? Consulte o calendário completo de atividades da embaixada e encontros culturais."
+  },
+  "highlights": {
+    "title": "Como podemos ajudar?",
+    "description": "Acesso rápido aos serviços mais solicitados pela nossa comunidade e visitantes.",
+    "learnMore": "Saber mais",
+    "passportsTitle": "Passaportes & Identificação",
+    "passportsDesc": "Solicite um novo passaporte moçambicano, renove um existente ou peça documentos de identificação.",
+    "visasTitle": "Serviços de Visto",
+    "visasDesc": "Requisitos e passos de candidatura para vistos de turismo, negócios e trânsito para Moçambique.",
+    "appointmentTitle": "Pedido de Marcação",
+    "appointmentDesc": "Solicite uma marcação para serviços consulares na Embaixada em Berlim.",
+    "contactTitle": "Contacto",
+    "contactDesc": "Entre em contacto com a Embaixada para consultas gerais, pedidos de imprensa ou correspondência diplomática."
+  },
   "contact": {
     "getInTouch": "Entre em Contato",
     "send": "Enviar",
