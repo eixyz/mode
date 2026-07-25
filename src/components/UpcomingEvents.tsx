@@ -83,10 +83,10 @@ export const UpcomingEvents = () => {
         >
           <div className="gold-accent mx-auto mb-6 h-1 w-16 rounded-full" />
           <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-            Upcoming Events
+            {t("events.title")}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            A curated overview of the next embassy events, public briefings, and cultural gatherings.
+            {t("events.description")}
           </p>
         </motion.div>
 
@@ -101,7 +101,7 @@ export const UpcomingEvents = () => {
             <div className="hero-gradient p-6 sm:p-7 md:p-8 text-primary-foreground h-full flex flex-col">
               <div className="mb-5 flex flex-wrap items-center gap-2">
                 <Badge className="bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/20">
-                  Featured event
+                  {t("events.featured")}
                 </Badge>
                 <Badge className="bg-gold/20 text-primary-foreground hover:bg-gold/30">
                   {featuredEvent.category}
