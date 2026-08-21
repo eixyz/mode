@@ -202,7 +202,7 @@
     "info": {
       "address": { "title": "Adresse", "lines": ["Stromstraße 47", "10551 Berlin", "Deutschland"] },
       "phone": { "title": "Telefon", "lines": ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"] },
-      "email": { "title": "E-Mail", "lines": ["info@embassy-of-mozambique.de"] },
+      "email": { "title": "E-Mail", "lines": ["info@mozambique-embassy.de"] },
       "hours": { "title": "Öffnungszeiten", "lines": ["Die Mission ist geöffnet:", "Montag - Freitag: 09:00 - 16:30", "Für konsularische Angelegenheiten:", "Die Botschaft ist für die Öffentlichkeit geöffnet:", "Montag - Freitag: 09:30 - 15:00"] }
     },
     "form": {

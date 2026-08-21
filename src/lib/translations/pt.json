@@ -202,7 +202,7 @@
     "info": {
       "address": { "title": "Endereço", "lines": ["Stromstraße 47", "10551 Berlim", "Alemanha"] },
       "phone": { "title": "Telefone", "lines": ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"] },
-      "email": { "title": "E-mail", "lines": ["info@embassy-of-mozambique.de"] },
+      "email": { "title": "E-mail", "lines": ["info@mozambique-embassy.de"] },
       "hours": { "title": "Horário de Funcionamento", "lines": ["A Missão está aberta:", "Segunda - Sexta: 09:00 - 16:30", "Para questões consulares:", "A Embaixada está aberta ao público:", "Segunda - Sexta: 09:30 - 15:00"] }
     },
     "form": {
