@@ -41,7 +41,7 @@ const transportCandidates = () => {
 };
 
 const sendAll = async (
-  messages: Array<{ to: string; subject: string; html: string; text: string; replyTo?: string; fromName: string }>,
+  messages: Array<{ to: string | string[]; subject: string; html: string; text: string; replyTo?: string; fromName: string }>,
 ) => {
   const { user, pass } = readCreds();
   const errors: string[] = [];
@@ -61,14 +61,17 @@ const sendAll = async (
     try {
       await transporter.verify();
       for (const message of messages) {
-        await transporter.sendMail({
-          from: `${message.fromName} <${user}>`,
-          to: message.to,
-          replyTo: message.replyTo,
-          subject: message.subject,
-          html: message.html,
-          text: message.text,
-        });
+        const recipients = Array.isArray(message.to) ? message.to : [message.to];
+        for (const to of recipients) {
+          await transporter.sendMail({
+            from: `${message.fromName} <${user}>`,
+            to,
+            replyTo: message.replyTo,
+            subject: message.subject,
+            html: message.html,
+            text: message.text,
+          });
+        }
       }
       return { port: candidate.port };
     } catch (error) {
