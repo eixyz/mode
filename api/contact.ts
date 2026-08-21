@@ -30,6 +30,13 @@ const readCreds = () => {
   return { user, pass };
 };
 
+const internalRecipients = () => {
+  const primary = process.env.CONTACT_EMAIL;
+  const secondary = process.env.SUPPORT_EMAIL;
+  if (!primary) throw new Error("CONTACT_EMAIL is not configured");
+  return secondary ? [primary, secondary] : [primary];
+};
+
 const host = () => process.env.SMTP_HOST || "smtp.ionos.de";
 
 // IONOS accepts both 465 (implicit TLS) and 587 (STARTTLS).
