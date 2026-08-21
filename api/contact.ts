@@ -30,6 +30,13 @@ const readCreds = () => {
   return { user, pass };
 };
 
+const internalRecipients = () => {
+  const primary = process.env.CONTACT_EMAIL;
+  const secondary = process.env.SUPPORT_EMAIL;
+  if (!primary) throw new Error("CONTACT_EMAIL is not configured");
+  return secondary ? [primary, secondary] : [primary];
+};
+
 const host = () => process.env.SMTP_HOST || "smtp.ionos.de";
 
 // IONOS accepts both 465 (implicit TLS) and 587 (STARTTLS).
@@ -41,7 +48,7 @@ const transportCandidates = () => {
 };
 
 const sendAll = async (
-  messages: Array<{ to: string; subject: string; html: string; text: string; replyTo?: string; fromName: string }>,
+  messages: Array<{ to: string | string[]; subject: string; html: string; text: string; replyTo?: string; fromName: string }>,
 ) => {
   const { user, pass } = readCreds();
   const errors: string[] = [];
@@ -61,14 +68,17 @@ const sendAll = async (
     try {
       await transporter.verify();
       for (const message of messages) {
-        await transporter.sendMail({
-          from: `${message.fromName} <${user}>`,
-          to: message.to,
-          replyTo: message.replyTo,
-          subject: message.subject,
-          html: message.html,
-          text: message.text,
-        });
+        const recipients = Array.isArray(message.to) ? message.to : [message.to];
+        for (const to of recipients) {
+          await transporter.sendMail({
+            from: `${message.fromName} <${user}>`,
+            to,
+            replyTo: message.replyTo,
+            subject: message.subject,
+            html: message.html,
+            text: message.text,
+          });
+        }
       }
       return { port: candidate.port };
     } catch (error) {
@@ -158,7 +168,6 @@ export default async function handler(req: Req, res: Res) {
 
     const fullName = `${title ? title + " " : ""}${firstName} ${lastName}`.trim();
     const reference = `CNT-${Date.now().toString().slice(-6)}`;
-    const mailbox = readCreds().user;
 
     const internalRows = [
       { label: "Reference", value: escapeHtml(reference) },
@@ -176,7 +185,7 @@ export default async function handler(req: Req, res: Res) {
     await sendAll([
       {
         fromName: "Embassy of Mozambique - Website",
-        to: mailbox,
+        to: internalRecipients(),
         replyTo: email,
         subject: `[Website Contact] ${subject} (${reference})`,
         html: layout({

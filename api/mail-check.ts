@@ -26,6 +26,7 @@ export default async function handler(req: Req, res: Res) {
   }
 
   const user = process.env.CONTACT_EMAIL;
+  const support = process.env.SUPPORT_EMAIL;
   const pass = process.env.CONTACT_EMAIL_PASSWORD;
   const host = process.env.SMTP_HOST || "smtp.ionos.de";
 
@@ -33,6 +34,8 @@ export default async function handler(req: Req, res: Res) {
     nodeVersion: process.version,
     host,
     hasContactEmail: Boolean(user),
+    hasSupportEmail: Boolean(support),
+    supportEmail: support || null,
     hasContactPassword: Boolean(pass),
     forcedPort: process.env.SMTP_PORT || null,
   };
