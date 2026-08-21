@@ -168,7 +168,6 @@ export default async function handler(req: Req, res: Res) {
 
     const fullName = `${title ? title + " " : ""}${firstName} ${lastName}`.trim();
     const reference = `CNT-${Date.now().toString().slice(-6)}`;
-    const mailbox = readCreds().user;
 
     const internalRows = [
       { label: "Reference", value: escapeHtml(reference) },
@@ -186,7 +185,7 @@ export default async function handler(req: Req, res: Res) {
     await sendAll([
       {
         fromName: "Embassy of Mozambique - Website",
-        to: mailbox,
+        to: internalRecipients(),
         replyTo: email,
         subject: `[Website Contact] ${subject} (${reference})`,
         html: layout({
