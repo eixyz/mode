@@ -186,7 +186,6 @@ export default async function handler(req: Req, res: Res) {
     const serviceLabel = SERVICE_LABELS[service];
     const fullName = `${firstName} ${lastName}`;
     const reference = `APT-${Date.now().toString().slice(-6)}`;
-    const mailbox = readCreds().user;
 
     const internalRows = [
       { label: "Reference", value: escapeHtml(reference) },
@@ -215,7 +214,7 @@ export default async function handler(req: Req, res: Res) {
     await sendAll([
       {
         fromName: "Embassy of Mozambique - Appointments",
-        to: mailbox,
+        to: internalRecipients(),
         replyTo: email,
         subject: `[Appointment Request] ${serviceLabel} - ${fullName} (${reference})`,
         html: layout({
