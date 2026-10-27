@@ -132,7 +132,7 @@ const AppointmentPage = () => {
       const res = await fetch("/api/appointment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, agreedToTerms }),
       });
       const data = await res.json().catch(() => null);
       if (!res.ok) {

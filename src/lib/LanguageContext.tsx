@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useState, useCallback, useMemo, ReactNode } from "react";
 import en from "./translations/en.json";
 import de from "./translations/de.json";
 import pt from "./translations/pt.json";
@@ -16,31 +16,32 @@ export const LanguageContext = createContext<LanguageContextType | undefined>(un
 const translations: Record<Language, any> = { en, de, pt };
 
 const getNestedValue = (obj: any, path: string): string => {
-  return path.split(".").reduce((current, key) => current?.[key], obj) || path;
+  return path.split(".").reduce((current, key) => current?.[key], obj);
 };
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("language");
-      return (saved as Language) || "en";
+      return saved === "de" || saved === "pt" || saved === "en" ? saved : "en";
     }
     return "en";
   });
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     if (typeof window !== "undefined") {
       localStorage.setItem("language", lang);
     }
-  };
+  }, []);
 
-  const t = (path: string): string => {
-    return getNestedValue(translations[language], path);
-  };
+  const t = useCallback((path: string): string => {
+    return getNestedValue(translations[language], path) || getNestedValue(en, path) || path;
+  }, [language]);
+  const value = useMemo(() => ({ language, setLanguage, t }), [language, setLanguage, t]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

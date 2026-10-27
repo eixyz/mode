@@ -71,12 +71,14 @@ const sendAll = async (
         const recipients = Array.isArray(message.to) ? message.to : [message.to];
         for (const to of recipients) {
           await transporter.sendMail({
-            from: `${message.fromName} <${user}>`,
+            from: { name: message.fromName, address: user },
             to,
             replyTo: message.replyTo,
             subject: message.subject,
             html: message.html,
             text: message.text,
+            disableFileAccess: true,
+            disableUrlAccess: true,
           });
         }
       }
@@ -144,6 +146,10 @@ export default async function handler(req: Req, res: Res) {
 
   try {
     const raw = (typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {}) as Record<string, string>;
+    if (raw.agreedToTerms !== true as unknown) {
+      res.status(400).json({ error: "Please agree to the Terms & Conditions." });
+      return;
+    }
     const str = (value: unknown, max: number) => String(value ?? "").trim().slice(0, max);
 
     const title = str(raw.title, 40);
@@ -157,7 +163,7 @@ export default async function handler(req: Req, res: Res) {
       res.status(400).json({ error: "Please provide your first and last name." });
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    if (!/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]{2,}$/.test(email)) {
       res.status(400).json({ error: "Please provide a valid email address." });
       return;
     }
@@ -216,7 +222,6 @@ export default async function handler(req: Req, res: Res) {
     console.error("CONTACT FORM ERROR:", details);
     res.status(500).json({
       error: "We could not send your message right now. Please try again shortly.",
-      details,
     });
   }
 }
