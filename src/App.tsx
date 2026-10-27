@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,10 +15,8 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Appointment = lazy(() => import("./pages/Appointment"));
 const News = lazy(() => import("./pages/News"));
 const NewsDetail = lazy(() => import("./pages/NewsDetail"));
-const NewsAdmin = lazy(() => import("./pages/NewsAdmin"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
-const EventsAdmin = lazy(() => import("./pages/EventsAdmin"));
 const Ambassador = lazy(() => import("./pages/about/Ambassador"));
 const Mission = lazy(() => import("./pages/about/Mission"));
 const Consuls = lazy(() => import("./pages/about/Consuls"));
@@ -40,6 +38,11 @@ const Accessibility = lazy(() => import("./pages/Accessibility"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
+
+const CmsRedirect = () => {
+  useEffect(() => { window.location.replace("/admin/"); }, []);
+  return null;
+};
 
 const RouteFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-background text-muted-foreground">
@@ -78,10 +81,10 @@ const App = () => (
               <Route path="/about/useful-links" element={<UsefulLinks />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/news" element={<News />} />
-              <Route path="/news/admin" element={<NewsAdmin />} />
+              <Route path="/news/admin" element={<CmsRedirect />} />
               <Route path="/news/:id" element={<NewsDetail />} />
               <Route path="/events" element={<Events />} />
-              <Route path="/events/admin" element={<EventsAdmin />} />
+              <Route path="/events/admin" element={<CmsRedirect />} />
               <Route path="/events/:id" element={<EventDetail />} />
               <Route path="/appointment" element={<Appointment />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
