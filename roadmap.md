@@ -1,6 +1,9 @@
 # Careful production updates
-- [ ] Update vulnerable dependencies without changing the technology stack.
-- [ ] Preserve production email delivery and enforce support-only diagnostic test delivery.
-- [ ] Extend Decap to passport and visa text with all existing translations preserved.
-- [ ] Remove obsolete insecure staff editing entry points in favor of Decap.
-- [ ] Verify changes locally and document deployment checks that require Vercel/GitHub access.
+- [x] Apply compatible security updates and remove unsafe MCP dependencies; document advisories requiring separate compatibility work.
+- [x] Preserve production email recipients and enforce support-only diagnostic delivery; mocked email tests passed.
+- [x] Extend Decap to isolated passport and visa text files with all existing translations preserved.
+- [x] Remove obsolete insecure staff editors and redirect their URLs to Decap.
+- [x] Verify local pages, consent, CMS configuration/login screen and tests; document external deployment checks.
+- [ ] Verify actual support-only delivery after Vercel deployment — requires access to the deployed email environment.
+- [ ] Verify authenticated Decap draft/save/publish — requires a staff GitHub session.
+- [ ] Confirm any previously hosted MCP endpoint is disabled — repository removal does not prove hosted removal.

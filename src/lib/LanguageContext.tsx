@@ -2,6 +2,7 @@ import React, { createContext, useState, useCallback, useMemo, ReactNode } from 
 import en from "./translations/en.json";
 import de from "./translations/de.json";
 import pt from "./translations/pt.json";
+import { getServiceText } from "./serviceContent";
 
 type Language = "en" | "de" | "pt";
 
@@ -36,7 +37,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const t = useCallback((path: string): string => {
-    return getNestedValue(translations[language], path) || getNestedValue(en, path) || path;
+    return getServiceText(language, path) || getNestedValue(translations[language], path) || getNestedValue(en, path) || path;
   }, [language]);
   const value = useMemo(() => ({ language, setLanguage, t }), [language, setLanguage, t]);
 

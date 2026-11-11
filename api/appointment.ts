@@ -151,8 +151,8 @@ export default async function handler(req: Req, res: Res) {
   }
 
   try {
-    const raw = (typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {}) as Record<string, string>;
-    if (raw.agreedToTerms !== true as unknown) {
+    const raw = (typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {}) as Record<string, unknown>;
+    if (raw.agreedToTerms !== true) {
       res.status(400).json({ error: "Please agree to the Terms & Conditions." });
       return;
     }

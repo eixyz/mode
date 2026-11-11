@@ -81,3 +81,379 @@ collections:
       - { name: category, label: Category, widget: select, options: [Public Notice, Form, Consular Document, Trade, Other] }
       - { name: file, label: PDF file, widget: file, media_library: { config: { multiple: false } } }
       - { name: description, label: Description, widget: text, required: false }
+
+  # Isolated files prevent CMS saves from dropping unrelated translations.
+  - name: service_pages
+    label: Passport & Visa Texts
+    format: json
+    editor: { preview: false }
+    files:
+      - name: passports_en
+        label: "Passports & IDs — English"
+        file: content/pages/passports.en.json
+        fields:
+          - { name: pageTitle, label: "Page title", widget: text, required: true }
+          - { name: pageDesc, label: "Page desc", widget: text, required: true }
+          - { name: passportIssuance, label: "Passport issuance", widget: text, required: true }
+          - { name: passportIssuanceDesc, label: "Passport issuance desc", widget: text, required: true }
+          - { name: passportDetail1, label: "Passport detail1", widget: text, required: true }
+          - { name: passportDetail2, label: "Passport detail2", widget: text, required: true }
+          - { name: passportDetail3, label: "Passport detail3", widget: text, required: true }
+          - { name: passportDetail4, label: "Passport detail4", widget: text, required: true }
+          - { name: civilRegistration, label: "Civil registration", widget: text, required: true }
+          - { name: civilRegistrationDesc, label: "Civil registration desc", widget: text, required: true }
+          - { name: civilDetail1, label: "Civil detail1", widget: text, required: true }
+          - { name: civilDetail2, label: "Civil detail2", widget: text, required: true }
+          - { name: civilDetail3, label: "Civil detail3", widget: text, required: true }
+          - { name: birthRegistration, label: "Birth registration", widget: text, required: true }
+          - { name: birthRegistrationDesc, label: "Birth registration desc", widget: text, required: true }
+          - { name: birthDetail1, label: "Birth detail1", widget: text, required: true }
+          - { name: birthDetail2, label: "Birth detail2", widget: text, required: true }
+          - { name: birthDetail3, label: "Birth detail3", widget: text, required: true }
+          - { name: deathRegistration, label: "Death registration", widget: text, required: true }
+          - { name: deathRegistrationDesc, label: "Death registration desc", widget: text, required: true }
+          - { name: deathDetail1, label: "Death detail1", widget: text, required: true }
+          - { name: deathDetail2, label: "Death detail2", widget: text, required: true }
+          - { name: deathDetail3, label: "Death detail3", widget: text, required: true }
+          - { name: idRenewal, label: "Id renewal", widget: text, required: true }
+          - { name: idRenewalDesc, label: "Id renewal desc", widget: text, required: true }
+          - { name: idDetail1, label: "Id detail1", widget: text, required: true }
+          - { name: idDetail2, label: "Id detail2", widget: text, required: true }
+          - { name: idDetail3, label: "Id detail3", widget: text, required: true }
+          - { name: contactAbout, label: "Contact about", widget: text, required: true }
+          - { name: howToApply, label: "How to apply", widget: text, required: true }
+          - { name: step1, label: "Step1", widget: text, required: true }
+          - { name: step2, label: "Step2", widget: text, required: true }
+          - { name: step3, label: "Step3", widget: text, required: true }
+          - { name: step4, label: "Step4", widget: text, required: true }
+          - { name: step5, label: "Step5", widget: text, required: true }
+          - { name: contactSchedule, label: "Contact schedule", widget: text, required: true }
+          - { name: requestInfo, label: "Request info", widget: text, required: true }
+      - name: visas_en
+        label: "Visa Services — English"
+        file: content/pages/visas.en.json
+        fields:
+          - { name: pageTitle, label: "Page title", widget: text, required: true }
+          - { name: pageDesc, label: "Page desc", widget: text, required: true }
+          - { name: importantNotice, label: "Important notice", widget: text, required: true }
+          - { name: exemptTitle, label: "Exempt title", widget: text, required: true }
+          - { name: exemptDesc, label: "Exempt desc", widget: text, required: true }
+          - { name: specialCases, label: "Special cases", widget: text, required: true }
+          - { name: typesTitle, label: "Types title", widget: text, required: true }
+          - { name: typesDesc, label: "Types desc", widget: text, required: true }
+          - { name: tourism, label: "Tourism", widget: text, required: true }
+          - { name: tourismDesc, label: "Tourism desc", widget: text, required: true }
+          - { name: tourismReq1, label: "Tourism req1", widget: text, required: true }
+          - { name: tourismReq2, label: "Tourism req2", widget: text, required: true }
+          - { name: business, label: "Business", widget: text, required: true }
+          - { name: businessDesc, label: "Business desc", widget: text, required: true }
+          - { name: businessReq1, label: "Business req1", widget: text, required: true }
+          - { name: businessReq2, label: "Business req2", widget: text, required: true }
+          - { name: visit, label: "Visit", widget: text, required: true }
+          - { name: visitDesc, label: "Visit desc", widget: text, required: true }
+          - { name: visitReq1, label: "Visit req1", widget: text, required: true }
+          - { name: residence, label: "Residence", widget: text, required: true }
+          - { name: residenceDesc, label: "Residence desc", widget: text, required: true }
+          - { name: residenceReq1, label: "Residence req1", widget: text, required: true }
+          - { name: residenceReq2, label: "Residence req2", widget: text, required: true }
+          - { name: student, label: "Student", widget: text, required: true }
+          - { name: studentDesc, label: "Student desc", widget: text, required: true }
+          - { name: studentReq1, label: "Student req1", widget: text, required: true }
+          - { name: studentReq2, label: "Student req2", widget: text, required: true }
+          - { name: studentReq3, label: "Student req3", widget: text, required: true }
+          - { name: transit, label: "Transit", widget: text, required: true }
+          - { name: transitDesc, label: "Transit desc", widget: text, required: true }
+          - { name: transitReq1, label: "Transit req1", widget: text, required: true }
+          - { name: transitReq2, label: "Transit req2", widget: text, required: true }
+          - { name: requirements, label: "Requirements", widget: text, required: true }
+          - { name: processingTimeLabel, label: "Processing time label", widget: text, required: true }
+          - { name: processingStandard, label: "Processing standard", widget: text, required: true }
+          - { name: specialTitle, label: "Special title", widget: text, required: true }
+          - { name: borderVisa, label: "Border visa", widget: text, required: true }
+          - { name: borderVisaDesc, label: "Border visa desc", widget: text, required: true }
+          - { name: borderVisaDetails, label: "Border visa details", widget: text, required: true }
+          - { name: investmentVisa, label: "Investment visa", widget: text, required: true }
+          - { name: investmentVisaDesc, label: "Investment visa desc", widget: text, required: true }
+          - { name: investmentVisaDetails, label: "Investment visa details", widget: text, required: true }
+          - { name: generalRequirements, label: "General requirements", widget: text, required: true }
+          - { name: req1, label: "Req1", widget: text, required: true }
+          - { name: req2, label: "Req2", widget: text, required: true }
+          - { name: req3, label: "Req3", widget: text, required: true }
+          - { name: req4, label: "Req4", widget: text, required: true }
+          - { name: req5, label: "Req5", widget: text, required: true }
+          - { name: req6, label: "Req6", widget: text, required: true }
+          - { name: req7, label: "Req7", widget: text, required: true }
+          - { name: importantNotes, label: "Important notes", widget: text, required: true }
+          - { name: note1, label: "Note1", widget: text, required: true }
+          - { name: note2, label: "Note2", widget: text, required: true }
+          - { name: note3, label: "Note3", widget: text, required: true }
+          - { name: readyToApply, label: "Ready to apply", widget: text, required: true }
+          - { name: downloadForms, label: "Download forms", widget: text, required: true }
+          - { name: viewDocuments, label: "View documents", widget: text, required: true }
+          - { name: touristVisa, label: "Tourist visa", widget: text, required: true }
+          - { name: touristVisaDesc, label: "Tourist visa desc", widget: text, required: true }
+          - { name: typicalValidity, label: "Typical validity", widget: text, required: true }
+          - { name: multipleEntry, label: "Multiple entry", widget: text, required: true }
+          - { name: processingTime, label: "Processing time", widget: text, required: true }
+          - { name: businessVisa, label: "Business visa", widget: text, required: true }
+          - { name: businessVisaDesc, label: "Business visa desc", widget: text, required: true }
+          - { name: businessRequired, label: "Business required", widget: text, required: true }
+          - { name: residencePermit, label: "Residence permit", widget: text, required: true }
+          - { name: residencePermitDesc, label: "Residence permit desc", widget: text, required: true }
+          - { name: residenceValidity, label: "Residence validity", widget: text, required: true }
+          - { name: residenceRequired, label: "Residence required", widget: text, required: true }
+          - { name: residenceProcessing, label: "Residence processing", widget: text, required: true }
+          - { name: visaExtension, label: "Visa extension", widget: text, required: true }
+          - { name: visaExtensionDesc, label: "Visa extension desc", widget: text, required: true }
+          - { name: extensionInCountry, label: "Extension in country", widget: text, required: true }
+          - { name: extensionBeforeExpiry, label: "Extension before expiry", widget: text, required: true }
+          - { name: extensionProcessing, label: "Extension processing", widget: text, required: true }
+          - { name: visaRequirements, label: "Visa requirements", widget: text, required: true }
+          - { name: contactRequirements, label: "Contact requirements", widget: text, required: true }
+          - { name: applyNow, label: "Apply now", widget: text, required: true }
+      - name: passports_de
+        label: "Passports & IDs — Deutsch"
+        file: content/pages/passports.de.json
+        fields:
+          - { name: pageTitle, label: "Page title", widget: text, required: true }
+          - { name: pageDesc, label: "Page desc", widget: text, required: true }
+          - { name: passportIssuance, label: "Passport issuance", widget: text, required: true }
+          - { name: passportIssuanceDesc, label: "Passport issuance desc", widget: text, required: true }
+          - { name: passportDetail1, label: "Passport detail1", widget: text, required: true }
+          - { name: passportDetail2, label: "Passport detail2", widget: text, required: true }
+          - { name: passportDetail3, label: "Passport detail3", widget: text, required: true }
+          - { name: passportDetail4, label: "Passport detail4", widget: text, required: true }
+          - { name: civilRegistration, label: "Civil registration", widget: text, required: true }
+          - { name: civilRegistrationDesc, label: "Civil registration desc", widget: text, required: true }
+          - { name: civilDetail1, label: "Civil detail1", widget: text, required: true }
+          - { name: civilDetail2, label: "Civil detail2", widget: text, required: true }
+          - { name: civilDetail3, label: "Civil detail3", widget: text, required: true }
+          - { name: birthRegistration, label: "Birth registration", widget: text, required: true }
+          - { name: birthRegistrationDesc, label: "Birth registration desc", widget: text, required: true }
+          - { name: birthDetail1, label: "Birth detail1", widget: text, required: true }
+          - { name: birthDetail2, label: "Birth detail2", widget: text, required: true }
+          - { name: birthDetail3, label: "Birth detail3", widget: text, required: true }
+          - { name: deathRegistration, label: "Death registration", widget: text, required: true }
+          - { name: deathRegistrationDesc, label: "Death registration desc", widget: text, required: true }
+          - { name: deathDetail1, label: "Death detail1", widget: text, required: true }
+          - { name: deathDetail2, label: "Death detail2", widget: text, required: true }
+          - { name: deathDetail3, label: "Death detail3", widget: text, required: true }
+          - { name: idRenewal, label: "Id renewal", widget: text, required: true }
+          - { name: idRenewalDesc, label: "Id renewal desc", widget: text, required: true }
+          - { name: idDetail1, label: "Id detail1", widget: text, required: true }
+          - { name: idDetail2, label: "Id detail2", widget: text, required: true }
+          - { name: idDetail3, label: "Id detail3", widget: text, required: true }
+          - { name: contactAbout, label: "Contact about", widget: text, required: true }
+          - { name: howToApply, label: "How to apply", widget: text, required: true }
+          - { name: step1, label: "Step1", widget: text, required: true }
+          - { name: step2, label: "Step2", widget: text, required: true }
+          - { name: step3, label: "Step3", widget: text, required: true }
+          - { name: step4, label: "Step4", widget: text, required: true }
+          - { name: step5, label: "Step5", widget: text, required: true }
+          - { name: contactSchedule, label: "Contact schedule", widget: text, required: true }
+          - { name: requestInfo, label: "Request info", widget: text, required: true }
+      - name: visas_de
+        label: "Visa Services — Deutsch"
+        file: content/pages/visas.de.json
+        fields:
+          - { name: pageTitle, label: "Page title", widget: text, required: true }
+          - { name: pageDesc, label: "Page desc", widget: text, required: true }
+          - { name: importantNotice, label: "Important notice", widget: text, required: true }
+          - { name: exemptTitle, label: "Exempt title", widget: text, required: true }
+          - { name: exemptDesc, label: "Exempt desc", widget: text, required: true }
+          - { name: specialCases, label: "Special cases", widget: text, required: true }
+          - { name: typesTitle, label: "Types title", widget: text, required: true }
+          - { name: typesDesc, label: "Types desc", widget: text, required: true }
+          - { name: tourism, label: "Tourism", widget: text, required: true }
+          - { name: tourismDesc, label: "Tourism desc", widget: text, required: true }
+          - { name: tourismReq1, label: "Tourism req1", widget: text, required: true }
+          - { name: tourismReq2, label: "Tourism req2", widget: text, required: true }
+          - { name: business, label: "Business", widget: text, required: true }
+          - { name: businessDesc, label: "Business desc", widget: text, required: true }
+          - { name: businessReq1, label: "Business req1", widget: text, required: true }
+          - { name: businessReq2, label: "Business req2", widget: text, required: true }
+          - { name: visit, label: "Visit", widget: text, required: true }
+          - { name: visitDesc, label: "Visit desc", widget: text, required: true }
+          - { name: visitReq1, label: "Visit req1", widget: text, required: true }
+          - { name: residence, label: "Residence", widget: text, required: true }
+          - { name: residenceDesc, label: "Residence desc", widget: text, required: true }
+          - { name: residenceReq1, label: "Residence req1", widget: text, required: true }
+          - { name: residenceReq2, label: "Residence req2", widget: text, required: true }
+          - { name: student, label: "Student", widget: text, required: true }
+          - { name: studentDesc, label: "Student desc", widget: text, required: true }
+          - { name: studentReq1, label: "Student req1", widget: text, required: true }
+          - { name: studentReq2, label: "Student req2", widget: text, required: true }
+          - { name: studentReq3, label: "Student req3", widget: text, required: true }
+          - { name: transit, label: "Transit", widget: text, required: true }
+          - { name: transitDesc, label: "Transit desc", widget: text, required: true }
+          - { name: transitReq1, label: "Transit req1", widget: text, required: true }
+          - { name: transitReq2, label: "Transit req2", widget: text, required: true }
+          - { name: requirements, label: "Requirements", widget: text, required: true }
+          - { name: processingTimeLabel, label: "Processing time label", widget: text, required: true }
+          - { name: processingStandard, label: "Processing standard", widget: text, required: true }
+          - { name: specialTitle, label: "Special title", widget: text, required: true }
+          - { name: borderVisa, label: "Border visa", widget: text, required: true }
+          - { name: borderVisaDesc, label: "Border visa desc", widget: text, required: true }
+          - { name: borderVisaDetails, label: "Border visa details", widget: text, required: true }
+          - { name: investmentVisa, label: "Investment visa", widget: text, required: true }
+          - { name: investmentVisaDesc, label: "Investment visa desc", widget: text, required: true }
+          - { name: investmentVisaDetails, label: "Investment visa details", widget: text, required: true }
+          - { name: generalRequirements, label: "General requirements", widget: text, required: true }
+          - { name: req1, label: "Req1", widget: text, required: true }
+          - { name: req2, label: "Req2", widget: text, required: true }
+          - { name: req3, label: "Req3", widget: text, required: true }
+          - { name: req4, label: "Req4", widget: text, required: true }
+          - { name: req5, label: "Req5", widget: text, required: true }
+          - { name: req6, label: "Req6", widget: text, required: true }
+          - { name: req7, label: "Req7", widget: text, required: true }
+          - { name: importantNotes, label: "Important notes", widget: text, required: true }
+          - { name: note1, label: "Note1", widget: text, required: true }
+          - { name: note2, label: "Note2", widget: text, required: true }
+          - { name: note3, label: "Note3", widget: text, required: true }
+          - { name: readyToApply, label: "Ready to apply", widget: text, required: true }
+          - { name: downloadForms, label: "Download forms", widget: text, required: true }
+          - { name: viewDocuments, label: "View documents", widget: text, required: true }
+          - { name: touristVisa, label: "Tourist visa", widget: text, required: true }
+          - { name: touristVisaDesc, label: "Tourist visa desc", widget: text, required: true }
+          - { name: typicalValidity, label: "Typical validity", widget: text, required: true }
+          - { name: multipleEntry, label: "Multiple entry", widget: text, required: true }
+          - { name: processingTime, label: "Processing time", widget: text, required: true }
+          - { name: businessVisa, label: "Business visa", widget: text, required: true }
+          - { name: businessVisaDesc, label: "Business visa desc", widget: text, required: true }
+          - { name: businessRequired, label: "Business required", widget: text, required: true }
+          - { name: residencePermit, label: "Residence permit", widget: text, required: true }
+          - { name: residencePermitDesc, label: "Residence permit desc", widget: text, required: true }
+          - { name: residenceValidity, label: "Residence validity", widget: text, required: true }
+          - { name: residenceRequired, label: "Residence required", widget: text, required: true }
+          - { name: residenceProcessing, label: "Residence processing", widget: text, required: true }
+          - { name: visaExtension, label: "Visa extension", widget: text, required: true }
+          - { name: visaExtensionDesc, label: "Visa extension desc", widget: text, required: true }
+          - { name: extensionInCountry, label: "Extension in country", widget: text, required: true }
+          - { name: extensionBeforeExpiry, label: "Extension before expiry", widget: text, required: true }
+          - { name: extensionProcessing, label: "Extension processing", widget: text, required: true }
+          - { name: visaRequirements, label: "Visa requirements", widget: text, required: true }
+          - { name: contactRequirements, label: "Contact requirements", widget: text, required: true }
+          - { name: applyNow, label: "Apply now", widget: text, required: true }
+      - name: passports_pt
+        label: "Passports & IDs — Português"
+        file: content/pages/passports.pt.json
+        fields:
+          - { name: pageTitle, label: "Page title", widget: text, required: true }
+          - { name: pageDesc, label: "Page desc", widget: text, required: true }
+          - { name: passportIssuance, label: "Passport issuance", widget: text, required: true }
+          - { name: passportIssuanceDesc, label: "Passport issuance desc", widget: text, required: true }
+          - { name: passportDetail1, label: "Passport detail1", widget: text, required: true }
+          - { name: passportDetail2, label: "Passport detail2", widget: text, required: true }
+          - { name: passportDetail3, label: "Passport detail3", widget: text, required: true }
+          - { name: passportDetail4, label: "Passport detail4", widget: text, required: true }
+          - { name: civilRegistration, label: "Civil registration", widget: text, required: true }
+          - { name: civilRegistrationDesc, label: "Civil registration desc", widget: text, required: true }
+          - { name: civilDetail1, label: "Civil detail1", widget: text, required: true }
+          - { name: civilDetail2, label: "Civil detail2", widget: text, required: true }
+          - { name: civilDetail3, label: "Civil detail3", widget: text, required: true }
+          - { name: birthRegistration, label: "Birth registration", widget: text, required: true }
+          - { name: birthRegistrationDesc, label: "Birth registration desc", widget: text, required: true }
+          - { name: birthDetail1, label: "Birth detail1", widget: text, required: true }
+          - { name: birthDetail2, label: "Birth detail2", widget: text, required: true }
+          - { name: birthDetail3, label: "Birth detail3", widget: text, required: true }
+          - { name: deathRegistration, label: "Death registration", widget: text, required: true }
+          - { name: deathRegistrationDesc, label: "Death registration desc", widget: text, required: true }
+          - { name: deathDetail1, label: "Death detail1", widget: text, required: true }
+          - { name: deathDetail2, label: "Death detail2", widget: text, required: true }
+          - { name: deathDetail3, label: "Death detail3", widget: text, required: true }
+          - { name: idRenewal, label: "Id renewal", widget: text, required: true }
+          - { name: idRenewalDesc, label: "Id renewal desc", widget: text, required: true }
+          - { name: idDetail1, label: "Id detail1", widget: text, required: true }
+          - { name: idDetail2, label: "Id detail2", widget: text, required: true }
+          - { name: idDetail3, label: "Id detail3", widget: text, required: true }
+          - { name: contactAbout, label: "Contact about", widget: text, required: true }
+          - { name: howToApply, label: "How to apply", widget: text, required: true }
+          - { name: step1, label: "Step1", widget: text, required: true }
+          - { name: step2, label: "Step2", widget: text, required: true }
+          - { name: step3, label: "Step3", widget: text, required: true }
+          - { name: step4, label: "Step4", widget: text, required: true }
+          - { name: step5, label: "Step5", widget: text, required: true }
+          - { name: contactSchedule, label: "Contact schedule", widget: text, required: true }
+          - { name: requestInfo, label: "Request info", widget: text, required: true }
+      - name: visas_pt
+        label: "Visa Services — Português"
+        file: content/pages/visas.pt.json
+        fields:
+          - { name: pageTitle, label: "Page title", widget: text, required: true }
+          - { name: pageDesc, label: "Page desc", widget: text, required: true }
+          - { name: importantNotice, label: "Important notice", widget: text, required: true }
+          - { name: exemptTitle, label: "Exempt title", widget: text, required: true }
+          - { name: exemptDesc, label: "Exempt desc", widget: text, required: true }
+          - { name: specialCases, label: "Special cases", widget: text, required: true }
+          - { name: typesTitle, label: "Types title", widget: text, required: true }
+          - { name: typesDesc, label: "Types desc", widget: text, required: true }
+          - { name: tourism, label: "Tourism", widget: text, required: true }
+          - { name: tourismDesc, label: "Tourism desc", widget: text, required: true }
+          - { name: tourismReq1, label: "Tourism req1", widget: text, required: true }
+          - { name: tourismReq2, label: "Tourism req2", widget: text, required: true }
+          - { name: business, label: "Business", widget: text, required: true }
+          - { name: businessDesc, label: "Business desc", widget: text, required: true }
+          - { name: businessReq1, label: "Business req1", widget: text, required: true }
+          - { name: businessReq2, label: "Business req2", widget: text, required: true }
+          - { name: visit, label: "Visit", widget: text, required: true }
+          - { name: visitDesc, label: "Visit desc", widget: text, required: true }
+          - { name: visitReq1, label: "Visit req1", widget: text, required: true }
+          - { name: residence, label: "Residence", widget: text, required: true }
+          - { name: residenceDesc, label: "Residence desc", widget: text, required: true }
+          - { name: residenceReq1, label: "Residence req1", widget: text, required: true }
+          - { name: residenceReq2, label: "Residence req2", widget: text, required: true }
+          - { name: student, label: "Student", widget: text, required: true }
+          - { name: studentDesc, label: "Student desc", widget: text, required: true }
+          - { name: studentReq1, label: "Student req1", widget: text, required: true }
+          - { name: studentReq2, label: "Student req2", widget: text, required: true }
+          - { name: studentReq3, label: "Student req3", widget: text, required: true }
+          - { name: transit, label: "Transit", widget: text, required: true }
+          - { name: transitDesc, label: "Transit desc", widget: text, required: true }
+          - { name: transitReq1, label: "Transit req1", widget: text, required: true }
+          - { name: transitReq2, label: "Transit req2", widget: text, required: true }
+          - { name: requirements, label: "Requirements", widget: text, required: true }
+          - { name: processingTimeLabel, label: "Processing time label", widget: text, required: true }
+          - { name: processingStandard, label: "Processing standard", widget: text, required: true }
+          - { name: specialTitle, label: "Special title", widget: text, required: true }
+          - { name: borderVisa, label: "Border visa", widget: text, required: true }
+          - { name: borderVisaDesc, label: "Border visa desc", widget: text, required: true }
+          - { name: borderVisaDetails, label: "Border visa details", widget: text, required: true }
+          - { name: investmentVisa, label: "Investment visa", widget: text, required: true }
+          - { name: investmentVisaDesc, label: "Investment visa desc", widget: text, required: true }
+          - { name: investmentVisaDetails, label: "Investment visa details", widget: text, required: true }
+          - { name: generalRequirements, label: "General requirements", widget: text, required: true }
+          - { name: req1, label: "Req1", widget: text, required: true }
+          - { name: req2, label: "Req2", widget: text, required: true }
+          - { name: req3, label: "Req3", widget: text, required: true }
+          - { name: req4, label: "Req4", widget: text, required: true }
+          - { name: req5, label: "Req5", widget: text, required: true }
+          - { name: req6, label: "Req6", widget: text, required: true }
+          - { name: req7, label: "Req7", widget: text, required: true }
+          - { name: importantNotes, label: "Important notes", widget: text, required: true }
+          - { name: note1, label: "Note1", widget: text, required: true }
+          - { name: note2, label: "Note2", widget: text, required: true }
+          - { name: note3, label: "Note3", widget: text, required: true }
+          - { name: readyToApply, label: "Ready to apply", widget: text, required: true }
+          - { name: downloadForms, label: "Download forms", widget: text, required: true }
+          - { name: viewDocuments, label: "View documents", widget: text, required: true }
+          - { name: touristVisa, label: "Tourist visa", widget: text, required: true }
+          - { name: touristVisaDesc, label: "Tourist visa desc", widget: text, required: true }
+          - { name: typicalValidity, label: "Typical validity", widget: text, required: true }
+          - { name: multipleEntry, label: "Multiple entry", widget: text, required: true }
+          - { name: processingTime, label: "Processing time", widget: text, required: true }
+          - { name: businessVisa, label: "Business visa", widget: text, required: true }
+          - { name: businessVisaDesc, label: "Business visa desc", widget: text, required: true }
+          - { name: businessRequired, label: "Business required", widget: text, required: true }
+          - { name: residencePermit, label: "Residence permit", widget: text, required: true }
+          - { name: residencePermitDesc, label: "Residence permit desc", widget: text, required: true }
+          - { name: residenceValidity, label: "Residence validity", widget: text, required: true }
+          - { name: residenceRequired, label: "Residence required", widget: text, required: true }
+          - { name: residenceProcessing, label: "Residence processing", widget: text, required: true }
+          - { name: visaExtension, label: "Visa extension", widget: text, required: true }
+          - { name: visaExtensionDesc, label: "Visa extension desc", widget: text, required: true }
+          - { name: extensionInCountry, label: "Extension in country", widget: text, required: true }
+          - { name: extensionBeforeExpiry, label: "Extension before expiry", widget: text, required: true }
+          - { name: extensionProcessing, label: "Extension processing", widget: text, required: true }
+          - { name: visaRequirements, label: "Visa requirements", widget: text, required: true }
+          - { name: contactRequirements, label: "Contact requirements", widget: text, required: true }
+          - { name: applyNow, label: "Apply now", widget: text, required: true }
