@@ -7,11 +7,15 @@ import de from "../src/lib/translations/de.json";
 import pt from "../src/lib/translations/pt.json";
 
 describe("Decap service content", () => {
-  test("all existing service values are preserved across EN, DE, PT", () => {
+  // Staff edit these texts in /admin, so they may differ from the translation
+  // files (which are only the fallback). Check that every text still exists and
+  // is non-empty, not that it is unchanged; otherwise every CMS edit would fail CI.
+  test("every service text exists and is non-empty in EN, DE, PT", () => {
     for (const [language, dictionary] of Object.entries({ en, de, pt })) {
       for (const section of ["passportsPage", "visasPage"] as const) {
-        for (const [key, value] of Object.entries(dictionary[section])) {
-          expect(getServiceText(language, `${section}.${key}`)).toBe(value);
+        for (const key of Object.keys(dictionary[section])) {
+          const value = getServiceText(language, `${section}.${key}`);
+          if (!value) throw new Error(`content/pages: ${language} ${section}.${key} is missing or empty`);
         }
       }
     }
