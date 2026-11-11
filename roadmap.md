@@ -1,4 +1,6 @@
 # Careful production updates
+- [ ] Polish privacy and terms in English, German and Portuguese without changing website behavior.
+- [ ] Verify legal pages and document facts requiring embassy confirmation.
 - [x] Apply compatible security updates and remove unsafe MCP dependencies; document advisories requiring separate compatibility work.
 - [x] Preserve production email recipients and enforce support-only diagnostic delivery; mocked email tests passed.
 - [x] Extend Decap to isolated passport and visa text files with all existing translations preserved.
