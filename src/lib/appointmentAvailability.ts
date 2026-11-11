@@ -1,3 +1,5 @@
+import { closureDates } from "./siteSettings";
+
 export type AppointmentService = "passport" | "visa" | "ids" | "advisory" | "trade";
 
 type AvailabilityRule = {
@@ -5,13 +7,8 @@ type AvailabilityRule = {
   slots: string[];
 };
 
-const blackoutDates = [
-  "2026-05-25",
-  "2026-10-03",
-  "2026-12-24",
-  "2026-12-25",
-  "2026-12-31",
-];
+// Closure days are edited by staff in Decap (Embassy Settings → Closure days).
+const blackoutDates = closureDates;
 
 const availabilityByService: Record<AppointmentService, AvailabilityRule> = {
   passport: {

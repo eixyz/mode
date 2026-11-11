@@ -1,4 +1,4 @@
-import { loadNews } from "./content";
+import { loadNews, type ContentLanguage } from "./content";
 
 export type NewsItem = {
   id: string;
@@ -10,9 +10,16 @@ export type NewsItem = {
   image?: string;
 };
 
-// Source of truth: Markdown files under /content/news managed by Decap CMS.
-export const newsItems: NewsItem[] = loadNews();
+// Source of truth: Markdown files under /content/news managed by Decap CMS,
+// one file per language (slug.en.md, slug.de.md, slug.pt.md).
+const newsByLanguage: Record<ContentLanguage, NewsItem[]> = {
+  en: loadNews("en"),
+  de: loadNews("de"),
+  pt: loadNews("pt"),
+};
 
-export function getNewsById(id: string) {
-  return newsItems.find((n) => n.id === id) ?? null;
+export const getNewsItems = (language: ContentLanguage) => newsByLanguage[language] ?? newsByLanguage.en;
+
+export function getNewsById(id: string, language: ContentLanguage = "en") {
+  return getNewsItems(language).find((n) => n.id === id) ?? null;
 }

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
+import { contactDetails, phoneHref } from "@/lib/siteSettings";
 
 export const Header = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -29,13 +30,13 @@ export const Header = () => {
       <div className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white py-2 text-sm">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="tel:+493039876500" className="flex items-center gap-2 hover:text-gold transition-colors">
+            <a href={phoneHref(contactDetails.phone)} className="flex items-center gap-2 hover:text-gold transition-colors">
               <Phone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{t("header.phone")}</span>
+              <span className="hidden sm:inline">{contactDetails.phone}</span>
             </a>
-            <a href="mailto:info@embassy-of-mozambique.de" className="flex items-center gap-2 hover:text-gold transition-colors">
+            <a href={`mailto:${contactDetails.email}`} className="flex items-center gap-2 hover:text-gold transition-colors">
               <Mail className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{t("header.email")}</span>
+              <span className="hidden sm:inline">{contactDetails.email}</span>
             </a>
           </div>
           <div className="flex items-center gap-4">

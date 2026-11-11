@@ -1,23 +1,19 @@
 import type { NewsItem } from "./news";
 import type { EmbassyEvent } from "./events";
+import { parse as parseYaml } from "yaml";
 
-// Lightweight browser-safe frontmatter parser (avoids gray-matter's Buffer dep).
-function matter(raw: string): { data: Record<string, unknown>; content: string } {
+// Browser-safe frontmatter parser (avoids gray-matter's Buffer dep). Uses a real
+// YAML parser because Decap wraps long values over several lines.
+export function matter(raw: string): { data: Record<string, unknown>; content: string } {
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
   if (!m) return { data: {}, content: raw };
-  const data: Record<string, unknown> = {};
-  for (const line of m[1].split(/\r?\n/)) {
-    const kv = /^([A-Za-z0-9_-]+)\s*:\s*(.*)$/.exec(line);
-    if (!kv) continue;
-    let v = kv[2].trim();
-    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
-      v = v.slice(1, -1);
-    }
-    let parsed: unknown = v;
-    if (v === "true") parsed = true;
-    else if (v === "false") parsed = false;
-    else if (v !== "" && !isNaN(Number(v)) && /^-?\d+(\.\d+)?$/.test(v)) parsed = Number(v);
-    data[kv[1]] = parsed;
+  let data: Record<string, unknown> = {};
+  try {
+    const parsed = parseYaml(m[1]);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) data = parsed as Record<string, unknown>;
+  } catch {
+    // Invalid frontmatter: show the entry with defaults rather than breaking the site.
+    // tests/content.test.ts rejects such files before they are published.
   }
   return { data, content: m[2] };
 }
@@ -45,69 +41,105 @@ const documentFiles = import.meta.glob("/content/documents/*.md", {
 const slugFromPath = (path: string) =>
   path.split("/").pop()!.replace(/\.md$/, "");
 
-const formatDisplayDate = (iso: string) => {
+export type ContentLanguage = "en" | "de" | "pt";
+const DEFAULT_LANGUAGE: ContentLanguage = "en";
+
+const dateLocales: Record<ContentLanguage, string> = { en: "en-GB", de: "de-DE", pt: "pt-PT" };
+
+const formatDisplayDate = (iso: string, language: ContentLanguage = DEFAULT_LANGUAGE) => {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat(dateLocales[language], {
     day: "2-digit",
     month: "long",
     year: "numeric",
   }).format(d);
 };
 
-export const loadNews = (): NewsItem[] => {
-  const items: NewsItem[] = Object.entries(newsFiles).map(([path, raw]) => {
-    const { data, content } = matter(raw);
-    const body = content.trim();
-    return {
-      id: (data.id as string) || slugFromPath(path),
-      date: (data.displayDate as string) || formatDisplayDate(String(data.date ?? "")),
-      category: (data.category as string) || "Announcement",
-      title: (data.title as string) || "Untitled",
-      excerpt: (data.excerpt as string) || body.split("\n\n")[0] || "",
-      content: body || undefined,
-      image: (data.image as string) || undefined,
-      // Sortable ISO date kept as a symbol on the object (non-enumerable-ish)
-      _sort: String(data.date ?? ""),
-    } as NewsItem & { _sort: string };
-  });
+type ParsedFile = { data: Record<string, unknown>; content: string };
+type LocalizedEntry = Partial<Record<ContentLanguage, ParsedFile>>;
 
-  items.sort((a, b) => {
-    const ax = (a as NewsItem & { _sort?: string })._sort ?? "";
-    const bx = (b as NewsItem & { _sort?: string })._sort ?? "";
-    return bx.localeCompare(ax);
-  });
-
-  return items;
+// Decap i18n ("multiple_files") stores one file per language: slug.en.md,
+// slug.de.md, slug.pt.md. Files without a language suffix count as English.
+const groupByEntry = (files: Record<string, string>) => {
+  const entries = new Map<string, LocalizedEntry>();
+  for (const [path, raw] of Object.entries(files)) {
+    const name = slugFromPath(path);
+    const match = /^(.*)\.(en|de|pt)$/.exec(name);
+    const slug = match ? match[1] : name;
+    const language = (match ? match[2] : DEFAULT_LANGUAGE) as ContentLanguage;
+    const entry = entries.get(slug) ?? {};
+    entry[language] = matter(raw);
+    entries.set(slug, entry);
+  }
+  return entries;
 };
 
-export const loadEvents = (): EmbassyEvent[] => {
-  const items: EmbassyEvent[] = Object.entries(eventFiles).map(([path, raw]) => {
-    const { data, content } = matter(raw);
-    const body = content.trim();
-    const isoDate = String(data.date ?? "").slice(0, 10);
+const text = (value: unknown) =>
+  typeof value === "string" ? value.trim() : typeof value === "number" ? String(value) : "";
+
+/**
+ * Returns the base file (shared fields such as date and image) and the file whose
+ * text should be shown. A translation is used only if it has a title; otherwise
+ * the English version is shown.
+ */
+const pickLanguage = (entry: LocalizedEntry, language: ContentLanguage) => {
+  const base = entry[DEFAULT_LANGUAGE] ?? Object.values(entry)[0]!;
+  const translated = entry[language];
+  const useTranslation = Boolean(translated && text(translated.data.title));
+  return { base, shown: useTranslation ? translated! : base, translated: useTranslation };
+};
+
+export const loadNews = (language: ContentLanguage = DEFAULT_LANGUAGE): NewsItem[] => {
+  const items = [...groupByEntry(newsFiles)].map(([slug, entry]) => {
+    const { base, shown, translated } = pickLanguage(entry, language);
+    const body = shown.content.trim();
+    const isoDate = String(base.data.date ?? "");
+    const shownDisplayDate = text(shown.data.displayDate);
     return {
-      id: (data.id as string) || slugFromPath(path),
-      date: isoDate,
-      time: (data.time as string) || "",
-      category: (data.category as string) || "Public",
-      title: (data.title as string) || "Untitled",
-      summary: (data.summary as string) || body.split("\n\n")[0] || "",
-      content: body || undefined,
-      venue: (data.venue as string) || "",
-      image: (data.image as string) || undefined,
-      ctaLabel: (data.ctaLabel as string) || "Request information",
-      featured: Boolean(data.featured),
+      item: {
+        id: text(base.data.id) || slug,
+        // An English "displayDate" is not shown on a German or Portuguese page.
+        date:
+          (translated || language === DEFAULT_LANGUAGE ? shownDisplayDate : "") ||
+          formatDisplayDate(isoDate, language),
+        category: text(base.data.category) || "Announcement",
+        title: text(shown.data.title) || "Untitled",
+        excerpt: text(shown.data.excerpt) || body.split("\n\n")[0] || "",
+        content: body || undefined,
+        image: text(base.data.image) || undefined,
+      } satisfies NewsItem,
+      sortKey: isoDate,
     };
   });
 
-  return items;
+  items.sort((a, b) => b.sortKey.localeCompare(a.sortKey));
+  return items.map(({ item }) => item);
 };
 
+export const loadEvents = (language: ContentLanguage = DEFAULT_LANGUAGE): EmbassyEvent[] =>
+  [...groupByEntry(eventFiles)].map(([slug, entry]) => {
+    const { base, shown } = pickLanguage(entry, language);
+    const body = shown.content.trim();
+    return {
+      id: text(base.data.id) || slug,
+      date: String(base.data.date ?? "").slice(0, 10),
+      time: text(base.data.time),
+      category: text(base.data.category) || "Public",
+      title: text(shown.data.title) || "Untitled",
+      summary: text(shown.data.summary) || body.split("\n\n")[0] || "",
+      content: body || undefined,
+      venue: text(shown.data.venue) || text(base.data.venue),
+      image: text(base.data.image) || undefined,
+      ctaLabel: text(shown.data.ctaLabel) || text(base.data.ctaLabel) || "Request information",
+      featured: Boolean(base.data.featured),
+    };
+  });
 export type DocumentItem = {
   id: string;
   title: string;
   date: string;
+  isoDate: string;
   category: string;
   file: string;
   description?: string;
@@ -120,11 +152,12 @@ export const loadDocuments = (): DocumentItem[] => {
       id: slugFromPath(path),
       title: (data.title as string) || "Untitled",
       date: formatDisplayDate(String(data.date ?? "")),
+      isoDate: String(data.date ?? "").slice(0, 10),
       category: (data.category as string) || "Other",
       file: (data.file as string) || "",
       description: (data.description as string) || content.trim() || undefined,
     };
   });
-  items.sort((a, b) => b.date.localeCompare(a.date));
-  return items;
+  items.sort((a, b) => b.isoDate.localeCompare(a.isoDate));
+  return items.filter((item) => item.file);
 };

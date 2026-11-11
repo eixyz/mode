@@ -5,45 +5,55 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { FileText, CreditCard } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
+import { loadDocuments } from "@/lib/content";
 
 const FormsDocumentsPage = () => {
   const { t } = useLanguage();
 
+  // Documents uploaded by staff in Decap (Documents & Public Notices), newest first,
+  // followed by the long-standing forms below.
+  const cmsDocuments = loadDocuments().map((doc) => ({
+    title: doc.title,
+    description: [doc.date, doc.description].filter(Boolean).join(" · "),
+    link: doc.file,
+  }));
+
   const documents = [
+    ...cmsDocuments,
     {
       title: t("services.visaFormTitle"),
       description: t("services.visaFormDesc"),
-      link: "http://embassy-of-mozambique.de/images/FORMULARIO-PEDIDO-DE-VISTO.pdf",
+      link: "/documents/FORMULARIO-PEDIDO-DE-VISTO.pdf",
     },
     {
       title: t("services.visaInfoGermanTitle"),
       description: t("services.visaInfoGermanDesc"),
-      link: "http://embassy-of-mozambique.de/images/Pedido.pdf",
+      link: "/documents/Pedido.pdf",
     },
     {
       title: t("services.visaInfoPortugueseTitle"),
       description: t("services.visaInfoPortugueseDesc"),
-      link: "http://embassy-of-mozambique.de/images/Pedido-de-visto-Portugues.pdf",
+      link: "/documents/Pedido-de-visto-Portugues.pdf",
     },
     {
       title: t("services.feeGermanTitle"),
       description: t("services.feeGermanDesc"),
-      link: "http://embassy-of-mozambique.de/images/Tabelle_der_Gebuehren.pdf",
+      link: "/documents/Tabelle_der_Gebuehren.pdf",
     },
     {
       title: t("services.feePortugueseTitle"),
       description: t("services.feePortugueseDesc"),
-      link: "http://embassy-of-mozambique.de/images/Tabela_de_Emolumentos.pdf",
+      link: "/documents/Tabela_de_Emolumentos.pdf",
     },
     {
       title: t("services.paymentGermanTitle"),
       description: t("services.paymentGermanDesc"),
-      link: "http://embassy-of-mozambique.de/images/Informa%C3%A7ao_001_Barra_2017_Alemao.pdf",
+      link: "/documents/Informacao_001_Barra_2017_Alemao.pdf",
     },
     {
       title: t("services.paymentPortugueseTitle"),
       description: t("services.paymentPortugueseDesc"),
-      link: "http://embassy-of-mozambique.de/images/Informa%C3%A7ao_001_Barra_2017_Port.pdf",
+      link: "/documents/Informacao_001_Barra_2017_Port.pdf",
     },
   ];
 

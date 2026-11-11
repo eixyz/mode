@@ -141,7 +141,7 @@
     "availableDates": "Available dates in",
     "selectTimePrompt": "Select a time:",
     "selectedDateLabel": "Selected Date:",
-    "confirmButton": "Confirm Appointment",
+    "confirmButton": "Send Appointment Request",
     "passportService": "Passport & IDs",
     "visaService": "Visa",
     "idsService": "ID Cards (IDs)",
@@ -149,8 +149,8 @@
     "tradeService": "Trade & Investment",
     "fillRequired": "Please fill in all required fields",
     "selectDateTimeRequired": "Please select a date and time",
-    "successMessage": "Appointment booked successfully! A confirmation email has been sent.",
-    "errorMessage": "Failed to book appointment. Please try again or contact us directly."
+    "successMessage": "Your appointment request has been sent. You will receive a confirmation of receipt by email; the Embassy will confirm the appointment separately.",
+    "errorMessage": "Your appointment request could not be sent. Please try again or contact us directly."
   },
   "calendar": {
     "sun": "Sun",
@@ -195,6 +195,7 @@
     "contactDesc": "Reach the Embassy for general inquiries, media requests, or diplomatic correspondence."
   },
   "contact": {
+    "map": { "title": "Embassy location", "notice": "The map is provided by Google Maps. When you load it, your IP address and other data are sent to Google.", "show": "Show map", "open": "Open in Google Maps" },
     "getInTouch": "Get in Touch",
     "send": "Send",
     "pageTitle": "Contact Us",
@@ -236,8 +237,10 @@
       "messageLabel": "Message",
       "messagePlaceholder": "Your message...",
       "sendButton": "Send Message",
-      "agreeTerms": "I agree to the",
-      "agreeRequired": "You must agree to the terms and conditions to proceed.",
+      "consentBefore": "I accept the",
+      "consentMiddle": "and have read the",
+      "consentAfter": ".",
+      "agreeRequired": "Please accept the Terms of Use to continue.",
       "successMessage": "Your message has been sent successfully! You will receive a confirmation email shortly.",
       "errorMessage": "Failed to send your message. Please try again or contact us directly.",
       "sending": "Sending..."
@@ -391,7 +394,7 @@
     "emergencyAvailable": "Available 24/7 for Mozambican citizens",
     "copyright": "© 2026 Embassy of the Republic of Mozambique in Berlin. All rights reserved.",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
+    "termsOfService": "Terms of Use",
     "accessibility": "Accessibility"
   },
   "passportsPage": {

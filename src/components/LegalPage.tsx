@@ -3,7 +3,28 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/lib/useLanguage";
-import { legalContent, legalUpdatedIso, type LegalContent } from "@/lib/legal";
+import { Fragment, type ReactNode } from "react";
+import { legalContent, type LegalContent } from "@/lib/legal";
+
+// Turns URLs and email addresses in legal text into links. Trailing
+// punctuation stays outside the link.
+const LINK_PATTERN = /(https?:\/\/[^\s]+?|[\w.+-]+@[\w-]+\.[\w.-]+?)(?=[.,;:)]?(?:\s|$))/g;
+
+const linkify = (text: string): ReactNode =>
+  text.split(LINK_PATTERN).map((part, i) => {
+    if (i % 2 === 0) return <Fragment key={i}>{part}</Fragment>;
+    const isEmail = !part.startsWith("http");
+    return (
+      <a
+        key={i}
+        href={isEmail ? `mailto:${part}` : part}
+        className="text-primary underline-offset-2 hover:underline break-words"
+        {...(isEmail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+      >
+        {part}
+      </a>
+    );
+  });
 
 type LegalPageProps = {
   doc: keyof LegalContent;
@@ -32,7 +53,7 @@ export const LegalPage = ({ doc }: LegalPageProps) => {
               </h1>
               <p className="text-muted-foreground text-base">{content.subtitle}</p>
               <p className="text-xs text-muted-foreground/80 mt-3">
-                <time dateTime={legalUpdatedIso}>{content.updated}</time>
+                <time dateTime={content.updatedIso}>{content.updated}</time>
               </p>
             </motion.div>
           </div>
@@ -53,12 +74,12 @@ export const LegalPage = ({ doc }: LegalPageProps) => {
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground space-y-3 leading-relaxed">
                     {section.paragraphs?.map((paragraph, i) => (
-                      <p key={i}>{paragraph}</p>
+                      <p key={i}>{linkify(paragraph)}</p>
                     ))}
                     {section.bullets && (
                       <ul className="list-disc pl-5 space-y-2">
                         {section.bullets.map((bullet, i) => (
-                          <li key={i}>{bullet}</li>
+                          <li key={i}>{linkify(bullet)}</li>
                         ))}
                       </ul>
                     )}

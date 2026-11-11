@@ -23,31 +23,25 @@ site_url: https://mozambique-embassy.de # TODO: production URL
 display_url: https://mozambique-embassy.de # TODO
 logo_url: /favicon.ico
 
+# Local testing: run `npm run cms` next to `npm run dev`, then open
+# http://localhost:8080/admin/ — edits are written to your local files and no
+# GitHub sign-in is needed. Ignored on the live site.
+local_backend: true
+
+# News and events can be written in English, German and Portuguese.
+# Each language is saved as its own file (slug.en.md, slug.de.md, slug.pt.md).
+# English is required; an empty German or Portuguese version shows the English text.
+i18n:
+  structure: multiple_files
+  locales: [en, de, pt]
+  default_locale: en
+
 collections:
   - name: news
     label: News & Announcements
     folder: "content/news"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    identifier_field: title
-    summary: "{{displayDate}} — {{title}}"
-    sortable_fields: [date, title]
-    extension: md
-    format: frontmatter
-    fields:
-      - { name: id, label: ID (slug), widget: string, hint: "Stable URL slug — do not change after publishing." }
-      - { name: title, label: Title, widget: string }
-      - { name: date, label: Publish date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-      - { name: displayDate, label: Display date (human readable), widget: string, hint: "e.g. 22 July 2026" }
-      - { name: category, label: Category, widget: select, options: [Announcement, Press Release, Consular, Cultural, Trade, Event] }
-      - { name: excerpt, label: Short excerpt, widget: text }
-      - { name: image, label: Cover image, widget: image, required: false }
-      - { name: body, label: Body, widget: markdown }
-
-  - name: events
-    label: Events
-    folder: "content/events"
-    create: true
+    i18n: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     identifier_field: title
     summary: "{{date}} — {{title}}"
@@ -55,17 +49,43 @@ collections:
     extension: md
     format: frontmatter
     fields:
-      - { name: id, label: ID (slug), widget: string }
-      - { name: title, label: Title, widget: string }
+      # Shared fields (no i18n) are entered once, in the English tab.
+      - { name: id, label: ID (slug), widget: string, hint: "Stable web address, e.g. new-consular-hours. Lowercase letters, numbers and hyphens. Do not change after publishing." }
+      - { name: date, label: Publish date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { name: category, label: Category, widget: select, options: [Announcement, Press Release, Consular, Cultural, Trade, Event] }
+      - { name: image, label: Cover image, widget: image, required: false, hint: "Landscape photo, at least 1200 px wide. Only use photos the Embassy may publish." }
+      # Translatable fields. "required: false" lets you save before translating;
+      # the automatic check refuses an English entry without a title.
+      - { name: title, label: Title, widget: string, i18n: true, required: false, hint: "Required in English. Leave empty in German/Portuguese to show the English version." }
+      - { name: displayDate, label: Display date (optional), widget: string, i18n: true, required: false, hint: "Leave empty to show the publish date automatically in each language." }
+      - { name: excerpt, label: Short excerpt, widget: text, i18n: true, required: false, hint: "One or two sentences shown in the news list." }
+      - { name: body, label: Body, widget: markdown, i18n: true, required: false }
+
+  - name: events
+    label: Events
+    folder: "content/events"
+    create: true
+    i18n: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{date}} — {{title}}"
+    sortable_fields: [date, title]
+    extension: md
+    format: frontmatter
+    fields:
+      # Shared fields (no i18n) are entered once, in the English tab.
+      - { name: id, label: ID (slug), widget: string, hint: "Stable web address, e.g. independence-day-reception. Lowercase letters, numbers and hyphens." }
       - { name: date, label: Event date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
       - { name: time, label: Time, widget: string, hint: "e.g. 18:00 – 20:00" }
-      - { name: venue, label: Venue, widget: string }
       - { name: category, label: Category, widget: select, options: [Cultural, Diplomatic, Trade, Public, Commemoration] }
-      - { name: summary, label: Summary, widget: text }
-      - { name: ctaLabel, label: CTA label, widget: string, default: "Request information" }
       - { name: featured, label: Featured on homepage, widget: boolean, default: false, required: false }
       - { name: image, label: Cover image, widget: image, required: false }
-      - { name: body, label: Details, widget: markdown, required: false }
+      # Translatable fields.
+      - { name: title, label: Title, widget: string, i18n: true, required: false, hint: "Required in English. Leave empty in German/Portuguese to show the English version." }
+      - { name: venue, label: Venue, widget: string, i18n: true, required: false }
+      - { name: summary, label: Summary, widget: text, i18n: true, required: false }
+      - { name: ctaLabel, label: Button label, widget: string, i18n: true, required: false, hint: "e.g. Request information / Informationen anfordern / Pedir informações" }
+      - { name: body, label: Details, widget: markdown, i18n: true, required: false }
 
   - name: documents
     label: Documents & Public Notices
@@ -457,3 +477,48 @@ collections:
           - { name: visaRequirements, label: "Visa requirements", widget: text, required: true }
           - { name: contactRequirements, label: "Contact requirements", widget: text, required: true }
           - { name: applyNow, label: "Apply now", widget: text, required: true }
+
+  # Contact details, opening hours and closure days, shown in the header,
+  # footer, contact page, legal pages and appointment calendar.
+  - name: site_settings
+    label: Embassy Settings
+    format: json
+    editor: { preview: false }
+    files:
+      - name: contact
+        label: "Contact details"
+        file: content/settings/contact.json
+        fields:
+          - { name: phone, label: Telephone, widget: string, required: true, hint: "International format, e.g. +49 30 3987 6500" }
+          - { name: fax, label: Fax, widget: string, required: false }
+          - { name: email, label: Public email address, widget: string, required: true, pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', "Please enter a valid email address"] }
+          - { name: street, label: Street and number, widget: string, required: true }
+          - { name: postalCode, label: Postal code, widget: string, required: true, pattern: ['^\d{5}$', "German postal codes have five digits"] }
+      - name: closures
+        label: "Closure days (no appointments)"
+        file: content/settings/closures.json
+        fields:
+          - name: dates
+            label: Closure days
+            label_singular: closure day
+            widget: list
+            summary: "{{fields.date}} {{fields.note}}"
+            hint: "Days on which the Embassy is closed. These dates cannot be chosen in the appointment calendar. Past dates can be removed."
+            fields:
+              - { name: date, label: Date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { name: note, label: Reason, widget: string, required: false, hint: "For staff reference only, not shown on the website. e.g. Independence Day" }
+      - name: hours_en
+        label: "Opening hours — English"
+        file: content/settings/hours.en.json
+        fields: &hours_fields
+          - { name: summaryLine1, label: "Footer line 1", widget: string, required: true, hint: "Short, e.g. Mon - Fri: 09:00 - 16:30" }
+          - { name: summaryLine2, label: "Footer line 2", widget: string, required: true, hint: "Short, e.g. Consular: 09:30 - 15:00" }
+          - { name: lines, label: "Contact page lines", label_singular: line, widget: list, field: { name: line, label: Line, widget: string } }
+      - name: hours_de
+        label: "Opening hours — Deutsch"
+        file: content/settings/hours.de.json
+        fields: *hours_fields
+      - name: hours_pt
+        label: "Opening hours — Português"
+        file: content/settings/hours.pt.json
+        fields: *hours_fields

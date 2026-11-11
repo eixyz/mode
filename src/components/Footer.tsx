@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { Facebook, Twitter, Instagram, Linkedin, ExternalLink, MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
+import { contactDetails, getAddressLines, getOpeningHours, phoneHref } from "@/lib/siteSettings";
 
 export const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const hours = getOpeningHours(language);
 
   const quickLinks = [
     { label: t("footer.visaServices"), href: "/services/visas" },
@@ -101,24 +103,24 @@ export const Footer = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
                 <div className="text-sm text-primary-foreground/80">
-                  <p>Stromstraße 47</p>
-                  <p>10551 Berlin</p>
-                  <p>Germany</p>
+                  {getAddressLines(language).map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
-                <p className="text-sm text-primary-foreground/80">+49 30 3987 6500</p>
+                <a href={phoneHref(contactDetails.phone)} className="text-sm text-primary-foreground/80 hover:text-gold transition-colors">{contactDetails.phone}</a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <p className="text-sm text-primary-foreground/80">info@mozambique-embassy.de</p>
+                <a href={`mailto:${contactDetails.email}`} className="text-sm text-primary-foreground/80 hover:text-gold transition-colors">{contactDetails.email}</a>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
                 <div className="text-sm text-primary-foreground/80">
-                  <p>{t("footer.hoursLine1")}</p>
-                  <p>{t("footer.hoursLine2")}</p>
+                  <p>{hours.summaryLine1 ?? t("footer.hoursLine1")}</p>
+                  <p>{hours.summaryLine2 ?? t("footer.hoursLine2")}</p>
                 </div>
               </div>
             </div>

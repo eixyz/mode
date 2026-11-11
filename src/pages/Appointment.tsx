@@ -393,10 +393,11 @@ const AppointmentPage = () => {
                 <div className="flex items-start gap-3 px-1">
                   <Checkbox id="terms" checked={agreedToTerms} onCheckedChange={(checked) => setAgreedToTerms(checked === true)} />
                   <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
-                    {t("contact.form.agreeTerms")}{" "}
+                    {t("contact.form.consentBefore")}{" "}
                     <Link to="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</Link>
-                    {" & "}
+                    {" "}{t("contact.form.consentMiddle")}{" "}
                     <Link to="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</Link>
+                    {t("contact.form.consentAfter")}
                   </label>
                 </div>
 

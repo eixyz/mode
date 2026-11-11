@@ -1,0 +1,29 @@
+# Runs on every Decap draft (cms/* branches open pull requests in the editorial
+# workflow) and on every push to main. A failing check means the edit would
+# break the website: fix the entry in /admin before publishing it.
+name: Check website
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check website
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Check content, legal texts and email handlers
+        run: bun test
+      - name: Build website
+        run: bun run build

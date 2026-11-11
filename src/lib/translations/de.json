@@ -141,7 +141,7 @@
     "availableDates": "Verfügbare Termine im",
     "selectTimePrompt": "Wählen Sie eine Uhrzeit:",
     "selectedDateLabel": "Ausgewähltes Datum:",
-    "confirmButton": "Termin bestätigen",
+    "confirmButton": "Terminanfrage senden",
     "passportService": "Pass & Ausweise",
     "visaService": "Visum",
     "idsService": "Ausweise",
@@ -149,8 +149,8 @@
     "tradeService": "Handel & Investitionen",
     "fillRequired": "Bitte füllen Sie alle Pflichtfelder aus",
     "selectDateTimeRequired": "Bitte wählen Sie ein Datum und eine Uhrzeit",
-    "successMessage": "Termin erfolgreich gebucht! Eine Bestätigungs-E-Mail wurde gesendet.",
-    "errorMessage": "Termin konnte nicht gebucht werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
+    "successMessage": "Ihre Terminanfrage wurde gesendet. Sie erhalten eine Eingangsbestätigung per E-Mail; den Termin bestätigt die Botschaft gesondert.",
+    "errorMessage": "Ihre Terminanfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
   },
   "calendar": {
     "sun": "So",
@@ -195,6 +195,7 @@
     "contactDesc": "Wenden Sie sich an die Botschaft für allgemeine Anfragen, Medienanfragen oder diplomatische Korrespondenz."
   },
   "contact": {
+    "map": { "title": "Standort der Botschaft", "notice": "Die Karte wird von Google Maps bereitgestellt. Wenn Sie sie laden, werden Ihre IP-Adresse und weitere Daten an Google übermittelt.", "show": "Karte anzeigen", "open": "In Google Maps öffnen" },
     "getInTouch": "Kontaktieren Sie uns",
     "send": "Absenden",
     "pageTitle": "Kontakt",
@@ -224,8 +225,10 @@
       "messageLabel": "Nachricht",
       "messagePlaceholder": "Ihre Nachricht...",
       "sendButton": "Nachricht senden",
-      "agreeTerms": "Ich stimme den",
-      "agreeRequired": "Sie müssen den Geschäftsbedingungen zustimmen, um fortzufahren.",
+      "consentBefore": "Ich akzeptiere die",
+      "consentMiddle": "und habe die",
+      "consentAfter": " zur Kenntnis genommen.",
+      "agreeRequired": "Bitte akzeptieren Sie die Nutzungsbedingungen, um fortzufahren.",
       "successMessage": "Ihre Nachricht wurde erfolgreich gesendet! Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
       "errorMessage": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
       "sending": "Wird gesendet..."
@@ -378,7 +381,7 @@
     "emergencyHours": "Für Notfälle außerhalb der Bürozeiten:",
     "emergencyAvailable": "24/7 verfügbar für mosambikanische Bürger",
     "copyright": "© 2026 Botschaft der Republik Mosambik in Berlin. Alle Rechte vorbehalten.",
-    "privacyPolicy": "Datenschutzrichtlinie",
+    "privacyPolicy": "Datenschutzerklärung",
     "termsOfService": "Nutzungsbedingungen",
     "accessibility": "Barrierefreiheit"
   },

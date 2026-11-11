@@ -9,8 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { MapEmbed } from "@/components/MapEmbed";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { contactDetails, getAddressLines, getOpeningHours } from "@/lib/siteSettings";
 import {
   Select,
   SelectContent,
@@ -20,31 +22,32 @@ import {
 } from "@/components/ui/select";
 
 const ContactPage = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [searchParams] = useSearchParams();
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Contact details and opening hours are edited by staff in Decap (Embassy Settings).
   const contactInfo = [
     {
       icon: MapPin,
       title: t("contact.info.address.title"),
-      content: t("contact.info.address.lines") as unknown as string[],
+      content: getAddressLines(language),
     },
     {
       icon: Phone,
       title: t("contact.info.phone.title"),
-      content: t("contact.info.phone.lines") as unknown as string[],
+      content: [contactDetails.phone, ...(contactDetails.fax ? [`${contactDetails.fax} (Fax)`] : [])],
     },
     {
       icon: Mail,
       title: t("contact.info.email.title"),
-      content: t("contact.info.email.lines") as unknown as string[],
+      content: [contactDetails.email],
     },
     {
       icon: Clock,
       title: t("contact.info.hours.title"),
-      content: t("contact.info.hours.lines") as unknown as string[],
+      content: getOpeningHours(language).lines ?? (t("contact.info.hours.lines") as unknown as string[]),
     },
   ];
 
@@ -147,14 +150,7 @@ const ContactPage = () => {
                     </div>
                   ))}
                 </div>
-                <div className="bg-card rounded-xl border border-border overflow-hidden h-64">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.0!2d13.3435!3d52.5320!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDMxJzU1LjIiTiAxM8KwMjAnMzYuNiJF!5e0!3m2!1sen!2sde!4v1234567890"
-                    width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade" title="Embassy Location"
-                    className="grayscale hover:grayscale-0 transition-all duration-500"
-                  />
-                </div>
+                <MapEmbed />
               </motion.div>
 
               {/* Contact Form */}
@@ -212,10 +208,11 @@ const ContactPage = () => {
                         onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
                       />
                       <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
-                        {t("contact.form.agreeTerms")}{" "}
+                        {t("contact.form.consentBefore")}{" "}
                         <Link to="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</Link>
-                        {" & "}
+                        {" "}{t("contact.form.consentMiddle")}{" "}
                         <Link to="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</Link>
+                        {t("contact.form.consentAfter")}
                       </label>
                     </div>
                     <Button

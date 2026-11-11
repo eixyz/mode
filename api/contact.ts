@@ -30,12 +30,25 @@ const readCreds = () => {
   return { user, pass };
 };
 
+// Production (VERCEL_ENV=production): official requests go to the Embassy inbox
+// (CONTACT_EMAIL) and, for now, also to SUPPORT_EMAIL.
+// Preview and local deployments are test environments: they notify SUPPORT_EMAIL
+// only, so a test submission never reaches the official inbox.
+const isTestEnvironment = () => Boolean(process.env.VERCEL_ENV) && process.env.VERCEL_ENV !== "production";
+
 const internalRecipients = () => {
-  const primary = process.env.CONTACT_EMAIL;
-  const secondary = process.env.SUPPORT_EMAIL;
+  const primary = process.env.CONTACT_EMAIL?.trim();
+  const support = process.env.SUPPORT_EMAIL?.trim();
   if (!primary) throw new Error("CONTACT_EMAIL is not configured");
-  return secondary ? [primary, secondary] : [primary];
+  const separateSupport = Boolean(support) && support!.toLowerCase() !== primary.toLowerCase();
+  if (isTestEnvironment()) {
+    if (!separateSupport) throw new Error("Test deployment: set SUPPORT_EMAIL to an address different from CONTACT_EMAIL");
+    return [support!];
+  }
+  return separateSupport ? [primary, support!] : [primary];
 };
+
+const testPrefix = () => (isTestEnvironment() ? "[TEST] " : "");
 
 const host = () => process.env.SMTP_HOST || "smtp.ionos.de";
 
@@ -147,7 +160,7 @@ export default async function handler(req: Req, res: Res) {
   try {
     const raw = (typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {}) as Record<string, unknown>;
     if (raw.agreedToTerms !== true) {
-      res.status(400).json({ error: "Please agree to the Terms & Conditions." });
+      res.status(400).json({ error: "Please accept the Terms of Use." });
       return;
     }
     const str = (value: unknown, max: number) => String(value ?? "").trim().slice(0, max);
@@ -193,7 +206,7 @@ export default async function handler(req: Req, res: Res) {
         fromName: "Embassy of Mozambique - Website",
         to: internalRecipients(),
         replyTo: email,
-        subject: `[Website Contact] ${subject} (${reference})`,
+        subject: `${testPrefix()}[Website Contact] ${subject} (${reference})`,
         html: layout({
           eyebrow: "Website Contact",
           title: "New Contact Request",
