@@ -51,3 +51,11 @@ Every draft is checked automatically. If the check fails, for example because th
 - Testing the real GitHub flow: open https://www.mozambique-embassy.de/admin/, save a draft, and check the pull request that Decap creates. The CI check and a Vercel preview link appear there. Form submissions on that preview go to support@ only.
 - Checks: `bun test` validates content, settings and legal texts. CI runs the same checks plus the build on every pull request (`.github/workflows/ci.yml`).
 - To make the checks mandatory, enable branch protection on `main` and require the "Check website" status.
+
+### Adding staff editors
+1. Each staff member creates a free GitHub account (a work email is preferable) and turns on two-factor authentication.
+2. Repository **Settings → Collaborators → Add people**, enter the username. GitHub emails an invitation; it must be accepted within 7 days.
+3. The person opens https://www.mozambique-embassy.de/admin/, clicks **Login with GitHub** and authorizes the app once.
+4. To remove someone: **Settings → Collaborators → Remove**. Their access to /admin ends immediately.
+
+Collaborators on a personal repository always get write access to the entire repository, code included. The ruleset on `main` (required pull request, "Check website" status, **Require review from Code Owners**, bypass for Repository admin only) plus `.github/CODEOWNERS` keeps them from changing anything outside `content/` and `public/uploads/` without your review. On a private repository, GitHub enforces rulesets only on a paid plan (GitHub Pro, or an organization on Team), or if the repository is public.

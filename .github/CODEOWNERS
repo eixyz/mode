@@ -1,0 +1,12 @@
+# Who must approve changes, by path. The last matching line wins.
+# Takes effect only with the main-branch ruleset's "Require review from Code Owners"
+# (see docs/staff-editing.md, "Adding staff editors").
+
+# Everything (website code, email handlers, CMS config, legal texts, CI) needs
+# the web administrator's review.
+*                   @eixyz
+
+# Content that Embassy staff edit in /admin has no owner, so their drafts can be
+# published from /admin without review once the automatic check passes.
+/content/
+/public/uploads/
