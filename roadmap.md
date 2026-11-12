@@ -9,3 +9,5 @@
 - [ ] Verify actual support-only delivery after Vercel deployment — requires access to the deployed email environment.
 - [ ] Verify authenticated Decap draft/save/publish — requires a staff GitHub session.
 - [ ] Confirm any previously hosted MCP endpoint is disabled — repository removal does not prove hosted removal.
+## Menu click reliability
+- [x] Make desktop dropdown row edges navigate and enlarge mobile menu tap targets; all 16 desktop edge clicks, keyboard selection and mobile navigation verified.

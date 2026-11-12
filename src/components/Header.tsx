@@ -103,17 +103,17 @@ export const Header = () => {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent sideOffset={6} className="w-48">
-                  <DropdownMenuItem>
-                    <Link to="/about/ambassador" className="w-full block">{t("header.ambassador")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/ambassador" className="w-full">{t("header.ambassador")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/mission" className="w-full block">{t("header.mission")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/mission" className="w-full">{t("header.mission")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/consuls" className="w-full block">{t("header.honoraryConsuls")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/consuls" className="w-full">{t("header.honoraryConsuls")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/holidays" className="w-full block">{t("header.holidays")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/holidays" className="w-full">{t("header.holidays")}</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -127,23 +127,23 @@ export const Header = () => {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent sideOffset={6} className="w-48">
-                  <DropdownMenuItem>
-                    <Link to="/services" className="w-full block">{t("header.allServices")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/services" className="w-full">{t("header.allServices")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/services/passports" className="w-full block">{t("header.passportsIds")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/services/passports" className="w-full">{t("header.passportsIds")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/services/visas" className="w-full block">{t("header.visas")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/services/visas" className="w-full">{t("header.visas")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/services/advisory" className="w-full block">{t("header.advisory")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/services/advisory" className="w-full">{t("header.advisory")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/services/trade" className="w-full block">{t("header.tradeInvest")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/services/trade" className="w-full">{t("header.tradeInvest")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/services/forms" className="w-full block">{t("header.formsDocuments")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/services/forms" className="w-full">{t("header.formsDocuments")}</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -157,23 +157,23 @@ export const Header = () => {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent sideOffset={6} className="w-56">
-                  <DropdownMenuItem>
-                    <Link to="/about/mozambique" className="w-full block">{t("header.discoverMozambique")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/mozambique" className="w-full">{t("header.discoverMozambique")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/mozambique/geography" className="w-full block">{t("header.geography")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/mozambique/geography" className="w-full">{t("header.geography")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/mozambique/culture" className="w-full block">{t("header.culture")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/mozambique/culture" className="w-full">{t("header.culture")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/mozambique/economy" className="w-full block">{t("header.economy")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/mozambique/economy" className="w-full">{t("header.economy")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/mozambique/tourism" className="w-full block">{t("header.tourism")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/mozambique/tourism" className="w-full">{t("header.tourism")}</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/about/useful-links" className="w-full block">{t("header.usefulLinks")}</Link>
+                  <DropdownMenuItem asChild className="min-h-11 cursor-pointer">
+                    <Link to="/about/useful-links" className="w-full">{t("header.usefulLinks")}</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -220,24 +220,27 @@ export const Header = () => {
                     <Link
                       to="/about"
                       onClick={closeMobileMenu}
-                      className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                      className="flex-1 px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
                       {t("header.theEmbassy")}
                     </Link>
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label={t("header.theEmbassy")}
                       aria-expanded={openSubmenu === "embassy"}
                       onClick={() => setOpenSubmenu(openSubmenu === "embassy" ? null : "embassy")}
-                      className="p-2 mr-2 text-foreground hover:text-primary"
+                      className="h-11 w-11 shrink-0 mr-2 text-foreground hover:text-primary"
                     >
                       {openSubmenu === "embassy" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </button>
+                    </Button>
                   </div>
                   {openSubmenu === "embassy" && (
                     <div className="pl-4">
-                      <Link to="/about/ambassador" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.ambassador")}</Link>
-                      <Link to="/about/mission" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.mission")}</Link>
-                      <Link to="/about/consuls" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.honoraryConsuls")}</Link>
-                      <Link to="/about/holidays" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.holidays")}</Link>
+                      <Link to="/about/ambassador" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.ambassador")}</Link>
+                      <Link to="/about/mission" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.mission")}</Link>
+                      <Link to="/about/consuls" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.honoraryConsuls")}</Link>
+                      <Link to="/about/holidays" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.holidays")}</Link>
                     </div>
                   )}
                 </div>
@@ -248,26 +251,29 @@ export const Header = () => {
                     <Link
                       to="/services"
                       onClick={closeMobileMenu}
-                      className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                      className="flex-1 px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
                       {t("header.consularServices")}
                     </Link>
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label={t("header.consularServices")}
                       aria-expanded={openSubmenu === "services"}
                       onClick={() => setOpenSubmenu(openSubmenu === "services" ? null : "services")}
-                      className="p-2 mr-2 text-foreground hover:text-primary"
+                      className="h-11 w-11 shrink-0 mr-2 text-foreground hover:text-primary"
                     >
                       {openSubmenu === "services" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </button>
+                    </Button>
                   </div>
                   {openSubmenu === "services" && (
                     <div className="pl-4">
-                      <Link to="/services" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.allServices")}</Link>
-                      <Link to="/services/passports" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.passportsIds")}</Link>
-                      <Link to="/services/visas" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.visas")}</Link>
-                      <Link to="/services/advisory" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.advisory")}</Link>
-                      <Link to="/services/trade" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.tradeInvest")}</Link>
-                      <Link to="/services/forms" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.formsDocuments")}</Link>
+                      <Link to="/services" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.allServices")}</Link>
+                      <Link to="/services/passports" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.passportsIds")}</Link>
+                      <Link to="/services/visas" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.visas")}</Link>
+                      <Link to="/services/advisory" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.advisory")}</Link>
+                      <Link to="/services/trade" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.tradeInvest")}</Link>
+                      <Link to="/services/forms" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.formsDocuments")}</Link>
                     </div>
                   )}
                 </div>
@@ -278,26 +284,29 @@ export const Header = () => {
                     <Link
                       to="/about/mozambique"
                       onClick={closeMobileMenu}
-                      className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                      className="flex-1 px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                     >
                       {t("header.aboutMozambique")}
                     </Link>
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label={t("header.aboutMozambique")}
                       aria-expanded={openSubmenu === "mozambique"}
                       onClick={() => setOpenSubmenu(openSubmenu === "mozambique" ? null : "mozambique")}
-                      className="p-2 mr-2 text-foreground hover:text-primary"
+                      className="h-11 w-11 shrink-0 mr-2 text-foreground hover:text-primary"
                     >
                       {openSubmenu === "mozambique" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </button>
+                    </Button>
                   </div>
                   {openSubmenu === "mozambique" && (
                     <div className="pl-4">
-                      <Link to="/about/mozambique" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.discoverMozambique")}</Link>
-                      <Link to="/about/mozambique/geography" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.geography")}</Link>
-                      <Link to="/about/mozambique/culture" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.culture")}</Link>
-                      <Link to="/about/mozambique/economy" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.economy")}</Link>
-                      <Link to="/about/mozambique/tourism" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.tourism")}</Link>
-                      <Link to="/about/useful-links" onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-foreground hover:text-primary">{t("header.usefulLinks")}</Link>
+                      <Link to="/about/mozambique" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.discoverMozambique")}</Link>
+                      <Link to="/about/mozambique/geography" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.geography")}</Link>
+                      <Link to="/about/mozambique/culture" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.culture")}</Link>
+                      <Link to="/about/mozambique/economy" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.economy")}</Link>
+                      <Link to="/about/mozambique/tourism" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.tourism")}</Link>
+                      <Link to="/about/useful-links" onClick={closeMobileMenu} className="flex min-h-11 items-center px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted rounded-md">{t("header.usefulLinks")}</Link>
                     </div>
                   )}
                 </div>
