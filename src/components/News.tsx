@@ -42,7 +42,7 @@ export const News = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group flex flex-col h-full"
+            className="relative bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 focus-within:ring-2 focus-within:ring-primary transition-all duration-300 group flex flex-col h-full"
           >
             {featuredNews.image && (
               <img src={featuredNews.image} alt={featuredNews.title} loading="lazy" decoding="async" className="w-full h-52 md:h-56 lg:h-56 object-cover" />
@@ -59,15 +59,18 @@ export const News = () => {
                 </span>
               </div>
               <h3 className="font-serif text-2xl md:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">
-                {featuredNews.title}
+                {/* The title is the card's link; after:inset-0 makes the whole card clickable. */}
+                <Link to={`/news/${featuredNews.id}`} className="focus:outline-none after:absolute after:inset-0 after:content-['']">
+                  {featuredNews.title}
+                </Link>
               </h3>
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-6 max-w-2xl [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden">
                 {featuredNews.excerpt}
               </p>
-              <Link to={`/news/${featuredNews.id}`} className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
+              <span aria-hidden="true" className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
                 {t("news.readMore")}
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </span>
             </div>
           </motion.article>
 
@@ -79,7 +82,7 @@ export const News = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 group flex flex-col h-full"
+                className="relative bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/30 focus-within:ring-2 focus-within:ring-primary transition-all duration-300 group flex flex-col h-full"
               >
                 {item.image && (
                   <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="w-full h-32 object-cover" />
@@ -95,15 +98,17 @@ export const News = () => {
                     </span>
                   </div>
                   <h3 className="font-serif text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
-                    {item.title}
+                    <Link to={`/news/${item.id}`} className="focus:outline-none after:absolute after:inset-0 after:content-['']">
+                      {item.title}
+                    </Link>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">
                     {item.excerpt}
                   </p>
-                  <Link to={`/news/${item.id}`} className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
+                  <span aria-hidden="true" className="mt-auto inline-flex items-center text-sm text-primary font-medium group-hover:underline">
                     {t("news.readMore")}
                     <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  </span>
                 </div>
               </motion.article>
             ))}
