@@ -1,8 +1,8 @@
 ---
-id: Meeting Secretary of State communities 2026
+id: meeting-secretary-of-state-communities-2026
 date: 2026-11-17
 category: Event
-image: /uploads/whatsapp-image-2026-11-17-at-17.11.45.jpeg
+image: /uploads/whatsapp-image-2026-11-17-at-17.32.48.jpeg
 title: Meeting with H.E. Maria de Fátima Simão Manso, Secretary of State for
   Foreign Affairs and Mozambican Communities Abroad
 excerpt: >-
