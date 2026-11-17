@@ -39,7 +39,11 @@ for (const folder of ["content/news", "content/events"]) {
     }
 
     test("file names follow YYYY-MM-DD-title(.language).md", () => {
-      for (const name of files) expect(name).toMatch(FILE_NAME);
+      for (const name of files) {
+        if (!FILE_NAME.test(name)) {
+          throw new Error(`${folder}/${name}: file names may only use a-z, 0-9 and hyphens (no accents or spaces), e.g. 2026-11-16-meeting-in-berlin.en.md`);
+        }
+      }
     });
 
     test("every entry has an English version with title, date and valid ID", () => {

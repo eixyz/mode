@@ -16,6 +16,13 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+# File names: plain ASCII, accents removed ("Fátima" -> "fatima"). tests/content.test.ts
+# rejects other characters, and accented names break some tools and URLs.
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
 # Show a "Publish" workflow with drafts / review before merging.
 publish_mode: editorial_workflow
 
