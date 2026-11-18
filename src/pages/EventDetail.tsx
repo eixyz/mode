@@ -42,6 +42,11 @@ const EventDetail = () => {
                 </div>
                 <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-8">{item.title}</h1>
 
+                {/* Order: text, then date / time / venue, then the programme. */}
+                <article className="mb-8">
+                  <Markdown>{item.content ?? item.summary}</Markdown>
+                </article>
+
                 <div className="grid gap-4 sm:grid-cols-3 mb-10">
                   <div className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
                     <CalendarDays className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
@@ -75,9 +80,6 @@ const EventDetail = () => {
                   </section>
                 )}
 
-                <article>
-                    <Markdown>{item.content ?? item.summary}</Markdown>
-                  </article>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <InfoRequestDialog subject={`${t("events.requestInfo")}: ${item.title}`}>
                     <Button>{item.ctaLabel || t("events.requestInfo")}</Button>
