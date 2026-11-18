@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, ExternalLink, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { ExternalLink, MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
 import { contactDetails, getAddressLines, getOpeningHours, phoneHref } from "@/lib/siteSettings";
 
@@ -20,12 +20,6 @@ export const Footer = () => {
     { label: t("footer.foreignAffairs"), href: "https://www.minec.gov.mz/", external: true },
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-  ];
   return (
     <footer className="bg-embassy-green-dark text-primary-foreground">
       {/* Main Footer */}
@@ -40,21 +34,9 @@ export const Footer = () => {
                 <p className="text-sm text-primary-foreground/70">{t("footer.location")}</p>
               </div>
             </div>
-            <p className="text-sm text-primary-foreground/80 mb-6 leading-relaxed">
+            <p className="text-sm text-primary-foreground/80 leading-relaxed">
               {t("footer.description")}
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-gold hover:text-foreground transition-colors"
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Quick Links */}
