@@ -4,13 +4,13 @@ import { Pause, Play } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
 import { useNewsStore } from "@/lib/newsStore";
 import { useEventStore } from "@/lib/eventStore";
-import { buildFeed, getHighlights, itemHref, itemTitle, type FeedItem } from "@/lib/feed";
+import { buildFeed, getTickerItems, itemHref, itemTitle, type FeedItem } from "@/lib/feed";
 
 const LOCALES = { en: "en-GB", de: "de-DE", pt: "pt-PT" } as const;
 const MAX_ITEMS = 5;
 
-// Scrolling "Latest" line in the red top bar: highlighted entries first, then the
-// newest news and events. Pauses on hover/focus and with the pause button (WCAG
+// Scrolling "Latest" line in the red top bar: upcoming events, then news from the
+// last 14 days. Hidden when nothing is current. Pauses on hover/focus and with the pause button (WCAG
 // 2.2.2); stands still for visitors who prefer reduced motion (see index.css).
 export const NewsTicker = () => {
   const { t, language } = useLanguage();
@@ -18,11 +18,8 @@ export const NewsTicker = () => {
   const { events } = useEventStore();
   const [paused, setPaused] = useState(false);
 
-  const items = useMemo(() => {
-    const feed = buildFeed(newsItems, events);
-    const ordered = [...getHighlights(feed), ...feed];
-    return ordered.filter((item, index) => ordered.findIndex((other) => other.id === item.id) === index).slice(0, MAX_ITEMS);
-  }, [newsItems, events]);
+  // Upcoming events until their date, news for 14 days after publishing (see feed.ts).
+  const items = useMemo(() => getTickerItems(buildFeed(newsItems, events), undefined, MAX_ITEMS), [newsItems, events]);
 
   if (items.length === 0) return null;
 

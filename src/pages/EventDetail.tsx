@@ -1,12 +1,12 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useEventStore } from "@/lib/eventStore";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Markdown } from "@/components/Markdown";
+import { BackLink } from "@/components/BackLink";
 import { InfoRequestDialog } from "@/components/InfoRequestDialog";
 import { categoryLabel } from "@/lib/categories";
 import { useLanguage } from "@/lib/useLanguage";
@@ -19,10 +19,6 @@ const EventDetail = () => {
   const { getEventById } = useEventStore();
   const { language, t } = useLanguage();
   const item = id ? getEventById(id) : null;
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [id]);
 
   const formattedDate = item
     ? new Intl.DateTimeFormat(LOCALES[language], { weekday: "long", day: "2-digit", month: "long", year: "numeric" }).format(new Date(item.date))
@@ -87,7 +83,7 @@ const EventDetail = () => {
                     <Button>{item.ctaLabel || t("events.requestInfo")}</Button>
                   </InfoRequestDialog>
                   <Button asChild variant="outline">
-                    <Link to="/events">{t("events.backToEvents")}</Link>
+                    <BackLink to="/events">{t("events.backToEvents")}</BackLink>
                   </Button>
                 </div>
               </motion.div>

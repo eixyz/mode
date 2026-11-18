@@ -46,6 +46,9 @@ export const Header = () => {
             <Link to="/news" className="hover:text-gold transition-colors hidden sm:inline">
               {t("header.news")}
             </Link>
+            <Link to="/events" className="hover:text-gold transition-colors hidden sm:inline">
+              {t("header.events")}
+            </Link>
             {/* Contact link in top bar */}
             <Link to="/contact" className="hover:text-gold transition-colors hidden sm:inline">
               {t("header.contact")}
@@ -321,6 +324,17 @@ export const Header = () => {
                     className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
                   >
                     {t("header.news")}
+                  </Link>
+                </div>
+
+                {/* Events (mobile) */}
+                <div>
+                  <Link
+                    to="/events"
+                    onClick={closeMobileMenu}
+                    className="px-4 py-3 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors block"
+                  >
+                    {t("header.events")}
                   </Link>
                 </div>
 

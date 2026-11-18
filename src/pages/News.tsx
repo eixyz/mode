@@ -1,13 +1,13 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
 import { categoryLabel } from "@/lib/categories";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 const PAGE_SIZE = 9;
@@ -18,7 +18,12 @@ const NewsPage = () => {
   const featuredNews = newsItems[0];
   const sidebarNews = newsItems.slice(1, 3);
   const paginatedSource = useMemo(() => newsItems.slice(3), [newsItems]);
-  const [page, setPage] = useState(1);
+  // The page number lives in the address (/news?page=3), so Back from an article
+  // returns to the same page of results.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Math.max(1, Number.parseInt(searchParams.get("page") ?? "1", 10) || 1);
+  const setPage = (next: number) =>
+    setSearchParams(next > 1 ? { page: String(next) } : {}, { state: { scrollTo: "news-list" } });
   const totalPages = Math.max(1, Math.ceil(paginatedSource.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
   const remainingNews = paginatedSource.slice(
@@ -91,7 +96,7 @@ const NewsPage = () => {
 
             {paginatedSource.length > 0 && (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto scroll-mt-28" id="news-list">
                   {remainingNews.map((n) => (
                     <motion.div key={n.id} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
                       <Link to={`/news/${n.id}`}>
@@ -121,7 +126,7 @@ const NewsPage = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      onClick={() => setPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
                       aria-label={t("news.previousPage")}
                     >
@@ -141,7 +146,7 @@ const NewsPage = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                      onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages}
                       aria-label={t("news.nextPage")}
                     >

@@ -1,11 +1,11 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useNewsStore } from "@/lib/newsStore";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Markdown } from "@/components/Markdown";
+import { BackLink } from "@/components/BackLink";
 import { useLanguage } from "@/lib/useLanguage";
 import { categoryLabel } from "@/lib/categories";
 
@@ -14,11 +14,6 @@ const NewsDetail = () => {
   const { getNewsById } = useNewsStore();
   const { t } = useLanguage();
   const item = id ? getNewsById(id) : null;
-
-  useEffect(() => {
-    // Ensure the page is scrolled to the top when navigating to a news detail
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [id]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -39,7 +34,7 @@ const NewsDetail = () => {
                   <Markdown>{item.content ?? item.excerpt}</Markdown>
                 </article>
                 <div className="mt-8">
-                  <Button asChild variant="outline"><Link to="/news">{t("news.backToNews")}</Link></Button>
+                  <Button asChild variant="outline"><BackLink to="/news">{t("news.backToNews")}</BackLink></Button>
                 </div>
               </motion.div>
             ) : (

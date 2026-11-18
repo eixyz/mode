@@ -10,7 +10,7 @@
 //   If nothing is highlighted, the newest entry is shown so the slider is never empty.
 import type { NewsItem } from "./news";
 import type { EmbassyEvent } from "./events";
-import { isUpcoming, todayIso } from "./dates";
+import { addDays, isUpcoming, todayIso } from "./dates";
 
 export type FeedItem =
   | { kind: "news"; id: string; sortDate: string; news: NewsItem }
@@ -37,3 +37,21 @@ export const itemTitle = (item: FeedItem) => (item.kind === "news" ? item.news.t
 export const itemText = (item: FeedItem) => (item.kind === "news" ? item.news.excerpt : item.event.summary);
 export const itemImage = (item: FeedItem) => (item.kind === "news" ? item.news.image : item.event.image);
 export const itemCategory = (item: FeedItem) => (item.kind === "news" ? item.news.category : item.event.category);
+
+/** How long a news item stays in the top-bar ticker after its publish date. */
+export const TICKER_NEWS_DAYS = 14;
+
+/**
+ * Top-bar ticker: upcoming events until their date (soonest first), then news
+ * published in the last 14 days (newest first). Older entries drop out by
+ * themselves; with nothing current, the ticker is hidden.
+ */
+export const getTickerItems = (feed: FeedItem[], today = todayIso(), max = 5): FeedItem[] => {
+  const events = feed
+    .filter((item): item is Extract<FeedItem, { kind: "event" }> => item.kind === "event")
+    .filter((item) => isUpcoming(item.event, today))
+    .sort((a, b) => a.event.date.localeCompare(b.event.date));
+  const newsSince = addDays(today, -TICKER_NEWS_DAYS);
+  const news = feed.filter((item) => item.kind === "news" && item.news.isoDate >= newsSince && item.news.isoDate <= today);
+  return [...events, ...news].slice(0, max);
+};

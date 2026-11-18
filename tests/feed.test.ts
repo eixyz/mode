@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { buildFeed, getHighlights } from "../src/lib/feed";
+import { buildFeed, getHighlights, getTickerItems } from "../src/lib/feed";
+import { addDays, isUpcoming } from "../src/lib/dates";
 import type { NewsItem } from "../src/lib/news";
 import type { EmbassyEvent } from "../src/lib/events";
 
@@ -38,5 +39,36 @@ describe("homepage feed", () => {
   test("without any highlight, the newest entry is shown", () => {
     const feed = buildFeed([news("a", "2026-11-01"), news("b", "2026-11-05")], []);
     expect(getHighlights(feed, "2026-11-18").map((item) => item.id)).toEqual(["news-b"]);
+  });
+});
+
+describe("top-bar ticker", () => {
+  const feed = buildFeed(
+    [news("launch", "2026-07-22"), news("fresh", "2026-11-10"), news("two-weeks-old", "2026-11-04"), news("too-old", "2026-11-03")],
+    [event("meeting", "2026-11-21", "2026-11-17"), event("past", "2026-11-01", "2026-10-20")],
+  );
+
+  test("upcoming events until their date, then news from the last 14 days", () => {
+    expect(getTickerItems(feed, "2026-11-18").map((item) => item.id)).toEqual(["event-meeting", "news-fresh", "news-two-weeks-old"]);
+  });
+
+  test("old news and past events drop out by themselves", () => {
+    // 22 Nov: the meeting has passed; news from 10 Nov is still within 14 days.
+    expect(getTickerItems(feed, "2026-11-22").map((item) => item.id)).toEqual(["news-fresh"]);
+    // 25 Nov: nothing current left, so the ticker is hidden.
+    expect(getTickerItems(feed, "2026-11-25").map((item) => item.id)).toEqual([]);
+    expect(getTickerItems(buildFeed([news("launch", "2026-07-22")], []), "2026-11-18")).toEqual([]);
+  });
+});
+
+describe("event dates", () => {
+  test("an event is upcoming on its day and past the day after", () => {
+    expect(isUpcoming({ date: "2026-11-21" }, "2026-11-21")).toBe(true);
+    expect(isUpcoming({ date: "2026-11-21" }, "2026-11-22")).toBe(false);
+  });
+
+  test("date arithmetic crosses month ends", () => {
+    expect(addDays("2026-11-18", -14)).toBe("2026-11-04");
+    expect(addDays("2026-03-01", -1)).toBe("2026-02-28");
   });
 });
