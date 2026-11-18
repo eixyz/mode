@@ -178,3 +178,26 @@
     background-clip: text;
   }
 }
+
+/* Top-bar news ticker (src/components/NewsTicker.tsx). The track holds the list
+   twice, so moving it by half its width loops seamlessly. */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll var(--ticker-duration, 40s) linear infinite;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track,
+.ticker[data-paused="true"] .ticker-track {
+  animation-play-state: paused;
+}
+.ticker-viewport {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .ticker-toggle { display: none; }
+}

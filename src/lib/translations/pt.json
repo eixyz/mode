@@ -838,7 +838,10 @@
     "play": "Retomar apresentação",
     "allNews": "Todas as notícias",
     "allEvents": "Todos os eventos",
-    "latest": "Mais recentes"
+    "latest": "Mais recentes",
+    "ticker": "Novidades",
+    "tickerPause": "Pausar notícias",
+    "tickerPlay": "Retomar notícias"
   },
   "categories": {
     "announcement": "Anúncio",

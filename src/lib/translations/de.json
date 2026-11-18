@@ -838,7 +838,10 @@
     "play": "Diashow abspielen",
     "allNews": "Alle Nachrichten",
     "allEvents": "Alle Veranstaltungen",
-    "latest": "Neueste Beiträge"
+    "latest": "Neueste Beiträge",
+    "ticker": "Aktuell",
+    "tickerPause": "Laufband anhalten",
+    "tickerPlay": "Laufband abspielen"
   },
   "categories": {
     "announcement": "Mitteilung",

@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
 import { contactDetails, phoneHref } from "@/lib/siteSettings";
+import { NewsTicker } from "@/components/NewsTicker";
 
 export const Header = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -28,8 +29,8 @@ export const Header = () => {
     <>
       {/* Top Bar */}
       <div className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white py-2 text-sm">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center gap-6">
+        <div className="container mx-auto px-4 flex justify-between items-center gap-4">
+          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
             <a href={phoneHref(contactDetails.phone)} className="flex items-center gap-2 hover:text-gold transition-colors">
               <Phone className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{contactDetails.phone}</span>
@@ -39,7 +40,8 @@ export const Header = () => {
               <span className="hidden sm:inline">{contactDetails.email}</span>
             </a>
           </div>
-          <div className="flex items-center gap-4">
+          <NewsTicker />
+          <div className="flex items-center gap-4 shrink-0">
             {/* News link in top bar */}
             <Link to="/news" className="hover:text-gold transition-colors hidden sm:inline">
               {t("header.news")}

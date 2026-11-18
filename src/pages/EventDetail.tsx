@@ -44,8 +44,7 @@ const EventDetail = () => {
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">{categoryLabel(t, item.category)}</Badge>
                 </div>
-                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">{item.title}</h1>
-                <p className="text-lg text-muted-foreground leading-8 mb-8">{item.summary}</p>
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-8">{item.title}</h1>
 
                 <div className="grid gap-4 sm:grid-cols-3 mb-10">
                   <div className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
@@ -80,11 +79,9 @@ const EventDetail = () => {
                   </section>
                 )}
 
-                {item.content && (
-                  <article>
-                    <Markdown>{item.content}</Markdown>
+                <article>
+                    <Markdown>{item.content ?? item.summary}</Markdown>
                   </article>
-                )}
                 <div className="mt-8 flex flex-wrap gap-3">
                   <InfoRequestDialog subject={`${t("events.requestInfo")}: ${item.title}`}>
                     <Button>{item.ctaLabel || t("events.requestInfo")}</Button>

@@ -850,7 +850,10 @@
     "play": "Play slideshow",
     "allNews": "All news",
     "allEvents": "All events",
-    "latest": "Latest"
+    "latest": "Latest",
+    "ticker": "Latest",
+    "tickerPause": "Pause news ticker",
+    "tickerPlay": "Play news ticker"
   },
   "categories": {
     "announcement": "Announcement",
