@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { InfoRequestDialog } from "@/components/InfoRequestDialog";
 
 const PassportsPage = () => {
   const { t } = useLanguage();
@@ -104,12 +105,12 @@ const PassportsPage = () => {
                           </li>
                         ))}
                       </ul>
-                      <Link to={`/contact?subject=${encodeURIComponent(svc.subject)}`}>
+                      <InfoRequestDialog subject={t(`passportsPage.${svc.key}`)}>
                         <Button className="w-full" variant="outline">
                           {t("passportsPage.contactAbout")}
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
-                      </Link>
+                      </InfoRequestDialog>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -128,9 +129,9 @@ const PassportsPage = () => {
                   <p>{t("passportsPage.step4")}</p>
                   <p>{t("passportsPage.step5")}</p>
                   <div className="pt-4 border-t">
-                    <Link to="/contact" className="text-primary hover:underline">
-                      {t("passportsPage.contactSchedule")}
-                    </Link>
+                    <InfoRequestDialog subject={t("passportsPage.pageTitle")}>
+                      <button type="button" className="text-primary hover:underline">{t("passportsPage.contactSchedule")}</button>
+                    </InfoRequestDialog>
                   </div>
                 </CardContent>
               </Card>

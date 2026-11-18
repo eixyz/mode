@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Markdown } from "@/components/Markdown";
 import { useLanguage } from "@/lib/useLanguage";
+import { categoryLabel } from "@/lib/categories";
 
 const NewsDetail = () => {
   const { id } = useParams();
@@ -33,19 +34,19 @@ const NewsDetail = () => {
                 )}
                 <div className="gold-accent h-1 w-16 mb-6 rounded-full" />
                 <h1 className="font-serif text-3xl font-bold text-foreground mb-2">{item.title}</h1>
-                <div className="text-sm text-muted-foreground mb-6">{item.date} • {item.category}</div>
+                <div className="text-sm text-muted-foreground mb-6">{item.date} • {categoryLabel(t, item.category)}</div>
                 <article>
                   <Markdown>{item.content ?? item.excerpt}</Markdown>
                 </article>
                 <div className="mt-8">
-                  <Link to="/news"><Button variant="outline">{t("news.backToNews")}</Button></Link>
+                  <Button asChild variant="outline"><Link to="/news">{t("news.backToNews")}</Link></Button>
                 </div>
               </motion.div>
             ) : (
               <div className="text-center py-24">
                 <h2 className="text-2xl font-semibold">{t("news.articleNotFound")}</h2>
                 <p className="text-muted-foreground mt-4">{t("news.articleNotFoundDesc")}</p>
-                <div className="mt-6"><Link to="/news"><Button variant="outline">{t("news.viewAllNews")}</Button></Link></div>
+                <div className="mt-6"><Button asChild variant="outline"><Link to="/news">{t("news.viewAllNews")}</Link></Button></div>
               </div>
             )}
           </div>

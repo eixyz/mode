@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/useLanguage";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { InfoRequestDialog } from "@/components/InfoRequestDialog";
 
 const AdvisoryPage = () => {
   const { t } = useLanguage();
@@ -54,12 +55,12 @@ const AdvisoryPage = () => {
                       <p className="text-sm text-muted-foreground mb-4 flex-1">
                         {t(`advisoryPage.${svc.key}Desc`)}
                       </p>
-                      <Link to={`/contact?subject=${encodeURIComponent(svc.subject)}`}>
+                      <InfoRequestDialog subject={t(`advisoryPage.${svc.key}`)}>
                         <Button className="w-full" variant="outline">
                           {t("advisoryPage.requestAssistance")}
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
-                      </Link>
+                      </InfoRequestDialog>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -78,9 +79,9 @@ const AdvisoryPage = () => {
                   <p>{t("advisoryPage.assistStep4")}</p>
                   <p>{t("advisoryPage.assistStep5")}</p>
                   <div className="pt-4 border-t">
-                    <Link to="/contact" className="text-primary hover:underline">
-                      {t("advisoryPage.contactAdvisory")}
-                    </Link>
+                    <InfoRequestDialog subject={t("advisoryPage.pageTitle")}>
+                      <button type="button" className="text-primary hover:underline">{t("advisoryPage.contactAdvisory")}</button>
+                    </InfoRequestDialog>
                   </div>
                 </CardContent>
               </Card>

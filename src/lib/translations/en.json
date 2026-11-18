@@ -169,7 +169,11 @@
     "readFullArticle": "Read full article",
     "backToNews": "Back to news",
     "articleNotFound": "Article not found",
-    "articleNotFoundDesc": "The requested news article could not be located."
+    "articleNotFoundDesc": "The requested news article could not be located.",
+    "pageDesc": "All recent news and announcements from the Embassy.",
+    "pagination": "News pages",
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
   },
   "events": {
     "title": "Upcoming Events",
@@ -179,7 +183,15 @@
     "featured": "Featured event",
     "viewDetails": "View event details",
     "browseAll": "Browse all upcoming events",
-    "browseIntro": "Looking for something specific? See the complete calendar of embassy activities and cultural gatherings."
+    "browseIntro": "Looking for something specific? See the complete calendar of embassy activities and cultural gatherings.",
+    "pageDesc": "Embassy briefings, cultural gatherings and public events in one place.",
+    "past": "Past events",
+    "backToEvents": "Back to events",
+    "notFound": "Event not found",
+    "notFoundDesc": "The requested event could not be found.",
+    "viewAll": "View all events",
+    "requestInfo": "Request information",
+    "programme": "Programme"
   },
   "highlights": {
     "title": "How can we help?",
@@ -821,5 +833,39 @@
     "germanUnity": "German Unity Day",
     "christmas1": "Christmas Day",
     "christmas2": "Boxing Day"
+  },
+  "common": {
+    "backToHome": "Back to home"
+  },
+  "feed": {
+    "title": "News & Events",
+    "description": "The latest from the Embassy: announcements, press releases and upcoming events.",
+    "highlights": "Highlights",
+    "news": "News",
+    "event": "Event",
+    "previous": "Previous highlight",
+    "next": "Next highlight",
+    "goTo": "Show highlight",
+    "pause": "Pause slideshow",
+    "play": "Play slideshow",
+    "allNews": "All news",
+    "allEvents": "All events",
+    "latest": "Latest"
+  },
+  "categories": {
+    "announcement": "Announcement",
+    "pressRelease": "Press Release",
+    "consular": "Consular",
+    "cultural": "Cultural",
+    "trade": "Trade",
+    "diplomatic": "Diplomatic",
+    "public": "Public",
+    "commemoration": "Commemoration",
+    "event": "Event"
+  },
+  "infoRequest": {
+    "title": "Request information",
+    "description": "Your question goes directly to the Embassy. You will receive a confirmation by email.",
+    "success": "Thank you. Your message has been sent; you will receive a confirmation by email."
   }
 }

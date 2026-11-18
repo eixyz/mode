@@ -8,6 +8,10 @@ export type NewsItem = {
   excerpt: string;
   content?: string;
   image?: string;
+  /** Publish date, YYYY-MM-DD (orders the homepage feed). */
+  isoDate: string;
+  /** "Highlight on homepage" in /admin. */
+  featured: boolean;
 };
 
 // Source of truth: Markdown files under /content/news managed by Decap CMS,

@@ -1,31 +1,16 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MapEmbed } from "@/components/MapEmbed";
 import { useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { contactDetails, getAddressLines, getOpeningHours } from "@/lib/siteSettings";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { ContactForm } from "@/components/ContactForm";
 
 const ContactPage = () => {
   const { t, language } = useLanguage();
   const [searchParams] = useSearchParams();
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Contact details and opening hours are edited by staff in Decap (Embassy Settings).
   const contactInfo = [
@@ -50,59 +35,6 @@ const ContactPage = () => {
       content: getOpeningHours(language).lines ?? (t("contact.info.hours.lines") as unknown as string[]),
     },
   ];
-
-  const [formData, setFormData] = useState({
-    title: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  useEffect(() => {
-    const subjectParam = searchParams.get("subject");
-    if (subjectParam) {
-      setFormData((prev) => ({ ...prev, subject: subjectParam }));
-    }
-  }, [searchParams]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleSelectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, title: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!agreedToTerms) {
-      alert(t("contact.form.agreeRequired"));
-      return;
-    }
-    setIsSubmitting(true);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, agreedToTerms }),
-      });
-      const data = await res.json().catch(() => null);
-      if (!res.ok) {
-        throw new Error(data?.error || "Failed to send message");
-      }
-      alert(data?.message || t("contact.form.successMessage"));
-      setFormData({ title: "", firstName: "", lastName: "", email: "", subject: "", message: "" });
-      setAgreedToTerms(false);
-    } catch (err) {
-      console.error(err);
-      alert(err instanceof Error ? err.message : t("contact.form.errorMessage"));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -159,72 +91,10 @@ const ContactPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <form className="bg-card rounded-xl p-6 sm:p-8 border border-border" onSubmit={handleSubmit}>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-6">
-                    {t("contact.form.sendButton")}
-                  </h3>
-                  <div className="space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="title">{t("contact.form.titleLabel")}</Label>
-                        <Select value={formData.title} onValueChange={handleSelectChange}>
-                          <SelectTrigger id="title">
-                            <SelectValue placeholder={t("contact.form.selectPlaceholder")} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Mr">{t("contact.form.selectMr")}</SelectItem>
-                            <SelectItem value="Ms">{t("contact.form.selectMs")}</SelectItem>
-                            <SelectItem value="Mrs">{t("contact.form.selectMrs")}</SelectItem>
-                            <SelectItem value="Dr">{t("contact.form.selectDr")}</SelectItem>
-                            <SelectItem value="Prof">{t("contact.form.selectProf")}</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">{t("contact.form.firstNameLabel")}</Label>
-                        <Input id="firstName" placeholder={t("contact.form.firstNamePlaceholder")} value={formData.firstName} onChange={handleInputChange} required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">{t("contact.form.lastNameLabel")}</Label>
-                        <Input id="lastName" placeholder={t("contact.form.lastNamePlaceholder")} value={formData.lastName} onChange={handleInputChange} required />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">{t("contact.form.emailLabel")}</Label>
-                      <Input id="email" type="email" placeholder={t("contact.form.emailPlaceholder")} value={formData.email} onChange={handleInputChange} required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="subject">{t("contact.form.subjectLabel")}</Label>
-                      <Input id="subject" placeholder={t("contact.form.subjectPlaceholder")} value={formData.subject} onChange={handleInputChange} required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">{t("contact.form.messageLabel")}</Label>
-                      <Textarea id="message" placeholder={t("contact.form.messagePlaceholder")} rows={5} value={formData.message} onChange={handleInputChange} required />
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Checkbox
-                        id="terms"
-                        checked={agreedToTerms}
-                        onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
-                      />
-                      <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
-                        {t("contact.form.consentBefore")}{" "}
-                        <Link to="/terms" className="text-primary hover:underline">{t("footer.termsOfService")}</Link>
-                        {" "}{t("contact.form.consentMiddle")}{" "}
-                        <Link to="/privacy" className="text-primary hover:underline">{t("footer.privacyPolicy")}</Link>
-                        {t("contact.form.consentAfter")}
-                      </label>
-                    </div>
-                    <Button
-                      type="submit"
-                      disabled={!agreedToTerms || isSubmitting}
-                      className="w-full bg-primary hover:bg-embassy-green-dark text-primary-foreground"
-                    >
-                      <Send className="w-4 h-4 mr-2" />
-                      {isSubmitting ? t("contact.form.sending") : t("contact.form.sendButton")}
-                    </Button>
-                  </div>
-                </form>
+                <ContactForm
+                  defaultSubject={searchParams.get("subject") ?? ""}
+                  className="bg-card rounded-xl p-6 sm:p-8 border border-border"
+                />
               </motion.div>
             </div>
           </div>

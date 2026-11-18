@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, Clock, FileText, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/useLanguage";
+import { InfoRequestDialog } from "@/components/InfoRequestDialog";
 
 const visaTypes = [
   {
@@ -303,11 +304,14 @@ const VisasServicePage = () => {
               <p className="text-muted-foreground mb-8">
                 {t("visasPage.downloadForms")}
               </p>
-              <Link to="/services">
-                <Button size="lg" className="bg-primary hover:bg-embassy-green-dark text-primary-foreground">
-                  {t("visasPage.viewDocuments")}
+              <div className="flex flex-wrap justify-center gap-3">
+                <Button asChild size="lg" className="bg-primary hover:bg-embassy-green-dark text-primary-foreground">
+                  <Link to="/services/forms">{t("visasPage.viewDocuments")}</Link>
                 </Button>
-              </Link>
+                <InfoRequestDialog subject={t("visasPage.visaRequirements")}>
+                  <Button size="lg" variant="outline">{t("visasPage.contactRequirements").replace(/\s*→$/, "")}</Button>
+                </InfoRequestDialog>
+              </div>
             </motion.div>
           </div>
         </section>

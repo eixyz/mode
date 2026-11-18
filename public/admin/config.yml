@@ -62,6 +62,7 @@ collections:
       - { name: date, label: Publish date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
       - { name: category, label: Category, widget: select, options: [Announcement, Press Release, Consular, Cultural, Trade], hint: "For an upcoming event (date, time, venue), use the Events section instead; it appears on the Events page and the homepage." }
       - { name: image, label: Cover image, widget: image, required: false, hint: "Landscape photo, at least 1200 px wide. Only use photos the Embassy may publish." }
+      - { name: featured, label: Highlight on homepage, widget: boolean, default: false, required: false, hint: "Shows this news in the slider at the top of the homepage. Untick when it is no longer current." }
       # Translatable fields. "required: false" lets you save before translating;
       # the automatic check refuses an English entry without a title.
       - { name: title, label: Title, widget: string, i18n: true, required: false, hint: "Required in English. Leave empty in German/Portuguese to show the English version." }
@@ -71,7 +72,7 @@ collections:
 
   - name: events
     label: Events
-    description: "Receptions, meetings, cultural evenings and other dated events. Shown on the Events page; tick \"Featured\" to show it on the homepage."
+    description: "Receptions, meetings, cultural evenings and other dated events. Shown on the Events page and, until the event has taken place, in the slider at the top of the homepage."
     folder: "content/events"
     create: true
     i18n: true
@@ -85,16 +86,28 @@ collections:
       # Shared fields (no i18n) are entered once, in the English tab.
       - { name: id, label: ID (slug), widget: string, hint: "Stable web address, e.g. independence-day-reception. Lowercase letters, numbers and hyphens." }
       - { name: date, label: Event date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-      - { name: time, label: Time, widget: string, hint: "e.g. 18:00 – 20:00" }
+      - { name: time, label: Time, widget: string, hint: "24-hour time only, e.g. 15:00 or 18:00 – 20:00. The same value is shown in every language, so do not add words." }
+      - { name: published, label: Publish date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, hint: "Filled in automatically with today. Orders the homepage: the newest news or event comes first." }
       - { name: category, label: Category, widget: select, options: [Cultural, Diplomatic, Trade, Public, Commemoration] }
-      - { name: featured, label: Featured on homepage, widget: boolean, default: false, required: false }
-      - { name: image, label: Cover image, widget: image, required: false }
+      - { name: featured, label: Highlight on homepage, widget: boolean, default: true, required: false, hint: "Shows the event in the slider at the top of the homepage until the event date has passed." }
+      - { name: image, label: Cover image, widget: image, required: false, hint: "Landscape photo, at least 1200 px wide. Shown on the homepage, the Events page and the event page." }
       # Translatable fields.
       - { name: title, label: Title, widget: string, i18n: true, required: false, hint: "Required in English. Leave empty in German/Portuguese to show the English version." }
       - { name: venue, label: Venue, widget: string, i18n: true, required: false }
-      - { name: summary, label: Summary, widget: text, i18n: true, required: false }
-      - { name: ctaLabel, label: Button label, widget: string, i18n: true, required: false, hint: "e.g. Request information / Informationen anfordern / Pedir informações" }
-      - { name: body, label: Details, widget: markdown, i18n: true, required: false }
+      - { name: summary, label: Summary, widget: text, i18n: true, required: false, hint: "One or two sentences shown on the homepage and the Events page." }
+      - name: details
+        label: Programme / key details
+        label_singular: row
+        widget: list
+        i18n: true
+        required: false
+        summary: "{{fields.label}}: {{fields.value}}"
+        hint: "One row per item, e.g. Date | Saturday, 21 November 2026, or 15:00 | Meeting with community leaders. Shown as a table on the event page."
+        fields:
+          - { name: label, label: "Label (left), e.g. Date or 15:00", widget: string }
+          - { name: value, label: "Text (right)", widget: string }
+      - { name: ctaLabel, label: Button label (optional), widget: string, i18n: true, required: false, hint: "Leave empty to show \"Request information\" in the visitor's language. The button opens an enquiry form." }
+      - { name: body, label: Further information, widget: markdown, i18n: true, required: false }
 
   - name: documents
     label: Documents & Public Notices

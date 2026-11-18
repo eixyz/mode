@@ -169,7 +169,11 @@
     "readFullArticle": "Vollständigen Artikel lesen",
     "backToNews": "Zurück zu Nachrichten",
     "articleNotFound": "Artikel nicht gefunden",
-    "articleNotFoundDesc": "Der angeforderte Nachrichtenartikel konnte nicht gefunden werden."
+    "articleNotFoundDesc": "Der angeforderte Nachrichtenartikel konnte nicht gefunden werden.",
+    "pageDesc": "Alle aktuellen Nachrichten und Mitteilungen der Botschaft.",
+    "pagination": "Nachrichtenseiten",
+    "previousPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite"
   },
   "events": {
     "title": "Kommende Veranstaltungen",
@@ -179,7 +183,15 @@
     "featured": "Hervorgehobene Veranstaltung",
     "viewDetails": "Veranstaltungsdetails ansehen",
     "browseAll": "Alle kommenden Veranstaltungen ansehen",
-    "browseIntro": "Suchen Sie etwas Bestimmtes? Sehen Sie den vollständigen Kalender der Botschaftsaktivitäten und kulturellen Veranstaltungen."
+    "browseIntro": "Suchen Sie etwas Bestimmtes? Sehen Sie den vollständigen Kalender der Botschaftsaktivitäten und kulturellen Veranstaltungen.",
+    "pageDesc": "Informationsveranstaltungen, kulturelle Begegnungen und öffentliche Veranstaltungen der Botschaft auf einen Blick.",
+    "past": "Vergangene Veranstaltungen",
+    "backToEvents": "Zurück zu den Veranstaltungen",
+    "notFound": "Veranstaltung nicht gefunden",
+    "notFoundDesc": "Die gesuchte Veranstaltung wurde nicht gefunden.",
+    "viewAll": "Alle Veranstaltungen ansehen",
+    "requestInfo": "Informationen anfordern",
+    "programme": "Programm"
   },
   "highlights": {
     "title": "Wie können wir helfen?",
@@ -809,5 +821,39 @@
     "germanUnity": "Tag der Deutschen Einheit",
     "christmas1": "1. Weihnachtsfeiertag",
     "christmas2": "2. Weihnachtsfeiertag"
+  },
+  "common": {
+    "backToHome": "Zurück zur Startseite"
+  },
+  "feed": {
+    "title": "Nachrichten & Veranstaltungen",
+    "description": "Aktuelles aus der Botschaft: Mitteilungen, Pressemitteilungen und kommende Veranstaltungen.",
+    "highlights": "Im Fokus",
+    "news": "Nachricht",
+    "event": "Veranstaltung",
+    "previous": "Vorheriger Beitrag",
+    "next": "Nächster Beitrag",
+    "goTo": "Beitrag anzeigen",
+    "pause": "Diashow anhalten",
+    "play": "Diashow abspielen",
+    "allNews": "Alle Nachrichten",
+    "allEvents": "Alle Veranstaltungen",
+    "latest": "Neueste Beiträge"
+  },
+  "categories": {
+    "announcement": "Mitteilung",
+    "pressRelease": "Pressemitteilung",
+    "consular": "Konsularisches",
+    "cultural": "Kultur",
+    "trade": "Handel",
+    "diplomatic": "Diplomatie",
+    "public": "Öffentlich",
+    "commemoration": "Gedenken",
+    "event": "Veranstaltung"
+  },
+  "infoRequest": {
+    "title": "Informationen anfordern",
+    "description": "Ihre Frage geht direkt an die Botschaft. Sie erhalten eine Bestätigung per E-Mail.",
+    "success": "Vielen Dank. Ihre Nachricht wurde gesendet; Sie erhalten eine Bestätigung per E-Mail."
   }
 }

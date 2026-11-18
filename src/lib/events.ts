@@ -1,8 +1,14 @@
 import { loadEvents, type ContentLanguage } from "./content";
+import { isUpcoming, todayIso } from "./dates";
+
+export type EventDetailRow = { label: string; value: string };
 
 export type EmbassyEvent = {
   id: string;
+  /** Event date, YYYY-MM-DD. */
   date: string;
+  /** Publish date, YYYY-MM-DD; orders events together with news on the homepage. */
+  published: string;
   time: string;
   category: string;
   title: string;
@@ -10,39 +16,31 @@ export type EmbassyEvent = {
   content?: string;
   venue: string;
   image?: string;
+  /** Empty: pages show the translated "Request information". */
   ctaLabel: string;
+  /** "Highlight on homepage" in /admin; only applies until the event date has passed. */
   featured?: boolean;
+  /** Programme / key details, e.g. { label: "15:00", value: "Meeting with community leaders" }. */
+  details: EventDetailRow[];
 };
+
+export { isUpcoming, todayIso };
 
 export const sortEmbassyEvents = (events: EmbassyEvent[]) =>
-  [...events].sort(
-    (left, right) => new Date(left.date).getTime() - new Date(right.date).getTime(),
-  );
+  [...events].sort((left, right) => left.date.localeCompare(right.date));
 
-// Exactly one event is featured: the first one marked "featured", otherwise the earliest.
-const normalizeFeatured = (events: EmbassyEvent[]) => {
-  const firstFeaturedId = events.find((item) => item.featured)?.id;
-  if (!firstFeaturedId && events.length > 0) {
-    return events.map((item, index) => ({ ...item, featured: index === 0 }));
-  }
-  return events.map((item) => ({ ...item, featured: item.id === firstFeaturedId }));
-};
+/** Upcoming events, soonest first, then past events, most recent first. */
+export const splitEvents = (events: EmbassyEvent[], today = todayIso()) => ({
+  upcoming: sortEmbassyEvents(events.filter((event) => isUpcoming(event, today))),
+  past: sortEmbassyEvents(events.filter((event) => !isUpcoming(event, today))).reverse(),
+});
 
 // Source of truth: Markdown files under /content/events managed by Decap CMS,
 // one file per language (slug.en.md, slug.de.md, slug.pt.md).
-const prepare = (language: ContentLanguage) => normalizeFeatured(sortEmbassyEvents(loadEvents(language)));
-
 const eventsByLanguage: Record<ContentLanguage, EmbassyEvent[]> = {
-  en: prepare("en"),
-  de: prepare("de"),
-  pt: prepare("pt"),
+  en: sortEmbassyEvents(loadEvents("en")),
+  de: sortEmbassyEvents(loadEvents("de")),
+  pt: sortEmbassyEvents(loadEvents("pt")),
 };
 
 export const getEvents = (language: ContentLanguage) => eventsByLanguage[language] ?? eventsByLanguage.en;
-
-export const getUpcomingEvents = (language: ContentLanguage = "en") => getEvents(language);
-
-export const getEventContactSubject = (event: EmbassyEvent) => `Information request: ${event.title}`;
-
-export const getEventContactLink = (event: EmbassyEvent) =>
-  `/contact?subject=${encodeURIComponent(getEventContactSubject(event))}`;

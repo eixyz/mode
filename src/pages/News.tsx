@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useNewsStore } from "@/lib/newsStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { useLanguage } from "@/lib/useLanguage";
+import { categoryLabel } from "@/lib/categories";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -12,6 +14,7 @@ const PAGE_SIZE = 9;
 
 const NewsPage = () => {
   const { newsItems } = useNewsStore();
+  const { t } = useLanguage();
   const featuredNews = newsItems[0];
   const sidebarNews = newsItems.slice(1, 3);
   const paginatedSource = useMemo(() => newsItems.slice(3), [newsItems]);
@@ -33,13 +36,13 @@ const NewsPage = () => {
             <div className="max-w-6xl mx-auto mb-6">
               <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                 <ArrowLeft className="h-4 w-4" />
-                Back to home
+                {t("common.backToHome")}
               </Link>
             </div>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-3xl mx-auto text-center mb-10">
               <div className="gold-accent h-1 w-16 mx-auto mb-6 rounded-full" />
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">News & Announcements</h1>
-              <p className="text-muted-foreground mt-3">All recent news and announcements from the Embassy.</p>
+              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">{t("news.newsAnnouncements")}</h1>
+              <p className="text-muted-foreground mt-3">{t("news.pageDesc")}</p>
             </motion.div>
 
             {featuredNews && (
@@ -51,12 +54,12 @@ const NewsPage = () => {
                         <img src={featuredNews.image} alt={featuredNews.title} className="w-full h-56 object-cover" />
                       )}
                       <CardHeader className="pb-4">
-                        <CardDescription className="text-sm text-muted-foreground">{featuredNews.date} • {featuredNews.category}</CardDescription>
+                        <CardDescription className="text-sm text-muted-foreground">{featuredNews.date} • {categoryLabel(t, featuredNews.category)}</CardDescription>
                         <CardTitle className="text-2xl [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">{featuredNews.title}</CardTitle>
                       </CardHeader>
                       <CardContent className="flex flex-col">
                         <p className="text-sm md:text-base text-muted-foreground mb-6 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden">{featuredNews.excerpt}</p>
-                        <Button variant="outline">Read full article</Button>
+                        <span className={buttonVariants({ variant: "outline" })}>{t("news.readFullArticle")}</span>
                       </CardContent>
                     </Card>
                   </Link>
@@ -71,12 +74,12 @@ const NewsPage = () => {
                             <img src={n.image} alt={n.title} className="w-full h-32 object-cover" />
                           )}
                           <CardHeader className="pb-4">
-                            <CardDescription className="text-sm text-muted-foreground">{n.date} • {n.category}</CardDescription>
+                            <CardDescription className="text-sm text-muted-foreground">{n.date} • {categoryLabel(t, n.category)}</CardDescription>
                             <CardTitle className="text-lg [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">{n.title}</CardTitle>
                           </CardHeader>
                           <CardContent className="flex flex-col">
                             <p className="text-sm text-muted-foreground mb-4 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">{n.excerpt}</p>
-                            <Button variant="outline">Read full article</Button>
+                            <span className={buttonVariants({ variant: "outline" })}>{t("news.readFullArticle")}</span>
                           </CardContent>
                         </Card>
                       </Link>
@@ -97,12 +100,12 @@ const NewsPage = () => {
                             <img src={n.image} alt={n.title} loading="lazy" decoding="async" className="w-full h-48 object-cover" />
                           )}
                           <CardHeader>
-                            <CardDescription className="text-sm text-muted-foreground">{n.date} • {n.category}</CardDescription>
+                            <CardDescription className="text-sm text-muted-foreground">{n.date} • {categoryLabel(t, n.category)}</CardDescription>
                             <CardTitle className="text-lg">{n.title}</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <p className="text-sm text-muted-foreground mb-4">{n.excerpt}</p>
-                            <Button variant="outline">Read full article</Button>
+                            <span className={buttonVariants({ variant: "outline" })}>{t("news.readFullArticle")}</span>
                           </CardContent>
                         </Card>
                       </Link>
@@ -112,7 +115,7 @@ const NewsPage = () => {
 
                 {totalPages > 1 && (
                   <nav
-                    aria-label="News pagination"
+                    aria-label={t("news.pagination")}
                     className="mt-10 flex items-center justify-center gap-2 max-w-6xl mx-auto"
                   >
                     <Button
@@ -120,7 +123,7 @@ const NewsPage = () => {
                       size="sm"
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
-                      aria-label="Previous page"
+                      aria-label={t("news.previousPage")}
                     >
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
@@ -140,7 +143,7 @@ const NewsPage = () => {
                       size="sm"
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                       disabled={currentPage === totalPages}
-                      aria-label="Next page"
+                      aria-label={t("news.nextPage")}
                     >
                       <ChevronRight className="h-4 w-4" />
                     </Button>

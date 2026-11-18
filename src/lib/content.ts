@@ -79,6 +79,14 @@ const groupByEntry = (files: Record<string, string>) => {
 const text = (value: unknown) =>
   typeof value === "string" ? value.trim() : typeof value === "number" ? String(value) : "";
 
+/** Programme / key details list from /admin: [{ label: "Date", value: "21.11.2026" }, ...]. */
+const keyValues = (value: unknown) =>
+  Array.isArray(value)
+    ? value
+        .map((row) => ({ label: text((row as Record<string, unknown>)?.label), value: text((row as Record<string, unknown>)?.value) }))
+        .filter((row) => row.label || row.value)
+    : [];
+
 /**
  * Returns the base file (shared fields such as date and image) and the file whose
  * text should be shown. A translation is used only if it has a title; otherwise
@@ -109,6 +117,8 @@ export const loadNews = (language: ContentLanguage = DEFAULT_LANGUAGE): NewsItem
         excerpt: plainText(text(shown.data.excerpt) || body.split(/\r?\n\s*\r?\n/)[0] || ""),
         content: body || undefined,
         image: text(base.data.image) || undefined,
+        isoDate: isoDate.slice(0, 10),
+        featured: Boolean(base.data.featured),
       } satisfies NewsItem,
       sortKey: isoDate,
     };
@@ -120,11 +130,14 @@ export const loadNews = (language: ContentLanguage = DEFAULT_LANGUAGE): NewsItem
 
 export const loadEvents = (language: ContentLanguage = DEFAULT_LANGUAGE): EmbassyEvent[] =>
   [...groupByEntry(eventFiles)].map(([slug, entry]) => {
-    const { base, shown } = pickLanguage(entry, language);
+    const { base, shown, translated } = pickLanguage(entry, language);
     const body = shown.content.trim();
     return {
       id: text(base.data.id) || slug,
       date: String(base.data.date ?? "").slice(0, 10),
+      // When the entry was published; orders events together with news. Older
+      // entries without it use the event date.
+      published: String(base.data.published ?? base.data.date ?? "").slice(0, 10),
       time: text(base.data.time),
       category: text(base.data.category) || "Public",
       title: text(shown.data.title) || "Untitled",
@@ -132,8 +145,10 @@ export const loadEvents = (language: ContentLanguage = DEFAULT_LANGUAGE): Embass
       content: body || undefined,
       venue: text(shown.data.venue) || text(base.data.venue),
       image: text(base.data.image) || undefined,
-      ctaLabel: text(shown.data.ctaLabel) || text(base.data.ctaLabel) || "Request information",
+      // Empty means the page shows the translated default ("Request information").
+      ctaLabel: text(shown.data.ctaLabel) || (translated ? "" : text(base.data.ctaLabel)),
       featured: Boolean(base.data.featured),
+      details: keyValues(shown.data.details).length ? keyValues(shown.data.details) : keyValues(base.data.details),
     };
   });
 export type DocumentItem = {

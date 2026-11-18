@@ -35,6 +35,9 @@ Every draft is checked automatically. If the check fails, for example because th
 
 ## Good practice
 
+- **Homepage order and highlights:** the homepage shows news and events together, newest *Publish date* first. Ticking **Highlight on homepage** puts an entry in the slider at the top. Events leave the slider by themselves after the event day; untick news when it is no longer current.
+- **Event programme:** use **Programme / key details** for the schedule, one row per item (label left, text right), e.g. *Date | Saturday, 21 November 2026* or *15:00 | Meeting with community leaders*. Fill it in each language tab. Keep *Time* to plain numbers (15:00), because it is shown in every language.
+- **Request information:** the event button and the "Contact us about this" buttons on the service pages open the enquiry form in a pop-up, with the subject filled in. Messages arrive in the normal contact inbox.
 - **News or event?** Anything with a date, time and place (meetings, receptions, cultural evenings) goes in **Events**. It then appears on the Events page and, if "Featured" is ticked, on the homepage. Announcements, press releases and notices go in **News & Announcements**.
 - **Bold, italic, lists and links:** use the toolbar in the *Body* / *Details* field. The formatting appears on the full article. The short excerpt or summary in the lists is shown as plain text.
 - **Every Save is recorded:** each save adds a step to the draft's history on GitHub. That is version history, not copies; the website only ever shows one version of each entry. Untranslated languages are saved as nearly empty files, and visitors in those languages see the English text.

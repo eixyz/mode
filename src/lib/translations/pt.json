@@ -169,7 +169,11 @@
     "readFullArticle": "Ler artigo completo",
     "backToNews": "Voltar às notícias",
     "articleNotFound": "Artigo não encontrado",
-    "articleNotFoundDesc": "Não foi possível encontrar a notícia solicitada."
+    "articleNotFoundDesc": "Não foi possível encontrar a notícia solicitada.",
+    "pageDesc": "Todas as notícias e anúncios recentes da Embaixada.",
+    "pagination": "Páginas de notícias",
+    "previousPage": "Página anterior",
+    "nextPage": "Página seguinte"
   },
   "events": {
     "title": "Próximos Eventos",
@@ -179,7 +183,15 @@
     "featured": "Evento em destaque",
     "viewDetails": "Ver detalhes do evento",
     "browseAll": "Ver todos os próximos eventos",
-    "browseIntro": "Procura algo específico? Consulte o calendário completo de atividades e encontros culturais da Embaixada."
+    "browseIntro": "Procura algo específico? Consulte o calendário completo de atividades e encontros culturais da Embaixada.",
+    "pageDesc": "Sessões informativas, encontros culturais e eventos públicos da Embaixada, num só lugar.",
+    "past": "Eventos anteriores",
+    "backToEvents": "Voltar aos eventos",
+    "notFound": "Evento não encontrado",
+    "notFoundDesc": "Não foi possível encontrar o evento solicitado.",
+    "viewAll": "Ver todos os eventos",
+    "requestInfo": "Pedir informações",
+    "programme": "Programa"
   },
   "highlights": {
     "title": "Como podemos ajudar?",
@@ -809,5 +821,39 @@
     "germanUnity": "Dia da Unidade Alemã",
     "christmas1": "Dia de Natal",
     "christmas2": "Segundo Dia de Natal"
+  },
+  "common": {
+    "backToHome": "Voltar ao início"
+  },
+  "feed": {
+    "title": "Notícias e Eventos",
+    "description": "As novidades da Embaixada: anúncios, comunicados de imprensa e próximos eventos.",
+    "highlights": "Em destaque",
+    "news": "Notícia",
+    "event": "Evento",
+    "previous": "Destaque anterior",
+    "next": "Destaque seguinte",
+    "goTo": "Mostrar destaque",
+    "pause": "Pausar apresentação",
+    "play": "Retomar apresentação",
+    "allNews": "Todas as notícias",
+    "allEvents": "Todos os eventos",
+    "latest": "Mais recentes"
+  },
+  "categories": {
+    "announcement": "Anúncio",
+    "pressRelease": "Comunicado de imprensa",
+    "consular": "Consular",
+    "cultural": "Cultura",
+    "trade": "Comércio",
+    "diplomatic": "Diplomacia",
+    "public": "Público",
+    "commemoration": "Comemoração",
+    "event": "Evento"
+  },
+  "infoRequest": {
+    "title": "Pedir informações",
+    "description": "A sua pergunta é enviada diretamente à Embaixada. Receberá uma confirmação por e-mail.",
+    "success": "Obrigado. A sua mensagem foi enviada; receberá uma confirmação por e-mail."
   }
 }

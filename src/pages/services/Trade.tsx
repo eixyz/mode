@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/useLanguage";
+import { InfoRequestDialog } from "@/components/InfoRequestDialog";
 
 const TradeInvestPage = () => {
   const { t } = useLanguage();
@@ -136,9 +137,9 @@ const TradeInvestPage = () => {
                     <li>{t("tradePage.sector7")}</li>
                   </ul>
                   <div className="pt-4 border-t">
-                      <Link to="/contact" className="text-primary hover:underline">
-                      {t("tradePage.contactTrade")}
-                      </Link>
+                      <InfoRequestDialog subject={t("tradePage.pageTitle")}>
+                      <button type="button" className="text-primary hover:underline">{t("tradePage.contactTrade")}</button>
+                    </InfoRequestDialog>
                   </div>
                 </CardContent>
               </Card>
