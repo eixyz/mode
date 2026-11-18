@@ -81,21 +81,7 @@
     "bicLabel": "BIC (Código SWIFT)",
     "accountHolder": "Titular da Conta",
     "noteLabel": "Nota:",
-    "noteText": "Os pagamentos devem ser efetuados em euros, por transferência bancária. Após o pagamento, tem direito a um comprovativo de levantamento.",
-    "visaFormTitle": "Formulário de Pedido de Visto",
-    "visaFormDesc": "Formulário completo de pedido de visto para entrada em Moçambique",
-    "visaInfoGermanTitle": "Informações Importantes sobre Vistos (Alemão)",
-    "visaInfoGermanDesc": "Informações importantes sobre o processo de pedido de visto",
-    "visaInfoPortugueseTitle": "Informações Importantes sobre Vistos (Português)",
-    "visaInfoPortugueseDesc": "Informações importantes sobre o pedido de visto",
-    "feeGermanTitle": "Tabela de Emolumentos (Alemão)",
-    "feeGermanDesc": "Tabela de emolumentos dos serviços consulares",
-    "feePortugueseTitle": "Tabela de Emolumentos (Português)",
-    "feePortugueseDesc": "Tabela de Emolumentos dos Serviços Consulares",
-    "paymentGermanTitle": "Informações de Pagamento (Alemão)",
-    "paymentGermanDesc": "Informações importantes sobre as formas de pagamento",
-    "paymentPortugueseTitle": "Informações de Pagamento (Português)",
-    "paymentPortugueseDesc": "Informações importantes sobre as formas de pagamento"
+    "noteText": "Os pagamentos devem ser efetuados em euros, por transferência bancária. Após o pagamento, tem direito a um comprovativo de levantamento."
   },
   "appointment": {
     "pageTitle": "Pedir Marcação",
@@ -208,16 +194,48 @@
     "contactDesc": "Contacte a Embaixada para questões gerais, pedidos da imprensa ou correspondência diplomática."
   },
   "contact": {
-    "map": { "title": "Localização da Embaixada", "notice": "O mapa é fornecido pelo Google Maps. Ao carregá-lo, o seu endereço IP e outros dados são enviados à Google.", "show": "Mostrar mapa", "open": "Abrir no Google Maps" },
+    "map": {
+      "title": "Localização da Embaixada",
+      "notice": "O mapa é fornecido pelo Google Maps. Ao carregá-lo, o seu endereço IP e outros dados são enviados à Google.",
+      "show": "Mostrar mapa",
+      "open": "Abrir no Google Maps"
+    },
     "getInTouch": "Contacte-nos",
     "send": "Enviar",
     "pageTitle": "Contacto",
     "pageDesc": "Tem perguntas? Contacte-nos e teremos todo o gosto em ajudar.",
     "info": {
-      "address": { "title": "Morada", "lines": ["Stromstraße 47", "10551 Berlim", "Alemanha"] },
-      "phone": { "title": "Telefone", "lines": ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"] },
-      "email": { "title": "E-mail", "lines": ["info@mozambique-embassy.de"] },
-      "hours": { "title": "Horário de Funcionamento", "lines": ["A Missão está aberta:", "Segunda a sexta: 09:00 - 16:30", "Para questões consulares:", "A Embaixada está aberta ao público:", "Segunda a sexta: 09:30 - 15:00"] }
+      "address": {
+        "title": "Morada",
+        "lines": [
+          "Stromstraße 47",
+          "10551 Berlim",
+          "Alemanha"
+        ]
+      },
+      "phone": {
+        "title": "Telefone",
+        "lines": [
+          "+49 30 3987 6500",
+          "+49 30 398 765 03 (Fax)"
+        ]
+      },
+      "email": {
+        "title": "E-mail",
+        "lines": [
+          "info@mozambique-embassy.de"
+        ]
+      },
+      "hours": {
+        "title": "Horário de Funcionamento",
+        "lines": [
+          "A Missão está aberta:",
+          "Segunda a sexta: 09:00 - 16:30",
+          "Para questões consulares:",
+          "A Embaixada está aberta ao público:",
+          "Segunda a sexta: 09:30 - 15:00"
+        ]
+      }
     },
     "form": {
       "titleLabel": "Tratamento",
@@ -251,10 +269,26 @@
     "pageTitle": "A Embaixada",
     "pageDesc": "Representação diplomática oficial da República de Moçambique em Berlim, Alemanha",
     "items": {
-      "ambassador": { "title": "Embaixador", "description": "Representante oficial e função diplomática", "href": "/about/ambassador" },
-      "mission": { "title": "Missão", "description": "A nossa declaração de missão e os principais objetivos", "href": "/about/mission" },
-      "consuls": { "title": "Cônsules Honorários", "description": "Contactos dos cônsules honorários", "href": "/about/consuls" },
-      "holidays": { "title": "Feriados da Embaixada", "description": "Feriados oficiais em que a Embaixada está encerrada", "href": "/about/holidays" }
+      "ambassador": {
+        "title": "Embaixador",
+        "description": "Representante oficial e função diplomática",
+        "href": "/about/ambassador"
+      },
+      "mission": {
+        "title": "Missão",
+        "description": "A nossa declaração de missão e os principais objetivos",
+        "href": "/about/mission"
+      },
+      "consuls": {
+        "title": "Cônsules Honorários",
+        "description": "Contactos dos cônsules honorários",
+        "href": "/about/consuls"
+      },
+      "holidays": {
+        "title": "Feriados da Embaixada",
+        "description": "Feriados oficiais em que a Embaixada está encerrada",
+        "href": "/about/holidays"
+      }
     },
     "sectionTitle": "Descobrir Moçambique",
     "sectionText1": "Moçambique é uma nação vibrante do sudeste africano, com um rico património cultural, paisagens naturais deslumbrantes e uma economia em rápido crescimento. Situado na costa do Oceano Índico, o país oferece oportunidades únicas de turismo, investimento e intercâmbio cultural.",
@@ -859,5 +893,14 @@
     "title": "Pedir informações",
     "description": "A sua pergunta é enviada diretamente à Embaixada. Receberá uma confirmação por e-mail.",
     "success": "Obrigado. A sua mensagem foi enviada; receberá uma confirmação por e-mail."
+  },
+  "documents": {
+    "publicNotice": "Avisos públicos",
+    "form": "Formulários",
+    "visaInformation": "Informações sobre vistos",
+    "feesPayment": "Emolumentos e pagamento",
+    "other": "Outros documentos",
+    "empty": "De momento não há documentos disponíveis.",
+    "updated": "Atualizado em"
   }
 }

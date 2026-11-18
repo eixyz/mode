@@ -3,8 +3,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Users, Plane, DollarSign, Building2 } from "lucide-react";
+import { Users, Plane, DollarSign, Building2 } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
+import { DocumentList } from "@/components/DocumentList";
 
 const ServicesPage = () => {
   const { t } = useLanguage();
@@ -56,44 +57,6 @@ const ServicesPage = () => {
         t("services.tradeDetail3"),
         t("services.tradeDetail4"),
       ],
-    },
-  ];
-
-  const documents = [
-    {
-      title: t("services.visaFormTitle"),
-      description: t("services.visaFormDesc"),
-      link: "/documents/FORMULARIO-PEDIDO-DE-VISTO.pdf",
-    },
-    {
-      title: t("services.visaInfoGermanTitle"),
-      description: t("services.visaInfoGermanDesc"),
-      link: "/documents/Pedido.pdf",
-    },
-    {
-      title: t("services.visaInfoPortugueseTitle"),
-      description: t("services.visaInfoPortugueseDesc"),
-      link: "/documents/Pedido-de-visto-Portugues.pdf",
-    },
-    {
-      title: t("services.feeGermanTitle"),
-      description: t("services.feeGermanDesc"),
-      link: "/documents/Tabelle_der_Gebuehren.pdf",
-    },
-    {
-      title: t("services.feePortugueseTitle"),
-      description: t("services.feePortugueseDesc"),
-      link: "/documents/Tabela_de_Emolumentos.pdf",
-    },
-    {
-      title: t("services.paymentGermanTitle"),
-      description: t("services.paymentGermanDesc"),
-      link: "/documents/Informacao_001_Barra_2017_Alemao.pdf",
-    },
-    {
-      title: t("services.paymentPortugueseTitle"),
-      description: t("services.paymentPortugueseDesc"),
-      link: "/documents/Informacao_001_Barra_2017_Port.pdf",
     },
   ];
 
@@ -188,44 +151,9 @@ const ServicesPage = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {documents.map((doc, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.05 }}
-                >
-                  <a
-                    href={doc.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <Card className="h-full border-border hover:border-primary hover:shadow-lg transition-all cursor-pointer">
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <CardTitle className="text-base flex items-center gap-2">
-                              <FileText className="w-4 h-4 text-primary" />
-                              {doc.title}
-                            </CardTitle>
-                            <CardDescription className="mt-2">
-                              {doc.description}
-                            </CardDescription>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <Button variant="outline" size="sm" className="w-full">
-                          {t("services.downloadPdf")}
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </a>
-                </motion.div>
-              ))}
+            {/* Managed by staff in /admin: Documents & Public Notices. */}
+            <div className="max-w-4xl mx-auto">
+              <DocumentList headingLevel="h3" />
             </div>
           </div>
         </section>

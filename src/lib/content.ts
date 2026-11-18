@@ -161,19 +161,35 @@ export type DocumentItem = {
   description?: string;
 };
 
-export const loadDocuments = (): DocumentItem[] => {
-  const items: DocumentItem[] = Object.entries(documentFiles).map(([path, raw]) => {
-    const { data, content } = matter(raw);
+/** Order of the groups on the Forms & Documents page (values from /admin). */
+export const DOCUMENT_CATEGORIES = ["Public Notice", "Form", "Visa Information", "Fees & Payment", "Other"] as const;
+
+const categoryRank = (category: string) => {
+  const index = (DOCUMENT_CATEGORIES as readonly string[]).indexOf(category);
+  return index === -1 ? DOCUMENT_CATEGORIES.length - 1 : index;
+};
+
+/** Downloads from /admin (Documents & Public Notices): by group, newest first within a group. */
+export const loadDocuments = (language: ContentLanguage = DEFAULT_LANGUAGE): DocumentItem[] => {
+  const items: DocumentItem[] = [...groupByEntry(documentFiles)].map(([slug, entry]) => {
+    const { base, shown } = pickLanguage(entry, language);
+    const isoDate = String(base.data.date ?? "").slice(0, 10);
+    const category = text(base.data.category);
     return {
-      id: slugFromPath(path),
-      title: (data.title as string) || "Untitled",
-      date: formatDisplayDate(String(data.date ?? "")),
-      isoDate: String(data.date ?? "").slice(0, 10),
-      category: (data.category as string) || "Other",
-      file: (data.file as string) || "",
-      description: (data.description as string) || content.trim() || undefined,
+      id: slug,
+      title: text(shown.data.title) || "Untitled",
+      date: formatDisplayDate(isoDate, language),
+      isoDate,
+      category: categoryRank(category) === DOCUMENT_CATEGORIES.length - 1 ? "Other" : category,
+      file: text(base.data.file),
+      description: text(shown.data.description) || shown.content.trim() || undefined,
     };
   });
-  items.sort((a, b) => b.isoDate.localeCompare(a.isoDate));
+  items.sort(
+    (a, b) =>
+      categoryRank(a.category) - categoryRank(b.category) ||
+      b.isoDate.localeCompare(a.isoDate) ||
+      a.title.localeCompare(b.title),
+  );
   return items.filter((item) => item.file);
 };

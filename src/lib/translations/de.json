@@ -81,21 +81,7 @@
     "bicLabel": "BIC (Swift-Code)",
     "accountHolder": "Kontoinhaber",
     "noteLabel": "Hinweis:",
-    "noteText": "Zahlungen müssen in Euro erfolgen und per Banküberweisung bezahlt werden. Nach Zahlung erhalten Sie einen Abholschein.",
-    "visaFormTitle": "Visumantrag",
-    "visaFormDesc": "Vollständiges Visumantrag-Formular für die Einreise nach Mosambik",
-    "visaInfoGermanTitle": "Wichtige Visainformationen (Deutsch)",
-    "visaInfoGermanDesc": "Wichtige Informationen zum Visumantragsprozess",
-    "visaInfoPortugueseTitle": "Wichtige Visainformationen (Portugiesisch)",
-    "visaInfoPortugueseDesc": "Informações importantes sobre o pedido de visto",
-    "feeGermanTitle": "Gebührentabelle (Deutsch)",
-    "feeGermanDesc": "Tabelle der Gebühren für Konsulardienstleistungen",
-    "feePortugueseTitle": "Gebührentabelle (Portugiesisch)",
-    "feePortugueseDesc": "Tabela de Emolumentos para Serviços Consulares",
-    "paymentGermanTitle": "Zahlungsinformationen (Deutsch)",
-    "paymentGermanDesc": "Wichtige Informationen zu Zahlungsmethoden",
-    "paymentPortugueseTitle": "Zahlungsinformationen (Portugiesisch)",
-    "paymentPortugueseDesc": "Informações importantes sobre métodos de pagamento"
+    "noteText": "Zahlungen müssen in Euro erfolgen und per Banküberweisung bezahlt werden. Nach Zahlung erhalten Sie einen Abholschein."
   },
   "appointment": {
     "pageTitle": "Termin buchen",
@@ -208,16 +194,48 @@
     "contactDesc": "Wenden Sie sich an die Botschaft für allgemeine Anfragen, Medienanfragen oder diplomatische Korrespondenz."
   },
   "contact": {
-    "map": { "title": "Standort der Botschaft", "notice": "Die Karte wird von Google Maps bereitgestellt. Wenn Sie sie laden, werden Ihre IP-Adresse und weitere Daten an Google übermittelt.", "show": "Karte anzeigen", "open": "In Google Maps öffnen" },
+    "map": {
+      "title": "Standort der Botschaft",
+      "notice": "Die Karte wird von Google Maps bereitgestellt. Wenn Sie sie laden, werden Ihre IP-Adresse und weitere Daten an Google übermittelt.",
+      "show": "Karte anzeigen",
+      "open": "In Google Maps öffnen"
+    },
     "getInTouch": "Kontaktieren Sie uns",
     "send": "Absenden",
     "pageTitle": "Kontakt",
     "pageDesc": "Haben Sie Fragen? Kontaktieren Sie uns und wir helfen Ihnen gerne weiter.",
     "info": {
-      "address": { "title": "Adresse", "lines": ["Stromstraße 47", "10551 Berlin", "Deutschland"] },
-      "phone": { "title": "Telefon", "lines": ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"] },
-      "email": { "title": "E-Mail", "lines": ["info@mozambique-embassy.de"] },
-      "hours": { "title": "Öffnungszeiten", "lines": ["Die Mission ist geöffnet:", "Montag - Freitag: 09:00 - 16:30", "Für konsularische Angelegenheiten:", "Die Botschaft ist für die Öffentlichkeit geöffnet:", "Montag - Freitag: 09:30 - 15:00"] }
+      "address": {
+        "title": "Adresse",
+        "lines": [
+          "Stromstraße 47",
+          "10551 Berlin",
+          "Deutschland"
+        ]
+      },
+      "phone": {
+        "title": "Telefon",
+        "lines": [
+          "+49 30 3987 6500",
+          "+49 30 398 765 03 (Fax)"
+        ]
+      },
+      "email": {
+        "title": "E-Mail",
+        "lines": [
+          "info@mozambique-embassy.de"
+        ]
+      },
+      "hours": {
+        "title": "Öffnungszeiten",
+        "lines": [
+          "Die Mission ist geöffnet:",
+          "Montag - Freitag: 09:00 - 16:30",
+          "Für konsularische Angelegenheiten:",
+          "Die Botschaft ist für die Öffentlichkeit geöffnet:",
+          "Montag - Freitag: 09:30 - 15:00"
+        ]
+      }
     },
     "form": {
       "titleLabel": "Anrede",
@@ -251,10 +269,26 @@
     "pageTitle": "Die Botschaft",
     "pageDesc": "Offizielle diplomatische Vertretung der Republik Mosambik in Berlin, Deutschland",
     "items": {
-      "ambassador": { "title": "Botschafter", "description": "Offizieller Vertreter und diplomatische Rolle", "href": "/about/ambassador" },
-      "mission": { "title": "Mission", "description": "Unsere Mission und Kernziele", "href": "/about/mission" },
-      "consuls": { "title": "Ehrenkonsule", "description": "Kontaktinformationen für regionale Konsule", "href": "/about/consuls" },
-      "holidays": { "title": "Botschaftsfeiertage", "description": "Offizielle Feiertage, an denen die Botschaft geschlossen ist", "href": "/about/holidays" }
+      "ambassador": {
+        "title": "Botschafter",
+        "description": "Offizieller Vertreter und diplomatische Rolle",
+        "href": "/about/ambassador"
+      },
+      "mission": {
+        "title": "Mission",
+        "description": "Unsere Mission und Kernziele",
+        "href": "/about/mission"
+      },
+      "consuls": {
+        "title": "Ehrenkonsule",
+        "description": "Kontaktinformationen für regionale Konsule",
+        "href": "/about/consuls"
+      },
+      "holidays": {
+        "title": "Botschaftsfeiertage",
+        "description": "Offizielle Feiertage, an denen die Botschaft geschlossen ist",
+        "href": "/about/holidays"
+      }
     },
     "sectionTitle": "Mosambik entdecken",
     "sectionText1": "Mosambik ist eine lebendige südostafrikanische Nation mit einem reichen kulturellen Erbe, atemberaubenden Naturlandschaften und einer schnell wachsenden Wirtschaft. An der Küste des Indischen Ozeans gelegen, bietet das Land einzigartige Möglichkeiten für Tourismus, Investitionen und kulturellen Austausch.",
@@ -859,5 +893,14 @@
     "title": "Informationen anfordern",
     "description": "Ihre Frage geht direkt an die Botschaft. Sie erhalten eine Bestätigung per E-Mail.",
     "success": "Vielen Dank. Ihre Nachricht wurde gesendet; Sie erhalten eine Bestätigung per E-Mail."
+  },
+  "documents": {
+    "publicNotice": "Öffentliche Bekanntmachungen",
+    "form": "Formulare",
+    "visaInformation": "Visainformationen",
+    "feesPayment": "Gebühren & Zahlung",
+    "other": "Weitere Dokumente",
+    "empty": "Derzeit sind keine Dokumente verfügbar.",
+    "updated": "Stand"
   }
 }

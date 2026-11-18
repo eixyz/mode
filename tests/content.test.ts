@@ -73,15 +73,37 @@ for (const folder of ["content/news", "content/events"]) {
 }
 
 describe("content/documents", () => {
-  test("every document has a title, date and an existing file", () => {
-    for (const name of markdownFiles("content/documents")) {
-      const where = `content/documents/${name}`;
+  const folder = "content/documents";
+  const files = markdownFiles(folder);
+  const categories = ["Public Notice", "Form", "Visa Information", "Fees & Payment", "Other"];
+
+  test("file names follow YYYY-MM-DD-title(.language).md", () => {
+    for (const name of files) {
+      if (!FILE_NAME.test(name)) {
+        throw new Error(`${folder}/${name}: file names may only use a-z, 0-9 and hyphens (no accents or spaces), e.g. 2026-11-16-visa-application-form.en.md`);
+      }
+    }
+  });
+
+  test("every document has an English title, date, category and an existing file", () => {
+    const english = files.filter((name) => !/\.(de|pt)\.md$/.test(name));
+    for (const name of files.filter((n) => /\.(de|pt)\.md$/.test(n))) {
+      const base = name.replace(/\.(de|pt)\.md$/, "");
+      if (!english.some((n) => n === `${base}.en.md` || n === `${base}.md`)) throw new Error(`${folder}/${name}: the English version is missing`);
+    }
+    for (const name of english) {
+      const where = `${folder}/${name}`;
       const { data } = readFrontmatter(where);
-      if (!String(data.title ?? "").trim()) throw new Error(`${where}: title is empty`);
+      if (!String(data.title ?? "").trim()) throw new Error(`${where}: the English title is empty`);
       if (!ISO_DATE.test(String(data.date ?? ""))) throw new Error(`${where}: date must look like 2026-07-22`);
+      if (!categories.includes(String(data.category ?? ""))) throw new Error(`${where}: category must be one of ${categories.join(", ")}`);
       if (!String(data.file ?? "").trim()) throw new Error(`${where}: no PDF file attached`);
       expectPublicFile(data.file, where);
     }
+  });
+
+  test("translations parse correctly", () => {
+    for (const name of files) readFrontmatter(`${folder}/${name}`);
   });
 });
 

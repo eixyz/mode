@@ -81,21 +81,7 @@
     "bicLabel": "BIC (Swift-Code)",
     "accountHolder": "Account Holder",
     "noteLabel": "Note:",
-    "noteText": "Payments must be in Euros and payable by bank transfer. After payment, you are entitled to a pick-up slip.",
-    "visaFormTitle": "Visa Application Form",
-    "visaFormDesc": "Complete visa application form for entry to Mozambique",
-    "visaInfoGermanTitle": "Important Visa Information (German)",
-    "visaInfoGermanDesc": "Important information about the visa application process",
-    "visaInfoPortugueseTitle": "Important Visa Information (Portuguese)",
-    "visaInfoPortugueseDesc": "Informações importantes sobre o pedido de visto",
-    "feeGermanTitle": "Fee Schedule (German)",
-    "feeGermanDesc": "Tabelle der Gebühren für Konsulardienstleistungen",
-    "feePortugueseTitle": "Fee Schedule (Portuguese)",
-    "feePortugueseDesc": "Tabela de Emolumentos para Serviços Consulares",
-    "paymentGermanTitle": "Payment Information (German)",
-    "paymentGermanDesc": "Important information about methods of payment",
-    "paymentPortugueseTitle": "Payment Information (Portuguese)",
-    "paymentPortugueseDesc": "Informações importantes sobre métodos de pagamento"
+    "noteText": "Payments must be in Euros and payable by bank transfer. After payment, you are entitled to a pick-up slip."
   },
   "appointment": {
     "pageTitle": "Book an Appointment",
@@ -208,7 +194,12 @@
     "contactDesc": "Reach the Embassy for general inquiries, media requests, or diplomatic correspondence."
   },
   "contact": {
-    "map": { "title": "Embassy location", "notice": "The map is provided by Google Maps. When you load it, your IP address and other data are sent to Google.", "show": "Show map", "open": "Open in Google Maps" },
+    "map": {
+      "title": "Embassy location",
+      "notice": "The map is provided by Google Maps. When you load it, your IP address and other data are sent to Google.",
+      "show": "Show map",
+      "open": "Open in Google Maps"
+    },
     "getInTouch": "Get in Touch",
     "send": "Send",
     "pageTitle": "Contact Us",
@@ -216,19 +207,34 @@
     "info": {
       "address": {
         "title": "Address",
-        "lines": ["Stromstraße 47", "10551 Berlin", "Germany"]
+        "lines": [
+          "Stromstraße 47",
+          "10551 Berlin",
+          "Germany"
+        ]
       },
       "phone": {
         "title": "Phone",
-        "lines": ["+49 30 3987 6500", "+49 30 398 765 03 (Fax)"]
+        "lines": [
+          "+49 30 3987 6500",
+          "+49 30 398 765 03 (Fax)"
+        ]
       },
       "email": {
         "title": "Email",
-        "lines": ["info@mozambique-embassy.de"]
+        "lines": [
+          "info@mozambique-embassy.de"
+        ]
       },
       "hours": {
         "title": "Opening Hours",
-        "lines": ["The Mission is open:", "Monday - Friday: 09:00 - 16:30", "For Consular issues:", "The Embassy is open to the Public:", "Monday - Friday: 09:30 - 15:00"]
+        "lines": [
+          "The Mission is open:",
+          "Monday - Friday: 09:00 - 16:30",
+          "For Consular issues:",
+          "The Embassy is open to the Public:",
+          "Monday - Friday: 09:30 - 15:00"
+        ]
       }
     },
     "form": {
@@ -263,10 +269,26 @@
     "pageTitle": "The Embassy",
     "pageDesc": "Official diplomatic representation of the Republic of Mozambique in Berlin, Germany",
     "items": {
-      "ambassador": { "title": "Ambassador", "description": "Official representative and diplomatic role", "href": "/about/ambassador" },
-      "mission": { "title": "Mission", "description": "Our mission statement and core objectives", "href": "/about/mission" },
-      "consuls": { "title": "Honorary Consuls", "description": "Contact information for regional consuls", "href": "/about/consuls" },
-      "holidays": { "title": "Embassy Holidays", "description": "Official holidays when the Embassy is closed", "href": "/about/holidays" }
+      "ambassador": {
+        "title": "Ambassador",
+        "description": "Official representative and diplomatic role",
+        "href": "/about/ambassador"
+      },
+      "mission": {
+        "title": "Mission",
+        "description": "Our mission statement and core objectives",
+        "href": "/about/mission"
+      },
+      "consuls": {
+        "title": "Honorary Consuls",
+        "description": "Contact information for regional consuls",
+        "href": "/about/consuls"
+      },
+      "holidays": {
+        "title": "Embassy Holidays",
+        "description": "Official holidays when the Embassy is closed",
+        "href": "/about/holidays"
+      }
     },
     "sectionTitle": "Discover Mozambique",
     "sectionText1": "Mozambique is a vibrant Southeast African nation with a rich cultural heritage, stunning natural landscapes, and a rapidly growing economy. Located on the Indian Ocean coast, the country offers unique opportunities for tourism, investment, and cultural exchange.",
@@ -871,5 +893,14 @@
     "title": "Request information",
     "description": "Your question goes directly to the Embassy. You will receive a confirmation by email.",
     "success": "Thank you. Your message has been sent; you will receive a confirmation by email."
+  },
+  "documents": {
+    "publicNotice": "Public notices",
+    "form": "Forms",
+    "visaInformation": "Visa information",
+    "feesPayment": "Fees & payment",
+    "other": "Other documents",
+    "empty": "No documents are available at the moment.",
+    "updated": "Updated"
   }
 }

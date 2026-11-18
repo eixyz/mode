@@ -9,7 +9,7 @@ Ask the web administrator to add your account first. You need "write" access to 
 |---|---|
 | **News & Announcements** | News page and homepage news, in English, German and Portuguese |
 | **Events** | Events page and the featured event on the homepage |
-| **Documents & Public Notices** | PDF downloads, listed first on *Services → Forms & Documents* |
+| **Documents & Public Notices** | Every PDF download on *Services* and *Services → Forms & Documents* (forms, fee tables, public notices), in English, German and Portuguese |
 | **Passport & Visa Texts** | The passport and visa service pages (one entry per language) |
 | **Embassy Settings → Contact details** | Telephone, fax, email and address in the header, footer, contact page and legal pages |
 | **Embassy Settings → Closure days** | Days on which the appointment calendar offers no appointments |
@@ -32,6 +32,20 @@ News and events have a language switch (EN / DE / PT) at the top of the editor.
 3. **Publish** puts it on the website. The site rebuilds automatically, which takes about two minutes.
 
 Every draft is checked automatically. If the check fails, for example because the English title is missing or an image file can't be found, a red ✗ appears next to the draft on GitHub, and the web administrator is notified. Correct the entry before publishing. A failed check never changes the live website by itself.
+
+## Documents and forms
+
+Everything listed under **Documents & Public Notices** is exactly what the website offers for download. You can group the list by category with the *Group by* button.
+
+- **Add:** *New document*. Choose the category, upload the PDF and enter the title in English (German and Portuguese optional).
+- **Replace a form with a new version:** open the entry, choose a new PDF in *PDF file*, and change the date to today. The title, translations and place in the list stay the same.
+- **Remove from the website:** open the entry and choose **Delete published entry**. This skips the review step: the document disappears from the website after the next rebuild (about two minutes). The old PDF file stays in the media library (*Media* at the top), where you can delete it too if it is no longer needed.
+- On the website, documents are grouped as Public notices, Forms, Visa information, Fees & payment and Other. Within a group, the newest date comes first.
+
+## Previewing before publishing
+
+- **In the editor:** the right-hand side of the editor shows a simple live preview of the fields while you type. It shows the content, not the website's design.
+- **On a test version of the website:** each draft is a pull request on GitHub, and Vercel builds a private test version of the website for it. The link appears on the pull request ("Visit Preview") after about two minutes. It shows the draft exactly as visitors will see it, without changing the live website.
 
 ## Good practice
 

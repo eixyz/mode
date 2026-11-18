@@ -2,60 +2,12 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { FileText, CreditCard } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import { useLanguage } from "@/lib/useLanguage";
-import { loadDocuments } from "@/lib/content";
+import { DocumentList } from "@/components/DocumentList";
 
 const FormsDocumentsPage = () => {
   const { t } = useLanguage();
-
-  // Documents uploaded by staff in Decap (Documents & Public Notices), newest first,
-  // followed by the long-standing forms below.
-  const cmsDocuments = loadDocuments().map((doc) => ({
-    title: doc.title,
-    description: [doc.date, doc.description].filter(Boolean).join(" · "),
-    link: doc.file,
-  }));
-
-  const documents = [
-    ...cmsDocuments,
-    {
-      title: t("services.visaFormTitle"),
-      description: t("services.visaFormDesc"),
-      link: "/documents/FORMULARIO-PEDIDO-DE-VISTO.pdf",
-    },
-    {
-      title: t("services.visaInfoGermanTitle"),
-      description: t("services.visaInfoGermanDesc"),
-      link: "/documents/Pedido.pdf",
-    },
-    {
-      title: t("services.visaInfoPortugueseTitle"),
-      description: t("services.visaInfoPortugueseDesc"),
-      link: "/documents/Pedido-de-visto-Portugues.pdf",
-    },
-    {
-      title: t("services.feeGermanTitle"),
-      description: t("services.feeGermanDesc"),
-      link: "/documents/Tabelle_der_Gebuehren.pdf",
-    },
-    {
-      title: t("services.feePortugueseTitle"),
-      description: t("services.feePortugueseDesc"),
-      link: "/documents/Tabela_de_Emolumentos.pdf",
-    },
-    {
-      title: t("services.paymentGermanTitle"),
-      description: t("services.paymentGermanDesc"),
-      link: "/documents/Informacao_001_Barra_2017_Alemao.pdf",
-    },
-    {
-      title: t("services.paymentPortugueseTitle"),
-      description: t("services.paymentPortugueseDesc"),
-      link: "/documents/Informacao_001_Barra_2017_Port.pdf",
-    },
-  ];
 
   const bankDetails = {
     holder: "Botschaft der Republik Mosambik",
@@ -91,32 +43,9 @@ const FormsDocumentsPage = () => {
         {/* Documents Grid */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-4xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-              {documents.map((doc, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                >
-                  <a href={doc.link} target="_blank" rel="noopener noreferrer" className="block h-full">
-                    <Card className="h-full border-border hover:border-primary hover:shadow-lg transition-all cursor-pointer">
-                      <CardHeader>
-                        <CardTitle className="text-base flex items-center gap-2">
-                          <FileText className="w-4 h-4 text-primary shrink-0" />
-                          {doc.title}
-                        </CardTitle>
-                        <CardDescription>{doc.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Button variant="outline" size="sm" className="w-full">
-                          {t("services.downloadPdf")}
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </a>
-                </motion.div>
-              ))}
+            {/* Managed by staff in /admin: Documents & Public Notices. */}
+            <div className="mb-12">
+              <DocumentList />
             </div>
 
             {/* Bank Details */}
