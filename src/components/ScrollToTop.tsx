@@ -20,9 +20,18 @@ export const ScrollToTop = () => {
   // (before the page content has loaded) and lands in the wrong place.
   useEffect(() => {
     if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
-    const onScroll = () => savePosition(currentKey.current, window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    // Record the position continuously, and again right before leaving the page
+    // (a click or the browser's Back button), in case the last scroll event has
+    // not been delivered yet.
+    const save = () => savePosition(currentKey.current, window.scrollY);
+    window.addEventListener("scroll", save, { passive: true });
+    document.addEventListener("click", save, true);
+    window.addEventListener("popstate", save, true);
+    return () => {
+      window.removeEventListener("scroll", save);
+      document.removeEventListener("click", save, true);
+      window.removeEventListener("popstate", save, true);
+    };
   }, []);
 
   useLayoutEffect(() => {
