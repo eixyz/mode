@@ -28,7 +28,7 @@ publish_mode: editorial_workflow
 
 site_url: https://mozambique-embassy.de # TODO: production URL
 display_url: https://mozambique-embassy.de # TODO
-logo_url: /favicon.ico
+logo_url: /brand/coat-of-arms.svg
 
 # Local testing: run `npm run cms` next to `npm run dev`, then open
 # http://localhost:8080/admin/ — edits are written to your local files and no

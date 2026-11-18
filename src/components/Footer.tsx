@@ -34,9 +34,7 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center overflow-hidden">
-                <img src="/emblem_mz.svg" alt="MZ" className="w-full h-full object-cover" />
-              </div>
+              <img src="/brand/coat-of-arms.svg" alt="" width="52" height="56" className="h-14 w-auto shrink-0" />
               <div>
                 <h3 className="font-serif text-lg font-semibold">{t("footer.embassy")}</h3>
                 <p className="text-sm text-primary-foreground/70">{t("footer.location")}</p>

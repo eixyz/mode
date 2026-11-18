@@ -79,7 +79,7 @@ export const Header = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-                <img src="/mozambique-icone.png" alt="MZ" className="w-full h-full object-cover" />
+                <img src="/brand/flag-round.svg" alt="" width="48" height="48" className="w-full h-full object-cover" />
               </div>
               <div className="block">
                 <h1 className="font-serif text-sm sm:text-lg font-semibold text-foreground leading-tight">
