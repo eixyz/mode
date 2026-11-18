@@ -35,6 +35,10 @@ Every draft is checked automatically. If the check fails, for example because th
 
 ## Good practice
 
+- **News or event?** Anything with a date, time and place (meetings, receptions, cultural evenings) goes in **Events**. It then appears on the Events page and, if "Featured" is ticked, on the homepage. Announcements, press releases and notices go in **News & Announcements**.
+- **Bold, italic, lists and links:** use the toolbar in the *Body* / *Details* field. The formatting appears on the full article. The short excerpt or summary in the lists is shown as plain text.
+- **Every Save is recorded:** each save adds a step to the draft's history on GitHub. That is version history, not copies; the website only ever shows one version of each entry. Untranslated languages are saved as nearly empty files, and visitors in those languages see the English text.
+
 - Only upload photos the Embassy has the right to publish. Use landscape images at least 1200 px wide.
 - Don't put personal data (passport numbers, visitors' names or contact details) in news, events or documents.
 - Before changing **Contact details**, confirm the new number or address internally. It appears on every page.

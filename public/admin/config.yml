@@ -46,6 +46,7 @@ i18n:
 collections:
   - name: news
     label: News & Announcements
+    description: "Announcements, press releases and notices. For something that happens on a specific date and place, use Events."
     folder: "content/news"
     create: true
     i18n: true
@@ -59,7 +60,7 @@ collections:
       # Shared fields (no i18n) are entered once, in the English tab.
       - { name: id, label: ID (slug), widget: string, hint: "Stable web address, e.g. new-consular-hours. Lowercase letters, numbers and hyphens. Do not change after publishing." }
       - { name: date, label: Publish date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-      - { name: category, label: Category, widget: select, options: [Announcement, Press Release, Consular, Cultural, Trade, Event] }
+      - { name: category, label: Category, widget: select, options: [Announcement, Press Release, Consular, Cultural, Trade], hint: "For an upcoming event (date, time, venue), use the Events section instead; it appears on the Events page and the homepage." }
       - { name: image, label: Cover image, widget: image, required: false, hint: "Landscape photo, at least 1200 px wide. Only use photos the Embassy may publish." }
       # Translatable fields. "required: false" lets you save before translating;
       # the automatic check refuses an English entry without a title.
@@ -70,6 +71,7 @@ collections:
 
   - name: events
     label: Events
+    description: "Receptions, meetings, cultural evenings and other dated events. Shown on the Events page; tick \"Featured\" to show it on the homepage."
     folder: "content/events"
     create: true
     i18n: true

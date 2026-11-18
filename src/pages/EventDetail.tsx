@@ -7,11 +7,15 @@ import { getEventContactLink } from "@/lib/events";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Markdown } from "@/components/Markdown";
+import { useLanguage } from "@/lib/useLanguage";
 import { CalendarDays, Clock3, MapPin } from "lucide-react";
 
 const EventDetail = () => {
   const { id } = useParams();
   const { getEventById } = useEventStore();
+  const { language } = useLanguage();
+  const dateLocale = { en: "en-GB", de: "de-DE", pt: "pt-PT" }[language];
   const item = id ? getEventById(id) : null;
 
   useEffect(() => {
@@ -41,7 +45,7 @@ const EventDetail = () => {
                 <div className="grid gap-4 sm:grid-cols-3 mb-10">
                   <div className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
                     <CalendarDays className="h-5 w-5 text-primary" />
-                    <span className="text-sm text-foreground">{new Date(item.date).toLocaleDateString("en-GB", { weekday: "short", day: "2-digit", month: "long", year: "numeric" })}</span>
+                    <span className="text-sm text-foreground">{new Date(item.date).toLocaleDateString(dateLocale, { weekday: "short", day: "2-digit", month: "long", year: "numeric" })}</span>
                   </div>
                   <div className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
                     <Clock3 className="h-5 w-5 text-primary" />
@@ -53,8 +57,8 @@ const EventDetail = () => {
                   </div>
                 </div>
 
-                <article className="prose max-w-none text-foreground">
-                  <p>{item.content ?? item.summary}</p>
+                <article>
+                  <Markdown>{item.content ?? item.summary}</Markdown>
                 </article>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link to={getEventContactLink(item)}><Button>{item.ctaLabel}</Button></Link>

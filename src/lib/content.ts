@@ -1,6 +1,7 @@
 import type { NewsItem } from "./news";
 import type { EmbassyEvent } from "./events";
 import { parse as parseYaml } from "yaml";
+import { plainText } from "./plainText";
 
 // Browser-safe frontmatter parser (avoids gray-matter's Buffer dep). Uses a real
 // YAML parser because Decap wraps long values over several lines.
@@ -105,7 +106,7 @@ export const loadNews = (language: ContentLanguage = DEFAULT_LANGUAGE): NewsItem
           formatDisplayDate(isoDate, language),
         category: text(base.data.category) || "Announcement",
         title: text(shown.data.title) || "Untitled",
-        excerpt: text(shown.data.excerpt) || body.split("\n\n")[0] || "",
+        excerpt: plainText(text(shown.data.excerpt) || body.split(/\r?\n\s*\r?\n/)[0] || ""),
         content: body || undefined,
         image: text(base.data.image) || undefined,
       } satisfies NewsItem,
@@ -127,7 +128,7 @@ export const loadEvents = (language: ContentLanguage = DEFAULT_LANGUAGE): Embass
       time: text(base.data.time),
       category: text(base.data.category) || "Public",
       title: text(shown.data.title) || "Untitled",
-      summary: text(shown.data.summary) || body.split("\n\n")[0] || "",
+      summary: plainText(text(shown.data.summary) || body.split(/\r?\n\s*\r?\n/)[0] || ""),
       content: body || undefined,
       venue: text(shown.data.venue) || text(base.data.venue),
       image: text(base.data.image) || undefined,

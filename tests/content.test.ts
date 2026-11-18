@@ -60,6 +60,9 @@ for (const folder of ["content/news", "content/events"]) {
         if (ids.has(id)) throw new Error(`${where}: ID "${id}" is already used by another entry`);
         ids.add(id);
         expectPublicFile(data.image, where);
+        if (folder === "content/news" && String(data.category ?? "").toLowerCase() === "event") {
+          throw new Error(`${where}: events belong in the Events section (content/events), which shows date, time and venue`);
+        }
       }
     });
 

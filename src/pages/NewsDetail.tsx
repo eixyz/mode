@@ -5,10 +5,13 @@ import { useParams, Link } from "react-router-dom";
 import { useNewsStore } from "@/lib/newsStore";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Markdown } from "@/components/Markdown";
+import { useLanguage } from "@/lib/useLanguage";
 
 const NewsDetail = () => {
   const { id } = useParams();
   const { getNewsById } = useNewsStore();
+  const { t } = useLanguage();
   const item = id ? getNewsById(id) : null;
 
   useEffect(() => {
@@ -31,18 +34,18 @@ const NewsDetail = () => {
                 <div className="gold-accent h-1 w-16 mb-6 rounded-full" />
                 <h1 className="font-serif text-3xl font-bold text-foreground mb-2">{item.title}</h1>
                 <div className="text-sm text-muted-foreground mb-6">{item.date} • {item.category}</div>
-                <article className="prose max-w-none text-foreground">
-                  <p>{item.content ?? item.excerpt}</p>
+                <article>
+                  <Markdown>{item.content ?? item.excerpt}</Markdown>
                 </article>
                 <div className="mt-8">
-                  <Link to="/news"><Button variant="outline">Back to news</Button></Link>
+                  <Link to="/news"><Button variant="outline">{t("news.backToNews")}</Button></Link>
                 </div>
               </motion.div>
             ) : (
               <div className="text-center py-24">
-                <h2 className="text-2xl font-semibold">Article not found</h2>
-                <p className="text-muted-foreground mt-4">The requested news article could not be located.</p>
-                <div className="mt-6"><Link to="/news"><Button variant="outline">View all news</Button></Link></div>
+                <h2 className="text-2xl font-semibold">{t("news.articleNotFound")}</h2>
+                <p className="text-muted-foreground mt-4">{t("news.articleNotFoundDesc")}</p>
+                <div className="mt-6"><Link to="/news"><Button variant="outline">{t("news.viewAllNews")}</Button></Link></div>
               </div>
             )}
           </div>
